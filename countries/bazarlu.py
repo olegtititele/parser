@@ -32,7 +32,7 @@ class BazarLu(object):
 		self.db = SQLighter()
 		self.options = webdriver.ChromeOptions()
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
-		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver.exe")
+		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 		
 # /usr/local/bin/chromedriver
 	@classmethod
