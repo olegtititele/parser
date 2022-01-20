@@ -62,7 +62,7 @@ async def get_users_length(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
 		await bot.send_message(
 			chat_id=cf.ADMIN_LOGS_CHAT_ID,
-			text="Количество пользователей бота: " +str(db.get_users_length()),
+			text="<b>Количество пользователей бота: </b><code>" +str(db.get_users_length())+"</code>",
 			parse_mode=types.ParseMode.HTML)
 	else:
 		pass
