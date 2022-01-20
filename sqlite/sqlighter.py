@@ -98,7 +98,12 @@ class SQLighter:
 		self.user_cursor.execute(sql)
 		return self.user_cursor.fetchall()
 
-
+	def get_users_length(self):
+		sql = "SELECT * FROM users"
+		self.user_cursor.execute(sql)
+		length = len(self.user_cursor.fetchall())
+		return length
+	
 	def clear_users_table(self, user_id):
 		sql = "TRUNCATE TABLE `{}`".format(user_id)
 		self.user_cursor.execute(sql)
