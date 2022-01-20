@@ -232,10 +232,13 @@ class SQLighter:
 		return self.countriessub_mydb.commit()
 
 	def check_subscriber(self, country, user_id):
-		self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", country, user_id,)
-		data = self.countriessub_cursor.fetchone()
-		print(data)
-		return data
+		try:
+			self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", country, user_id,)
+			data = self.countriessub_cursor.fetchone()
+			print(data)
+			return data
+		except Exception as e:
+			print(repr(e))
 
 	def get_subscriber_time(self, country, user_id):
 		self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE user_id = %s", (country, user_id,))
