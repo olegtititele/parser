@@ -1,5 +1,6 @@
 CHANNEL = "https://t.me/gzuzpars"
 CHANNEL_CHAT_ID = -1001566638816
+ADMIN_LOGS_CHAT_ID = -746110313
 COUNTRIES_SITES = {
 				'🇸🇮Словения🇸🇮':['bolha.com'],
 				'🇱🇺Люксембург🇱🇺':['bazar.lu'],
