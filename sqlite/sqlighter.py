@@ -226,7 +226,7 @@ class SQLighter:
 
 	def create_countries_sub_table(self, country):
 		return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
-	
+
 	def add_subscriber(self, country, user_id, time_until = datetime.now()):
 		self.countriessub_cursor.execute("INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)", (country, user_id, time_until,))
 		return self.countriessub_mydb.commit()
@@ -234,6 +234,7 @@ class SQLighter:
 	def check_subscriber(self, country, user_id):
 		self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", country, user_id,)
 		data = self.countriessub_cursor.fetchone()
+		print(data)
 		return data
 
 	def get_subscriber_time(self, country, user_id):
@@ -248,15 +249,12 @@ class SQLighter:
 
 
 	def update_subsc_time(self, user_id, time_until, country):
-		sql = "UPDATE `%s` SET time_until = %s WHERE user_id = %s"
-		val = (country, time_until, user_id)
-		self.countriessub_cursor.execute(sql, val)
+		self.countriessub_cursor.execute("UPDATE `%s` SET time_until = %s WHERE user_id = %s", (country, time_until, user_id,))
 		self.countriessub_mydb.commit()
 
-
-	# def clear_sub_data(self, country):
-	# 	sql = "TRUNCATE TABLE `{}`".format(country)
-	# 	return self.countriessub_cursor.execute(sql)
+	def drop_drop(self, country):
+		self.countriessub_cursor.execute("TRUNCATE TABLE `%s`", (country, ))
+		self.countriessub_mydb.commit()
 
 
 if __name__ == '__main__':
