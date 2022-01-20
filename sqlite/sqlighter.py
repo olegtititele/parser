@@ -226,11 +226,9 @@ class SQLighter:
 
 	def create_countries_sub_table(self, country):
 		return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
-
+	
 	def add_subscriber(self, country, user_id, time_until = datetime.now()):
-		sql = "INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)"
-		val = country, user_id, time_until
-		self.countriessub_cursor.execute(sql, val)
+		self.countriessub_cursor.execute("INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)", (country, user_id, time_until,))
 		return self.countriessub_mydb.commit()
 
 	def check_subscriber(self, country, user_id):
