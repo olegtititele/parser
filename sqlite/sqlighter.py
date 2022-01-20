@@ -234,7 +234,8 @@ class SQLighter:
 		return self.countriessub_mydb.commit()
 
 	def check_subscriber(self, country, user_id):
-		self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", (country, user_id,))
+		adr = (country, user_id,)
+		self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", adr)
 		data = self.countriessub_cursor.fetchone()
 		return data
 
