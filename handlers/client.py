@@ -42,8 +42,7 @@ async def start_bot(message: types.Message):
 		await bot.send_message(
 				chat_id=message.from_user.id,
 				text="🆘 <b>Вас нет в канале "+news_channel+". Вступите, чтобы пользоваться ботом.</b>",
-				parse_mode=types.ParseMode.HTML,
-				reply_markup=start_pars_kb)
+				parse_mode=types.ParseMode.HTML)
 
 
 async def help_command(message: types.Message):
