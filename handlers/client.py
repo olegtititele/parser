@@ -15,7 +15,7 @@ def check_sub_channel(chat_member):
 		return False
 
 async def start_bot(message: types.Message):
-	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id))
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)):
 		usname = f'<a href="https://t.me/{message.from_user.username}">{message.from_user.first_name}</a>'
 		if(not db.check_user(message.from_user.id)):
 			db.create_advertisement_table(message.from_user.id)
