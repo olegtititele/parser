@@ -42,32 +42,32 @@ class SQLighter:
 		self.adv_mydb = mysql.connector.connect(
 			host=self.db[0],
 			port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
+			user=self.db[2],
+			passwd=self.db[3],
 			database='parsdb',
 			)
 		self.adv_cursor = self.adv_mydb.cursor(buffered=True)
 		self.user_mydb = mysql.connector.connect(
 			host=self.db[0],
 			port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
+			user=self.db[2],
+			passwd=self.db[3],
 			database='usersdb',
 			)
 		self.user_cursor = self.user_mydb.cursor(buffered=True)
 		self.hash_mydb = mysql.connector.connect(
 			host=self.db[0],
 			port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
+			user=self.db[2],
+			passwd=self.db[3],
 			database='hashdb',
 			)
 		self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 		self.countriessub_mydb = mysql.connector.connect(
 			host=self.db[0],
 			port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
+			user=self.db[2],
+			passwd=self.db[3],
 			database='subscriptions',
 			)
 		self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
