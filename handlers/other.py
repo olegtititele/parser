@@ -23,7 +23,7 @@ def check_sub_channel(chat_member):
 		return False
 
 async def echo(message: types.Message):
-	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id))
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)):
 		db = SQLighter()
 		if message.text == "🤖 Посмотреть сайты":
 			if db.len_hash_data(message.from_user.id) > 0:
