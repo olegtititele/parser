@@ -6,7 +6,6 @@ from keyboards import *
 
 
 db = SQLighter()
-print(str(db.get_users_length()))
 def check_sub_channel(chat_member):
 	if chat_member['status'] != 'left':
 		return True
@@ -61,11 +60,10 @@ async def help_command(message: types.Message):
 
 async def get_users_length(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
-		print("dada")
-# 		await bot.send_message(
-# 			chat_id=cf.ADMIN_LOGS_CHAT_ID,
-# 			text="Количество пользователей бота: " +str(db.get_users_length()),
-# 			parse_mode=types.ParseMode.HTML)
+		await bot.send_message(
+			chat_id=cf.ADMIN_LOGS_CHAT_ID,
+			text="Количество пользователей бота: " +str(db.get_users_length()),
+			parse_mode=types.ParseMode.HTML)
 	else:
 		pass
 
