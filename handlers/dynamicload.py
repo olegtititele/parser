@@ -11,6 +11,8 @@ from sqlite.sqlighter import SQLighter
 from create_bot import dp, bot
 import time
 
+from keyboards import *
+
 class DynamicLoading(object):
 	@classmethod
 	def __init__(self):
