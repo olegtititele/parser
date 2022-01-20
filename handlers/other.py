@@ -15,9 +15,15 @@ from keyboards import *
 
 
 
+def check_sub_channel(chat_member):
+	print(chat_member['status'])
+	if chat_member['status'] != 'left':
+		return True
+	else:
+		return False
+
 async def echo(message: types.Message):
-	try:
-		user_channel_status = await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id))
 		db = SQLighter()
 		if message.text == "🤖 Посмотреть сайты":
 			if db.len_hash_data(message.from_user.id) > 0:
@@ -63,14 +69,14 @@ async def echo(message: types.Message):
 					chat_id=message.from_user.id,
 					text="<b>Вы пока не добавили ни одного объявления.</b>",
 					parse_mode=types.ParseMode.HTML,)
-				
-	except Exception as e:
+
+	else:
 		news_channel = f'<a href="{cf.CHANNEL}">новостей</a>'
 		await bot.send_message(
 				chat_id=message.from_user.id,
 				text="🆘 <b>Вас нет в канале "+news_channel+". Вступите, чтобы пользоваться ботом.</b>",
 				parse_mode=types.ParseMode.HTML,
-				reply_markup=start_pars_kb)		
+				reply_markup=start_pars_kb)
 
 
 
