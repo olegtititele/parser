@@ -76,25 +76,25 @@ class SQLighter:
 
 
 	def create_users_table(self):
-		users_table = "CREATE TABLE `{}` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `username` VARCHAR(255) DEFAULT NULL)".format('usersdb')
+		users_table = "CREATE TABLE `{}` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `username` VARCHAR(255) DEFAULT NULL)".format('users')
 		return self.user_cursor.execute(users_table)
 
 	def add_user(self, user_id, username):
-		sql = "INSERT INTO `usersdb` (`user_id`, `username`) VALUES (%s,%s)"
+		sql = "INSERT INTO `users` (`user_id`, `username`) VALUES (%s,%s)"
 		val = user_id, username
 		self.user_cursor.execute(sql, val)
 		self.user_mydb.commit()
 		return
 
 	def check_user(self, user_id):
-		sql = "SELECT * FROM usersdb WHERE user_id = {0}".format(user_id)
+		sql = "SELECT * FROM users WHERE user_id = {0}".format(user_id)
 		self.user_cursor.execute(sql)
 		data = self.user_cursor.fetchone()
 		return data
 		# self.user_mydb.close()
 
 	def get_users_data(self):
-		sql = "SELECT * FROM usersdb"
+		sql = "SELECT * FROM users"
 		self.user_cursor.execute(sql)
 		return self.user_cursor.fetchall()
 
