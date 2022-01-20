@@ -83,7 +83,7 @@ class SQLighter:
 		return
 
 	def check_user(self, user_id):
-		self.user_cursor.execute("SELECT * FROM users WHERE user_id = %s", (user_id, ))
+		self.user_cursor.execute("SELECT * FROM users WHERE `user_id` = %s", (user_id, ))
 		data = self.user_cursor.fetchone()
 		return data
 
@@ -232,13 +232,14 @@ class SQLighter:
 		return self.countriessub_mydb.commit()
 
 	def check_subscriber(self, country, user_id):
-		self.countriessub_cursor.execute("SELECT * FROM `%s` WHERE user_id = %s", country, user_id,)
+		sql = "SELECT * FROM `%s` WHERE `user_id` = %s"
+		adr = (country, user_id,)
+		self.countriessub_cursor.execute(sql, adr)
 		data = self.countriessub_cursor.fetchone()
-		print(data)
 		return data
 
 	def get_subscriber_time(self, country, user_id):
-		self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE user_id = %s", (country, user_id,))
+		self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE `user_id` = %s", (country, user_id,))
 		sub_time = self.countriessub_cursor.fetchone()
 		a = sub_time[0]
 		b = a.split("-")
@@ -249,7 +250,7 @@ class SQLighter:
 
 
 	def update_subsc_time(self, user_id, time_until, country):
-		self.countriessub_cursor.execute("UPDATE `%s` SET time_until = %s WHERE user_id = %s", (country, time_until, user_id,))
+		self.countriessub_cursor.execute("UPDATE `%s` SET `time_until` = %s WHERE `user_id` = %s", (country, time_until, user_id,))
 		self.countriessub_mydb.commit()
 
 	def drop_drop(self, country):
@@ -278,7 +279,7 @@ if __name__ == '__main__':
 	# sq.delete_hash_table(2029023685)
 	# sq.delete_temporary_params_table(2029023685)
 	# sq.create_users_table()
-	sq.get_advertisement_data(2029023685, "bolha.com")
+# 	sq.get_advertisement_data(2029023685, "bolha.com")
 	# for i in sq.get_advertisement_data(2029023685):
 	# 	if i[0] == "bolha.com":
 
