@@ -71,5 +71,5 @@ async def get_users_length(message: types.Message):
 
 def register_handlers_client(dp : Dispatcher):
 	dp.register_message_handler(start_bot, commands=['start'])
-	dp.help_command(help_command, commands=['help'])
-	dp.get_users_length(get_users_length, commands=['get_users_length'])
+	dp.register_message_handler(help_command, commands=['help'])
+	dp.register_message_handler(get_users_length, commands=['get_users_length'])
