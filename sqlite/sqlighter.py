@@ -84,9 +84,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			print(e)
-		finally:
-			self.user_cursor.close()
-			self.user_mydb.close()
 
 	def check_user(self, user_id):
 		try:
@@ -95,9 +92,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			print(e)
-		finally:
-			self.user_cursor.close()
-			self.user_mydb.close()
 
 
 
@@ -108,9 +102,6 @@ class SQLighter:
 			return self.user_cursor.fetchall()
 		except Exception as e:
 			print(e)
-		finally:
-			self.user_cursor.close()
-			self.user_mydb.close()
 
 
 
@@ -122,9 +113,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			print(e)
-		finally:
-			self.user_cursor.close()
-			self.user_mydb.close()
 
 
 	# def clear_users_table(self, user_id):
@@ -142,9 +130,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 
@@ -157,9 +142,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 	
 
 
@@ -172,9 +154,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 	
 
 	def get_previously_adv(self, user_id, platform):
@@ -186,9 +165,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 	def delete_previously_adv(self, user_id, platform):
@@ -200,9 +176,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 	
 		
 
@@ -215,9 +188,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 
@@ -230,9 +200,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 	def get_tel_num(self, user_id, telnum):
@@ -244,9 +211,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 	def clear_advestisement(self, user_id):
@@ -254,9 +218,6 @@ class SQLighter:
 			return self.adv_cursor.execute("TRUNCATE TABLE `%s`", (user_id,))
 		except Exception as e:
 			print(e)
-		finally:
-			self.adv_cursor.close()
-			self.adv_mydb.close()
 
 
 
@@ -268,9 +229,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			print(e)
-		finally:
-			self.hash_cursor.close()
-			self.hash_mydb.close()
 
 
 
@@ -282,9 +240,6 @@ class SQLighter:
 			return self.hash_mydb.commit()
 		except Exception as e:
 			print(e)
-		finally:
-			self.hash_cursor.close()
-			self.hash_mydb.close()
 
 
 	def get_hash_data(self, user_id):
@@ -294,18 +249,12 @@ class SQLighter:
 			return self.hash_cursor.fetchall()
 		except Exception as e:
 			print(e)
-		finally:
-			self.hash_cursor.close()
-			self.hash_mydb.close()	
 
 	def clear_hash_data(self, tb_name):
 		try:
 			return self.hash_cursor.execute("TRUNCATE TABLE `%s`", (tb_name, ))
 		except Exception as e:
 			print(e)
-		finally:
-			self.hash_cursor.close()
-			self.hash_mydb.close()
 
 
 	def len_hash_data(self, user_id):
@@ -316,9 +265,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			print(e)
-		finally:
-			self.hash_cursor.close()
-			self.hash_mydb.close()	
 
 
 	# def delete_table(self, tb_name):
@@ -362,9 +308,6 @@ class SQLighter:
 			return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
 		except Exception as e:
 			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()	
 
 
 	def add_subscriber(self, country, user_id, time_until = datetime.now()):
@@ -372,10 +315,7 @@ class SQLighter:
 			self.countriessub_cursor.execute("INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)", (country, user_id, time_until,))
 			return self.countriessub_mydb.commit()
 		except Exception as e:
-			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()		
+			print(e)	
 
 	def check_subscriber(self, country, user_id):
 		try:
@@ -386,9 +326,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()	
 
 	def get_subscriber_time(self, country, user_id):
 		try:
@@ -402,9 +339,6 @@ class SQLighter:
 			return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
 		except Exception as e:
 			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()	
 
 
 	def update_subsc_time(self, user_id, time_until, country):
@@ -413,9 +347,6 @@ class SQLighter:
 			self.countriessub_mydb.commit()
 		except Exception as e:
 			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()	
 
 	def drop_drop(self, country):
 		try:
@@ -423,7 +354,4 @@ class SQLighter:
 			self.countriessub_mydb.commit()
 		except Exception as e:
 			print(e)
-		finally:
-			self.countriessub_cursor.close()
-			self.countriessub_mydb.close()	
 
