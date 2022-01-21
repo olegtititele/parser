@@ -294,14 +294,14 @@ class SQLighter:
 		try:
 			return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
 		except Exception as e:
-			self.countriessub_mydb.close()	
+			print(repr(e))
 
 	def add_subscriber(self, country, user_id, time_until = datetime.now()):
 		try:
 			self.countriessub_cursor.execute("INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)", (country, user_id, time_until,))
 			return self.countriessub_mydb.commit()
 		except Exception as e:
-			self.countriessub_mydb.close()		
+			print(repr(e))	
 
 	def check_subscriber(self, country, user_id):
 		try:
@@ -311,7 +311,7 @@ class SQLighter:
 			data = self.countriessub_cursor.fetchone()
 			return data
 		except Exception as e:
-			self.countriessub_mydb.close()	
+			print(repr(e))
 
 	def get_subscriber_time(self, country, user_id):
 		try:
@@ -324,7 +324,7 @@ class SQLighter:
 			k = d[2].split(".")
 			return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
 		except Exception as e:
-			self.countriessub_mydb.close()
+			print(repr(e))
 
 
 	def update_subsc_time(self, user_id, time_until, country):
@@ -332,11 +332,12 @@ class SQLighter:
 			self.countriessub_cursor.execute("UPDATE `%s` SET `time_until` = %s WHERE `user_id` = %s", (country, time_until, user_id,))
 			self.countriessub_mydb.commit()
 		except Exception as e:
-			self.countriessub_mydb.close()	
+			print(repr(e))
 
 	def drop_drop(self, country):
 		try:
 			self.countriessub_cursor.execute("TRUNCATE TABLE `%s`", (country, ))
 			self.countriessub_mydb.commit()
 		except Exception as e:
-			self.countriessub_mydb.close()	
+			print(repr(e))
+
