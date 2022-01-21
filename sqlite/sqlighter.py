@@ -378,7 +378,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='hashdb',
 					)
 				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 				return self.create_hash_table(tb_name)
@@ -400,7 +400,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='hashdb',
 					)
 				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 				return self.add_hash_advertisement(user_id, platform, adv_name, adv_price, adv_reg, adv_url, location, adv_image_url, seller_name, seller_tel_number, seller_count_adv, seller_reg_data, check_business)
@@ -420,7 +420,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='hashdb',
 					)
 				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 				return self.get_hash_data(user_id)
@@ -437,7 +437,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='hashdb',
 					)
 				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 				return self.clear_hash_data(tb_name)
@@ -458,7 +458,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='hashdb',
 					)
 				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 				return self.len_hash_data(user_id)
@@ -512,7 +512,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='subscriptions',
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.create_countries_sub_table(country)
@@ -531,7 +531,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='subscriptions',
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.add_subscriber(country, user_id, time_until = datetime.now())
@@ -552,7 +552,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='subscriptions',
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.check_subscriber(country, user_id)
@@ -576,7 +576,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='subscriptions',
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.get_subscriber_time(country, user_id)
@@ -595,7 +595,7 @@ class SQLighter:
 					port=self.db[1],
 					user=self.db[2],
 					passwd=self.db[3],
-					database='parsdb',
+					database='subscriptions',
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.update_subsc_time(user_id, time_until, country)
