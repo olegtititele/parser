@@ -83,7 +83,18 @@ class SQLighter:
 			self.user_mydb.commit()
 			return
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.add_user(user_id, username)
+			raise e
 
 	def check_user(self, user_id):
 		try:
@@ -91,7 +102,18 @@ class SQLighter:
 			data = self.user_cursor.fetchone()
 			return data
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.check_user(user_id)
+			raise e
 
 
 
@@ -101,13 +123,23 @@ class SQLighter:
 			self.user_cursor.execute(sql)
 			return self.user_cursor.fetchall()
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.get_users_data()
+			raise e
 
 
 
 	def get_users_length(self):
 		try:
-			print("po")
 			sql = "SELECT * FROM users"
 			self.user_cursor.execute(sql)
 			length = len(self.user_cursor.fetchall())
@@ -124,7 +156,6 @@ class SQLighter:
 					)
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.get_users_length()
-			
 			raise e
 
 
@@ -142,7 +173,18 @@ class SQLighter:
 			self.adv_cursor.execute("CREATE TABLE `%s` (`Площадка` VARCHAR(255), `Название объявления` VARCHAR(255), `Цена объявления` VARCHAR(255), `Дата создания объявления` VARCHAR(255), `Ссылка на объявление` VARCHAR(255), `Местоположение` VARCHAR(255), `Ссылка на изображение` VARCHAR(255), `Имя продавца` VARCHAR(255), `Номер продавца` VARCHAR(255), `Количество объявлений продавца` VARCHAR(255), `Дата регистрации` VARCHAR(255) DEFAULT NULL, `Бизнесс аккаунт` VARCHAR(255) DEFAULT NULL)", (user_id))
 			return
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.create_advertisement_table(user_id)
+			raise e
 
 
 
@@ -154,7 +196,18 @@ class SQLighter:
 			self.adv_mydb.commit()
 			return
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.add_advertisement(user_id, platform, adv_name, adv_price, adv_reg, adv_url, location, adv_image_url, seller_name, seller_tel_number, seller_count_adv, seller_reg_data, check_business)
+			raise e
 	
 
 
@@ -166,7 +219,18 @@ class SQLighter:
 			length = len(self.adv_cursor.fetchall())
 			return length
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.get_len_previously_platfrom(user_id, platform)
+			raise e
 	
 
 	def get_previously_adv(self, user_id, platform):
@@ -177,7 +241,18 @@ class SQLighter:
 			data = self.adv_cursor.fetchall()
 			return data
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.get_previously_adv(user_id, platform)
+			raise e
 
 
 	def delete_previously_adv(self, user_id, platform):
@@ -188,7 +263,18 @@ class SQLighter:
 			self.adv_mydb.commit()
 			return
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.delete_previously_adv(user_id, platform)
+			raise e
 	
 		
 
@@ -200,7 +286,18 @@ class SQLighter:
 			print(length)
 			return length
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.len_advertisement_data(user_id)
+			raise e
 
 
 
@@ -212,7 +309,18 @@ class SQLighter:
 			data = self.adv_cursor.fetchone()
 			return data
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.check_advestisement(user_id, adv_url)
+			raise e
 
 
 	def get_tel_num(self, user_id, telnum):
@@ -223,14 +331,36 @@ class SQLighter:
 			data = self.adv_cursor.fetchone()
 			return data
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.get_tel_num(user_id, telnum)
+			raise e
 
 
 	def clear_advestisement(self, user_id):
 		try:
 			return self.adv_cursor.execute("TRUNCATE TABLE `%s`", (user_id,))
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.adv_cursor = self.adv_mydb.cursor(buffered=True)
+				return self.clear_advestisement(user_id)
+			raise e
 
 
 
@@ -241,7 +371,18 @@ class SQLighter:
 			self.hash_cursor.execute("CREATE TABLE `%s` (`Площадка` VARCHAR(255), `Название объявления` VARCHAR(255), `Цена объявления` VARCHAR(255), `Дата создания объявления` VARCHAR(255), `Ссылка на объявление` VARCHAR(255), `Местоположение` VARCHAR(255), `Ссылка на изображение` VARCHAR(255), `Имя продавца` VARCHAR(255), `Номер продавца` VARCHAR(255), `Количество объявлений продавца` VARCHAR(255), `Дата регистрации` VARCHAR(255) DEFAULT NULL, `Бизнесс аккаунт` VARCHAR(255) DEFAULT NULL)", (tb_name, ))
 			return
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
+				return self.create_hash_table(tb_name)
+			raise e
 
 
 
@@ -252,7 +393,18 @@ class SQLighter:
 			self.hash_cursor.execute(sql, val)
 			return self.hash_mydb.commit()
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
+				return self.add_hash_advertisement(user_id, platform, adv_name, adv_price, adv_reg, adv_url, location, adv_image_url, seller_name, seller_tel_number, seller_count_adv, seller_reg_data, check_business)
+			raise e
 
 
 	def get_hash_data(self, user_id):
@@ -261,13 +413,35 @@ class SQLighter:
 			self.hash_cursor.execute("SELECT * FROM `%s`", (user_id, ))
 			return self.hash_cursor.fetchall()
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
+				return self.get_hash_data(user_id)
+			raise e
 
 	def clear_hash_data(self, tb_name):
 		try:
 			return self.hash_cursor.execute("TRUNCATE TABLE `%s`", (tb_name, ))
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
+				return self.clear_hash_data(tb_name)
+			raise e
 
 
 	def len_hash_data(self, user_id):
@@ -277,7 +451,18 @@ class SQLighter:
 			length = len(self.hash_cursor.fetchall())
 			return length
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.hash_cursor = self.hash_mydb.cursor(buffered=True)
+				return self.len_hash_data(user_id)
+			raise e
 
 
 	# def delete_table(self, tb_name):
@@ -320,7 +505,18 @@ class SQLighter:
 		try:
 			return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+				return self.create_countries_sub_table(country)
+			raise e
 
 
 	def add_subscriber(self, country, user_id, time_until = datetime.now()):
@@ -328,7 +524,18 @@ class SQLighter:
 			self.countriessub_cursor.execute("INSERT INTO `%s` (`user_id`, `time_until`) VALUES (%s,%s)", (country, user_id, time_until,))
 			return self.countriessub_mydb.commit()
 		except Exception as e:
-			print(e)	
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+				return self.add_subscriber(country, user_id, time_until = datetime.now())
+			raise e	
 
 	def check_subscriber(self, country, user_id):
 		try:
@@ -338,7 +545,18 @@ class SQLighter:
 			data = self.countriessub_cursor.fetchone()
 			return data
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+				return self.check_subscriber(country, user_id)
+			raise e
 
 	def get_subscriber_time(self, country, user_id):
 		try:
@@ -351,7 +569,18 @@ class SQLighter:
 			k = d[2].split(".")
 			return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+				return self.get_subscriber_time(country, user_id)
+			raise e
 
 
 	def update_subsc_time(self, user_id, time_until, country):
@@ -359,12 +588,16 @@ class SQLighter:
 			self.countriessub_cursor.execute("UPDATE `%s` SET `time_until` = %s WHERE `user_id` = %s", (country, time_until, user_id,))
 			self.countriessub_mydb.commit()
 		except Exception as e:
-			print(e)
-
-	def drop_drop(self, country):
-		try:
-			self.countriessub_cursor.execute("TRUNCATE TABLE `%s`", (country, ))
-			self.countriessub_mydb.commit()
-		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.adv_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='parsdb',
+					)
+				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+				return self.update_subsc_time(user_id, time_until, country)
+			raise e
 
