@@ -112,7 +112,18 @@ class SQLighter:
 			length = len(self.user_cursor.fetchall())
 			return length
 		except Exception as e:
-			print(e)
+			if e.errno == 2055 or e.errno == 2013:
+				print("popa4ka")
+				self.user_cursor.close()
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				return self.get_users_length()
+			raise e
 
 
 	# def clear_users_table(self, user_id):
