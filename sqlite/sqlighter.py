@@ -107,6 +107,7 @@ class SQLighter:
 
 	def get_users_length(self):
 		try:
+			print("po")
 			sql = "SELECT * FROM users"
 			self.user_cursor.execute(sql)
 			length = len(self.user_cursor.fetchall())
@@ -114,7 +115,6 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.user_cursor.close()
 				self.user_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -122,7 +122,9 @@ class SQLighter:
 					passwd=self.db[3],
 					database='usersdb',
 					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.get_users_length()
+			
 			raise e
 
 
