@@ -373,7 +373,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -395,7 +395,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -415,7 +415,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -432,7 +432,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -453,7 +453,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -507,7 +507,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -526,7 +526,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -547,7 +547,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
@@ -571,7 +571,7 @@ class SQLighter:
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
-				self.adv_mydb = mysql.connector.connect(
+				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
 					user=self.db[2],
