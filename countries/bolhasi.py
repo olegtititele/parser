@@ -26,16 +26,16 @@ class BolhaSI(object):
 		self.ann_cnd = 0
 		self.page = 0
 		self.db = SQLighter()
-		self.loop+str(self.user_id)= True
+		self.loop= True
 
 	@classmethod
 	def stop_pars(self):
-		self.loop+str(self.user_id) = False
+		self.loop = False
 
 	def generate_link(self):
 		self.page = 0
 		self.ann_cnd = 0
-		while self.loop+str(self.user_id):
+		while self.loop:
 			self.page += 1
 			if "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
