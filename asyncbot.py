@@ -350,6 +350,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 async def loop_test(call):
 	while True:
 		print(call.from_user.id)
+		time.sleep(1)
 
 async def create_price_keyboard(call, platform):
 	show_prices_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
