@@ -15,10 +15,12 @@ class DynamicLoading(object):
 	
 	def __init__(self):
 		self.loopflag = True
-
-	async def stop_loop(self, call, state: FSMContext):
+	@classmethod
+	async def stop(self):
 		self.loopflag = False
-
+		return await stop_loop(call, state)
+	
+	async def stop_loop(self, call, state: FSMContext):
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		db = SQLighter()
@@ -45,9 +47,7 @@ class DynamicLoading(object):
 				print(call.data)
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if self.loopflag == False:
-					break
-				elif int(length) == total_adv:
+				if int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
