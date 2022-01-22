@@ -43,7 +43,7 @@ class DynamicLoading(object):
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if self.__loopflag == False:
+				if self.loopflag == False:
 					break
 				elif int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
