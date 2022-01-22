@@ -14,12 +14,13 @@ import time
 class DynamicLoading(object):
 	def __init__(self, user_id):
 		self.user_id = user_id
-		self.loopflag = 'True'+str(self.user_id)
-	async def stop_loop(self, call, state: FSMContext):
-		if call.data == "stop_parser":
-			print(call.data)
-		else:
-			print('net')
+		self.loopflag = True
+		
+# 	async def stop_loop(self, call, state: FSMContext):
+# 		if call.data == "stop_parser":
+# 			print(call.data)
+# 		else:
+# 			print('net')
 # 		self.loopflag = 'False'+str(call.from_user.id)
 # 		async with state.proxy() as data:
 # 			total_adv = data['adv_count']
