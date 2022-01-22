@@ -14,10 +14,10 @@ import time
 class DynamicLoading(object):
 	
 	def __init__(self):
-		self.__loopflag == True
+		self.loopflag == True
 
 	async def stop_loop(self, call, state: FSMContext):
-		self.__loopflag = False
+		self.loopflag = False
 
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
@@ -39,7 +39,7 @@ class DynamicLoading(object):
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		while self.__loopflag:
+		while self.loopflag:
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
