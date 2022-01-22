@@ -13,8 +13,9 @@ import time
 
 class DynamicLoading(object):
 	@classmethod
-	def __init__(self):
-		self.loopflag = 'True'+str(call.from_user.id)
+	def __init__(self, user_id):
+		self.user_id = user_id
+		self.loopflag = 'True'+str(self.user_id)
 	@classmethod
 	async def stop_loop(self, call, state: FSMContext):
 		self.loopflag = 'False'+str(call.from_user.id)
