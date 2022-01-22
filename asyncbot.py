@@ -314,6 +314,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 			elif call.data == "stop_parser":
 				await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
+				False
 				break
 	# 			bolha.stop_pars()
 # 				await dyn_load.stop_loop(call, state)	
