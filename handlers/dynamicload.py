@@ -14,7 +14,7 @@ import time
 class DynamicLoading(object):
 	
 	def __init__(self):
-		self.loopflag == True
+		self.loopflag = True
 
 	async def stop_loop(self, call, state: FSMContext):
 		self.loopflag = False
