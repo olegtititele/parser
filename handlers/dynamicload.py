@@ -40,7 +40,9 @@ class DynamicLoading(object):
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
 		while self.loopflag:
+			
 			for i in coursor:
+				print(call.data)
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
 				if self.loopflag == False:
