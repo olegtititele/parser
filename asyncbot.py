@@ -304,9 +304,14 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 	if platform == "bolha.com":
 		loopflag = True
 		if call.data == 'start_pars':
+			stop_btn = "stop_parser"
+			stop_kb = InlineKeyboardMarkup()
+			stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
+			await call.message.edit_text(text='line', parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
 			while loopflag:
 				print(call.from_user.id)
 		elif call.data == 'stop_parser':
+			print('stop')
 			loopflag = False
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 # 		dyn_load = DynamicLoading(call.from_user.id)
