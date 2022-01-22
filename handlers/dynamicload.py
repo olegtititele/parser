@@ -12,8 +12,6 @@ from create_bot import dp, bot
 import time
 
 class DynamicLoading(object):
-	def __init__(self):
-		self.loopflag+ = True
 
 	async def stop_loop(self, call, state: FSMContext):
 		global loop
