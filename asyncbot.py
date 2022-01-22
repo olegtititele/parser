@@ -310,6 +310,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			await call.message.edit_text(text='line', parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
 			while loopflag:
 				print(call.from_user.id)
+				time.sleep(1)
 		elif call.data == 'stop_parser':
 			print('stop')
 			loopflag = False
