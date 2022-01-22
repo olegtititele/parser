@@ -14,11 +14,11 @@ import time
 from keyboards import *
 
 class DynamicLoading(object):
-	@classmethod
+# 	@classmethod
 	def __init__(self):
 		self.loopflag = True
 
-	@staticmethod
+	@classmethod
 	async def stop_loop(self, call, state: FSMContext):
 		self.loopflag = False
 
