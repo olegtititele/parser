@@ -16,19 +16,23 @@ class DynamicLoading(object):
 		self.user_id = user_id
 		self.loopflag = 'True'+str(self.user_id)
 	async def stop_loop(self, call, state: FSMContext):
-		self.loopflag = 'False'+str(call.from_user.id)
-		async with state.proxy() as data:
-			total_adv = data['adv_count']
-		db = SQLighter()
-		length = str(db.len_hash_data(call.from_user.id))	
-		if length[-1] == "1" and length != "11":
-			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
-		elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
-			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявления из "+ str(total_adv) + "</b>"
-		elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
-			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
-		await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
-		await state.finish()	
+		if call.data == "stop_parser":
+			print(call.data)
+		else:
+			print('net')
+# 		self.loopflag = 'False'+str(call.from_user.id)
+# 		async with state.proxy() as data:
+# 			total_adv = data['adv_count']
+# 		db = SQLighter()
+# 		length = str(db.len_hash_data(call.from_user.id))	
+# 		if length[-1] == "1" and length != "11":
+# 			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
+# 		elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
+# 			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявления из "+ str(total_adv) + "</b>"
+# 		elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
+# 			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
+# 		await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
+# 		await state.finish()	
 
 	async def start_loop(self, call, state: FSMContext):
 		async with state.proxy() as data:
@@ -40,6 +44,7 @@ class DynamicLoading(object):
 		while self.loopflag == 'True'+str(call.from_user.id):
 			
 			for i in coursor:
+				await self.stop_loop(call, state)
 				print('True'+str(call.from_user.id))
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
