@@ -28,7 +28,7 @@ logging.basicConfig(level=logging.INFO)
 
 db = SQLighter()
 
-
+loopflag = True
 
 # States
 class Form(StatesGroup):
@@ -303,10 +303,10 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # BOLHA.COM
 	if platform == "bolha.com":
 		if call.data == 'start_oars':
-			while True:
+			while loopflag:
 				print(call.from_user.id)
-				if call.data == 'stop_parser':
-					break
+		elif call.data == 'stop_parser':
+			loopflag = False
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 # 		dyn_load = DynamicLoading(call.from_user.id)
 # # 		thread_pars = Thread(target=bolha.generate_link)
