@@ -28,7 +28,16 @@ logging.basicConfig(level=logging.INFO)
 
 db = SQLighter()
 
+class Timer:
+	stop = False
 
+	async def start(self):
+		ii = 0
+		while not self.stop:
+			ii += 1
+			print(ii)
+			time.sleep(1)
+		return ii
 
 # States
 class Form(StatesGroup):
@@ -302,14 +311,15 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 # BOLHA.COM
 	if platform == "bolha.com":
-		loopflag = True
+		timer = Timer()
 		if call.data == 'start_pars':
 			stop_btn = "stop_parser"
 			stop_kb = InlineKeyboardMarkup()
 			stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
-			await call.message.edit_text(text='line', parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
+			timer.start()
 # 			thread_pars = Thread(target= await loop_test(call)).start()
 		elif call.data == 'stop_parser':
+			timer.stop = True
 			print('stop')
 # 			thread_pars.join()
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
