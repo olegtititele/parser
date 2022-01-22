@@ -313,6 +313,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 				await dyn_load.start_loop(call, state)
 
 			elif call.data == "stop_parser":
+				print(call.data)
 				await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
 				False
 				break
