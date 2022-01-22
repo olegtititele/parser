@@ -31,7 +31,6 @@ class DynamicLoading(object):
 		await state.finish()	
 
 	async def start_loop(self, call, state: FSMContext):
-		global loop
 		loop = True
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
