@@ -306,19 +306,15 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		dyn_load = DynamicLoading()
 # 		thread_pars = Thread(target=bolha.generate_link)
 # 		thread_pars = Thread(target=await dyn_load.start_loop(call, state))
-		while True:
-			if call.data == 'start_pars':
-				await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
-	# 			thread_pars.start()
-				await dyn_load.start_loop(call, state)
+		if call.data == 'start_pars':
+			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
+# 			thread_pars.start()
+			await dyn_load.start_loop(call, state)
 
-			elif call.data == "stop_parser":
-				print(call.data)
-				await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
-				False
-				break
-	# 			bolha.stop_pars()
-# 				await dyn_load.stop_loop(call, state)	
+		elif call.data == "stop_parser":
+			await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
+# 			bolha.stop_pars()
+			await dyn_load.stop_loop(call, state)	
 
 
 # BAZAR.LU
