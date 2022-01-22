@@ -312,9 +312,11 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			await dyn_load.start_loop(call, state)
 
 		elif call.data == "stop_parser":
-			await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
+			print("Вышел")
+			return
+# 			await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
 # 			bolha.stop_pars()
-			await dyn_load.stop_loop(call, state)	
+# 			await dyn_load.stop_loop(call, state)	
 
 
 # BAZAR.LU
@@ -329,8 +331,10 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			await dyn_load.start_loop(call, state)
 
 		elif call.data == "stop_parser":
-			bazar.stop_pars()
-			await dyn_load.stop_loop(call, state)
+			print("Вышел")
+			return
+# 			bazar.stop_pars()
+# 			await dyn_load.stop_loop(call, state)
 
 
 
