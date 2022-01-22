@@ -314,7 +314,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 		elif call.data == "stop_parser":
 # 			bolha.stop_pars()
-			await dyn_load.stop_loop(bolha, call, state)	
+			await dyn_load.stop_loop(call, state)	
 
 
 # BAZAR.LU
