@@ -309,7 +309,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		if call.data == 'start_pars':
 			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
 # 			thread_pars.start()
-			await dyn_load.start_loop(call, state)
+			await dyn_load.start_loop(bolha, call, state)
 
 		elif call.data == "stop_parser":
 # 			bolha.stop_pars()
