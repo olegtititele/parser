@@ -11,16 +11,13 @@ from sqlite.sqlighter import SQLighter
 from create_bot import dp, bot
 import time
 
-from keyboards import *
-
 class DynamicLoading(object):
-	@classmethod
 	def __init__(self):
-		self.loopflag = True
+		self.loopflag+ = True
 
-	@classmethod
 	async def stop_loop(self, call, state: FSMContext):
-		self.loopflag = False
+		global loop
+		loop = False
 
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
@@ -34,19 +31,21 @@ class DynamicLoading(object):
 			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 		await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 		await state.finish()	
-	@classmethod
+
 	async def start_loop(self, call, state: FSMContext):
+		global loop
+		loop = True
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		stop_btn = "stop_parser"
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		while self.loopflag:
+		while loop:
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if self.loopflag == False:
+				if loop == False:
 					break
 				elif int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
@@ -57,7 +56,7 @@ class DynamicLoading(object):
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 					await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 					await state.finish()
-					self.loopflag = False
+					loop = False
 					break
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
