@@ -45,7 +45,6 @@ class DynamicLoading(object):
 		while self.loopflag == True:
 			
 			for i in coursor:
-				await self.stop_loop(call, state)
 				print('True'+str(call.from_user.id))
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
