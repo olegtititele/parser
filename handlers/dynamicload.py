@@ -12,10 +12,10 @@ from create_bot import dp, bot
 import time
 
 class DynamicLoading(object):
-	
+	@classmethod
 	def __init__(self):
 		self.loopflag = True
-	@classmethod
+	
 	async def stop(self):
 		self.loopflag = False
 		return await stop_loop(call, state)
