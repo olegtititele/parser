@@ -303,7 +303,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # BOLHA.COM
 	if platform == "bolha.com":
 		loopflag = True
-		if call.data == 'start_oars':
+		if call.data == 'start_pars':
 			while loopflag:
 				print(call.from_user.id)
 		elif call.data == 'stop_parser':
