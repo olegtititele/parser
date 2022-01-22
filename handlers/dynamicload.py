@@ -16,11 +16,8 @@ class DynamicLoading(object):
 	def __init__(self):
 		self.loopflag = True
 	@classmethod
-	async def stop(self):
-		self.loopflag = False
-		return await stop_loop(call, state)
-	
 	async def stop_loop(self, call, state: FSMContext):
+		self.loopflag = False
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		db = SQLighter()
