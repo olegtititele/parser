@@ -316,6 +316,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			stop_btn = "stop_parser"
 			stop_kb = InlineKeyboardMarkup()
 			stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
+			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
 			await timer.start()
 # 			thread_pars = Thread(target= await loop_test(call)).start()
 		elif call.data == 'stop_parser':
