@@ -320,7 +320,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # BAZAR.LU
 	elif platform == "bazar.lu":
 		bazar = BazarLu(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-		dyn_load = DynamicLoading()
+		dyn_load = DynamicLoading(call.from_user.id)
 		thread_pars = Thread(target=bazar.get_parameters)
 
 		if call.data == 'start_pars':
