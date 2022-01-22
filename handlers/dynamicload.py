@@ -12,10 +12,12 @@ from create_bot import dp, bot
 import time
 
 class DynamicLoading(object):
+	
+	def __init__(self):
+		self.__loopflag == Trut
 
 	async def stop_loop(self, call, state: FSMContext):
-		global loop
-		loop = False
+		self.__loopflag = False
 
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
@@ -31,18 +33,17 @@ class DynamicLoading(object):
 		await state.finish()	
 
 	async def start_loop(self, call, state: FSMContext):
-		loop = True
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		stop_btn = "stop_parser"
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		while loop:
+		while self.__loopflag:
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if loop == False:
+				if self.__loopflag == False:
 					break
 				elif int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
