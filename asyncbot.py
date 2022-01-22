@@ -308,12 +308,10 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			stop_kb = InlineKeyboardMarkup()
 			stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 			await call.message.edit_text(text='line', parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
-			while loopflag:
-				print(call.from_user.id)
-				time.sleep(1)
+			thread_pars = Thread(target= await loop_test(call)).start()
 		elif call.data == 'stop_parser':
 			print('stop')
-			loopflag = False
+			thread_pars.join()
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 # 		dyn_load = DynamicLoading(call.from_user.id)
 # # 		thread_pars = Thread(target=bolha.generate_link)
@@ -349,7 +347,9 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # # 			bazar.stop_pars()
 # # 			await dyn_load.stop_loop(call, state)
 
-
+async def loop_test(call):
+	while True:
+		print(call.from_user.id)
 
 async def create_price_keyboard(call, platform):
 	show_prices_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
