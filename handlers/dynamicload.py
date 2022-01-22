@@ -14,7 +14,7 @@ import time
 from keyboards import *
 
 class DynamicLoading(object):
-	@staticmethod
+	@classmethod
 	def __init__(self):
 		self.loopflag = True
 
