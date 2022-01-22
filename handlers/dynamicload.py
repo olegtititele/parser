@@ -16,7 +16,8 @@ class DynamicLoading(object):
 		self.user_id = user_id
 		self.loopflag = True
 		
-# 	async def stop_loop(self, call, state: FSMContext):
+	async def stop_loop(self, call, state: FSMContext):
+		quit()
 # 		if call.data == "stop_parser":
 # 			print(call.data)
 # 		else:
