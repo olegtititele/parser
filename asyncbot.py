@@ -311,57 +311,45 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 # BOLHA.COM
 	if platform == "bolha.com":
-		timer = Timer()
-		if call.data == 'start_pars':
-			stop_btn = "stop_parser"
-			stop_kb = InlineKeyboardMarkup()
-			stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
-			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML, reply_markup=stop_kb)
-			await timer.start()
-# 			thread_pars = Thread(target= await loop_test(call)).start()
-		elif call.data == 'stop_parser':
-			timer.stop = True
-			print('stop')
-# 			thread_pars.join()
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-# 		dyn_load = DynamicLoading(call.from_user.id)
-# # 		thread_pars = Thread(target=bolha.generate_link)
-# # 		thread_pars = Thread(target=await dyn_load.start_loop(call, state))
-# 			if call.data == 'start_pars':
-# 			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
-# # 			thread_pars.start()
-# 			await dyn_load.start_loop(call, state)
+		dyn_load = DynamicLoading(call.from_user.id)
+# 		thread_pars = Thread(target=bolha.generate_link)
+# 		thread_pars = Thread(target=await dyn_load.start_loop(call, state))
+		if call.data == 'start_pars':
+			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
+# 			thread_pars.start()
+			await dyn_load.start_loop(call, state)
 
-# 			elif call.data == "stop_parser":
-# 			print("Вышел")
-# # 			dyn_load.loopflag = False
-# # 			return
-# # 			await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
+		elif call.data == "stop_parser":
+			print("Вышел")
+# 			dyn_load.loopflag = False
+# 			return
+# 			await call.message.edit_text(text="⌛️ dddddddddd", parse_mode=types.ParseMode.HTML)
 # 			bolha.stop_pars()
-# # 			await dyn_load.stop_loop(call, state)	
+			await dyn_load.stop_loop(call, state)	
 
 
 # BAZAR.LU
 # 	elif platform == "bazar.lu":
 # 		bazar = BazarLu(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 # 		dyn_load = DynamicLoading(call.from_user.id)
-# 		thread_pars = Thread(target=bazar.get_parameters)
+# # 		thread_pars = Thread(target=bazar.get_parameters)
 
 # 		if call.data == 'start_pars':
 # 			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
-# 			thread_pars.start()
+# # 			thread_pars.start()
 # 			await dyn_load.start_loop(call, state)
 
 # 		elif call.data == "stop_parser":
 # 			print("Вышел")
-# 			return
-# # 			bazar.stop_pars()
+# # 			return
+# 			bazar.stop_pars()
 # # 			await dyn_load.stop_loop(call, state)
 
-async def loop_test(call):
-	while True:
-		print(call.from_user.id)
-		time.sleep(1)
+# async def loop_test(call):
+# 	while True:
+# 		print(call.from_user.id)
+# 		time.sleep(1)
 
 async def create_price_keyboard(call, platform):
 	show_prices_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
