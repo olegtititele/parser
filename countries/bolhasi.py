@@ -34,8 +34,9 @@ class BolhaSI(object):
 			if self.err_num >= 3:
 				self.loopflag = False
 				return self.loopflag
-			if "https://www.bolha.com/" in self.link:
+			elif "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
+				self.err_num += 1
 				print(page_link)
 				self.start_pars(page_link)
 			else:
@@ -58,13 +59,14 @@ class BolhaSI(object):
 						else:
 							pass
 					else:
-						return False
+						self.loopflag = False
+						return self.loopflag
 				else:
-					return False	
+					self.loopflag = False
+					return self.loopflag	
 
 
 		except IndexError as e :
-			self.err_num += 1
 			print(e)
 			self.generate_link()
 
