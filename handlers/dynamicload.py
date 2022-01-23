@@ -20,7 +20,7 @@ class DynamicLoading(object):
 	async def stop_loop(self, call, state: FSMContext):
 # 		global loopflag
 # 		loopflag = 'False'+str(call.from_user.id)
-		self.a.append(call.from_user.id)
+# 		self.a.append(call.from_user.id)
 		global iy
 		iy = 20
 # 		async with state.proxy() as data:
