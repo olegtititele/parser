@@ -13,7 +13,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 class BazarLu(object):
-	@classmethod
 	def __init__(self, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
 		self.user_id = user_id
 		self.platform = platform
@@ -28,36 +27,32 @@ class BazarLu(object):
 		self.sell_reg = "Не указана"
 		self.ann_cnd = 0
 		self.page = 1
+		self.err_num = 0
 		self.loopflag = True
 		self.db = SQLighter()
 		self.options = webdriver.ChromeOptions()
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 		
-# /usr/local/bin/chromedriver
-	@classmethod
-	def stop_pars(self):
-		self.loopflag = False
 
 	def get_parameters(self):
 		self.ann_cnd = 0
 		self.page = 1
 		while self.loopflag:
-			if self.loopflag == False:
-				break
-			else:	
-				self.driver.get(self.link)
-				element = self.driver.find_elements(By.CLASS_NAME, "annonces_entry_link")
-				self.start_pars(element)
+			self.driver.get(self.link)
+			element = self.driver.find_elements(By.CLASS_NAME, "annonces_entry_link")
+			self.start_pars(element)
 
 	def start_pars(self, element):
 		try:
 			for el in element:
+				if self.err_num >= 3:
+					self.loopflag = False
+					return self.loopflag
 				if self.ann_cnd < (int(self.announ_count)):
+					self.err_num = 0
 					adv_link = el.get_attribute("href")
 					print(adv_link)
-					if self.loopflag == False:
-						break
 					if(not self.db.check_advestisement(self.user_id, adv_link)):
 						# print(self.db.check_advestisement(self.user_id, adv_link))
 						r = requests.get(adv_link)
@@ -126,27 +121,24 @@ class BazarLu(object):
 							else:
 								pass
 					else:
-						pass
-						print("уже есть")
-						# pass			
+						pass		
 				else:
 					self.loopflag = False
-					break
-
-
-			if self.ann_cnd < (int(self.announ_count)):
-				self.next_page()
-			else:
-				self.loopflag = False
-
+					return self.loopflag
 
 		except IndexError as e:
 			print(repr(e))
 			pass
+		
+		if self.ann_cnd < (int(self.announ_count)):
+			try:
+				self.next_page()
+			except Exception:
+				self.err_num +=1
+		else:
+			self.loopflag = False
+			return self.loopflag
 
-		# finally:
-		# 	self.driver.close()
-		# 	self.driver.quit()if(not self.db.get_tel_num(self.user_id, phone_number)):
 
 	def check_seller_ads(self, adv_name, price, adv_reg_time, adv_link, location, image, seller_name, phone_number, seller_adv):
 		if self.seller_adv_count.lower() == 'нет':
@@ -187,8 +179,4 @@ class BazarLu(object):
 			self.start_pars(element)
 		except Exception:
 			self.loopflag = False
-
-
-if __name__ == '__main__':
-	bazar = Bazarlu()
-	bazar.get_parameters(2029023685, 'bazar.lu',"https://www.bazar.lu/Scripts/sql.exe?SqlDB=bazar&Sql=Search.phs&category=30", '3', 'нет', 'нет', 'нет', 'нет')
+			return self.loopflag
