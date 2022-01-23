@@ -83,6 +83,9 @@ async def process_link_invalid(message: types.Message):
 @dp.message_handler(state=Form.link)
 async def process_link(message: types.Message, state: FSMContext):
 	link = message.text
+	while True:
+		print(link)
+		time.sleep(1)
 	async with state.proxy() as data:
 		platform = data['country']
 	if platform in link:
