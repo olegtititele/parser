@@ -31,7 +31,7 @@ class DynamicLoading(object):
 					elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 					await state.finish()
-					return await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
+					return await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML)
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
 					if length[-1] == "1" and length != "11":
