@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 
 # bot = Bot(token=cf.BOT_TOKEN)
 # dp = Dispatcher(bot, storage=MemoryStorage())
-
+loop = asyncio.get_event_loop()
 db = SQLighter()
 
 # class Timer:
@@ -319,7 +319,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		if call.data == 'start_pars':
 			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
 # 			thread_pars.start()
-			await dyn_load.start_loop(call, state)
+			dp.loop.create_task(await dyn_load.start_loop(call, state))
 
 		elif call.data == "stop_parser"+str(call.from_user.id):
 			print("Вышел")
