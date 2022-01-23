@@ -303,7 +303,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		thread_pars = Thread(target=bolha.generate_link)
 		if call.data == 'start_pars':
 			thread_pars.start()
-			await dyn_load.start_loop(call, state)
+			await dyn_load.start_loop(bolha, call, state)
 			thread_pars.join()
 
 
