@@ -24,21 +24,7 @@ from create_bot import dp, bot
 from handlers.dynamicload import DynamicLoading
 logging.basicConfig(level=logging.INFO)
 
-# bot = Bot(token=cf.BOT_TOKEN)
-# dp = Dispatcher(bot, storage=MemoryStorage())
-loop = asyncio.get_event_loop()
 db = SQLighter()
-
-# class Timer:
-# 	stop = False
-
-# 	async def start(self):
-# 		ii = 0
-# 		while not self.stop:
-# 			ii += 1
-# 			print(ii)
-# 			time.sleep(1)
-# 		return ii
 
 # States
 class Form(StatesGroup):
@@ -318,6 +304,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		if call.data == 'start_pars':
 			thread_pars.start()
 			await dyn_load.start_loop(call, state)
+			thread_pars.join()
 
 
 # BAZAR.LU
