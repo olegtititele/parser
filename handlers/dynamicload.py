@@ -37,7 +37,7 @@ class DynamicLoading(object):
 		loopflag = 'True'+str(call.from_user.id)
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
-		stop_btn = "stop_parser"
+		stop_btn = "stop_parser"+str(call.from_user.id)
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
