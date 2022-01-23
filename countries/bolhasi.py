@@ -12,7 +12,6 @@ from threading import *
 
 
 class BolhaSI(object):
-	@classmethod
 	def __init__(self, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
 		self.user_id = user_id
 		self.platform = platform
@@ -25,18 +24,15 @@ class BolhaSI(object):
 		self.repeated_number = repeated_number
 		self.ann_cnd = 0
 		self.page = 0
+		self.err_num = 0
 		self.db = SQLighter()
 		self.loop= True
 
-	@classmethod
-	def stop_pars(self):
-		self.loop = False
-
 	def generate_link(self):
-		self.page = 0
-		self.ann_cnd = 0
 		while self.loop:
 			self.page += 1
+			if self.err_num >= 3:
+				return False
 			if "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
 				print(page_link)
@@ -61,19 +57,20 @@ class BolhaSI(object):
 						else:
 							pass
 					else:
-						self.loop = False
-						break
+						return False
 				else:
-					break		
+					return False	
 
 
 		except IndexError as e :
-			print(repr(e))
+			self.err_num += 1
+			print(e)
 			self.generate_link()
 
 
 	def start_pars2(self, adv_url):
 		try:
+			self.err_num = 0
 			r = requests.get(adv_url)
 			html = BS(r.content, 'lxml')
 			try:
@@ -140,8 +137,7 @@ class BolhaSI(object):
 						pass
 
 		except Exception as e:
-			print(repr(e))
-			print("pupa"+adv_url)
+			print(e)
 			pass	
 
 
