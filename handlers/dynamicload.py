@@ -15,7 +15,7 @@ class DynamicLoading(object):
 	def __init__(self):
 		self.loopflag = True
 
-	async def start_loop(self, call, state: FSMContext):
+	async def start_loop(self, country_pars, call, state: FSMContext):
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
