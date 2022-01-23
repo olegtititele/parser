@@ -33,7 +33,6 @@ class DynamicLoading(object):
 			line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 		await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 		await state.finish()
-		time.sleep(60)
 
 	async def start_loop(self, call, state: FSMContext):
 # 		global loopflag
