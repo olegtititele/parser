@@ -43,24 +43,24 @@ class DynamicLoading(object):
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
+		i = 0
 		while self.loopflag:	
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				print(self.a)
-# 				if call.from_user.id in self.a:
-# 					break
-				if int(length) == total_adv:
+				i +=1
+				print(i)
+				if int(length) == total_adv or i == 20:
 					if length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявления из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
-					await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 					await state.finish()
-					self.loopflag == False
-					break
+					return await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
+# 					self.loopflag == False
+# 					break
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
 					if length[-1] == "1" and length != "11":
