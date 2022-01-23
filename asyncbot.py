@@ -308,26 +308,15 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 
 # BAZAR.LU
-# 	elif platform == "bazar.lu":
-# 		bazar = BazarLu(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-# 		dyn_load = DynamicLoading(call.from_user.id)
-# # 		thread_pars = Thread(target=bazar.get_parameters)
+	elif platform == "bazar.lu":
+		dyn_load = DynamicLoading()
+		bazar = BazarLu(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
+		thread_pars = Thread(target=bazar.get_parameters)
+		if call.data == 'start_pars':
+			thread_pars.start()
+			await dyn_load.start_loop(bazar, call, state)
+			thread_pars.join()
 
-# 		if call.data == 'start_pars':
-# 			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
-# # 			thread_pars.start()
-# 			await dyn_load.start_loop(call, state)
-
-# 		elif call.data == "stop_parser":
-# 			print("Вышел")
-# # 			return
-# 			bazar.stop_pars()
-# # 			await dyn_load.stop_loop(call, state)
-
-# async def loop_test(call):
-# 	while True:
-# 		print(call.from_user.id)
-# 		time.sleep(1)
 
 async def create_price_keyboard(call, platform):
 	show_prices_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
