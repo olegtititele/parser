@@ -18,9 +18,12 @@ class DynamicLoading(object):
 # 		self.iy = 0
 		
 	async def stop_loop(self, call, state: FSMContext):
+		global loopflag
+		loopflag = False
 # 		global loopflag
 # 		loopflag = 'False'+str(call.from_user.id)
 # 		self.a.append(call.from_user.id)
+		self.iy = 1
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		db = SQLighter()
@@ -35,21 +38,19 @@ class DynamicLoading(object):
 		return await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 
 	async def start_loop(self, call, state: FSMContext):
-# 		global loopflag
-# 		loopflag = 'True'+str(call.from_user.id)
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		stop_btn = "stop_parser"+str(call.from_user.id)
 		stop_kb = InlineKeyboardMarkup()
 		stop_kb.add(InlineKeyboardButton(text="❌ Остановить парсер", callback_data=stop_btn))
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		global iy
-		iy = 0
-		while self.loopflag:	
+		global loopflag
+		loopflag = True
+		while loopflag:
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if int(length) == total_adv or iy == 20:
+				if int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
@@ -58,8 +59,6 @@ class DynamicLoading(object):
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 					await state.finish()
 					return await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
-# 					self.loopflag == False
-# 					break
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
 					if length[-1] == "1" and length != "11":
