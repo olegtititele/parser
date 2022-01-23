@@ -32,7 +32,7 @@ class BolhaSI(object):
 		while self.loop:
 			self.page += 1
 			if self.err_num >= 3:
-				return False
+				return self.loopflag = False
 			if "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
 				print(page_link)
