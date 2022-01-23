@@ -19,6 +19,7 @@ from keyboards import *
 from datetime import datetime, timedelta
 import threading, time, sys
 from threading import *
+from multiprocessing import Process
 from create_bot import dp, bot
 from handlers.dynamicload import DynamicLoading
 logging.basicConfig(level=logging.INFO)
@@ -312,25 +313,11 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # BOLHA.COM
 	if platform == "bolha.com":
 		dyn_load = DynamicLoading()
-# 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-# 		thread_pars = Thread(target=bolha.generate_link)
-# 		thread_pars = Thread(target=await dyn_load.start_loop(call, state))
-		loop = asyncio.new_event_loop()
-		asyncio.set_event_loop(loop)
+		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
+		thread_pars = Thread(target=bolha.generate_link)
 		if call.data == 'start_pars':
-			await call.message.edit_text(text="⌛️ Поиск объявлений начался. Это займет несколько минут.", parse_mode=types.ParseMode.HTML)
-			try:
-				return loop.run_until_complete(await dyn_load.start_loop(call, state))
-			finally:
-				loop.close()
-				asyncio.set_event_loop(None)
-# 			thread_pars.start()
-# 			asyncio.create_task(await dyn_load.start_loop(call, state))
-
-		elif call.data == "stop_parser"+str(call.from_user.id):
-# 			bolha.stop_pars()
-			return loop.run_until_complete(await dyn_load.stop_loop(call, state))
-# 			await dyn_load.stop_loop(call, state)
+			thread_pars.start()
+			await dyn_load.start_loop(call, state)
 
 
 # BAZAR.LU
