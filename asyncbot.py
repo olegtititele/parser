@@ -320,7 +320,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # 			thread_pars.start()
 			await dyn_load.start_loop(call, state)
 
-		elif call.data == "stop_parser":
+		elif call.data == "stop_parser"+str(call.from_user.id):
 			print("Вышел")
 # 			dyn_load.loopflag = False
 # 			return
