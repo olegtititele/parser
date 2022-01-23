@@ -26,10 +26,10 @@ class BolhaSI(object):
 		self.page = 0
 		self.err_num = 0
 		self.db = SQLighter()
-		self.loop= True
+		self.loopflag= True
 
 	def generate_link(self):
-		while self.loop:
+		while self.loopflag:
 			self.page += 1
 			if self.err_num >= 3:
 				self.loopflag = False
@@ -51,19 +51,15 @@ class BolhaSI(object):
 			ads_link_block = html.find_all("h3", class_="entity-title")
 			for ads in ads_link_block:
 				adv_url = "https://www.bolha.com" + ads.find("a", class_="link")['href']
-				if self.loop == True:
-					if self.ann_cnd < (int(self.announ_count)):
-						if(not self.db.check_advestisement(self.user_id, adv_url)):
-							print(adv_url)
-							self.start_pars2(adv_url)
-						else:
-							pass
+				if self.ann_cnd < (int(self.announ_count)):
+					if(not self.db.check_advestisement(self.user_id, adv_url)):
+						print(adv_url)
+						self.start_pars2(adv_url)
 					else:
-						self.loopflag = False
-						return self.loopflag
+						pass
 				else:
 					self.loopflag = False
-					return self.loopflag	
+					return self.loopflag
 
 
 		except IndexError as e :
