@@ -27,17 +27,17 @@ logging.basicConfig(level=logging.INFO)
 # dp = Dispatcher(bot, storage=MemoryStorage())
 
 db = SQLighter()
+dyn_load = DynamicLoading()
+# class Timer:
+# 	stop = False
 
-class Timer:
-	stop = False
-
-	async def start(self):
-		ii = 0
-		while not self.stop:
-			ii += 1
-			print(ii)
-			time.sleep(1)
-		return ii
+# 	async def start(self):
+# 		ii = 0
+# 		while not self.stop:
+# 			ii += 1
+# 			print(ii)
+# 			time.sleep(1)
+# 		return ii
 
 # States
 class Form(StatesGroup):
@@ -312,7 +312,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # BOLHA.COM
 	if platform == "bolha.com":
 # 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-		dyn_load = DynamicLoading()
+		
 # 		thread_pars = Thread(target=bolha.generate_link)
 # 		thread_pars = Thread(target=await dyn_load.start_loop(call, state))
 		if call.data == 'start_pars':
