@@ -47,9 +47,7 @@ class DynamicLoading(object):
 				print('True'+str(call.from_user.id))
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
-				if loopflag == 'False'+str(call.from_user.id):
-					break
-				elif int(length) == total_adv:
+				if int(length) == total_adv:
 					if length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
