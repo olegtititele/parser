@@ -32,7 +32,6 @@ class GumtreeCoZa(object):
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
-		self.options.add_argument("window-size=1200x600")
 		self.options.add_argument("--headless")
 		self.options.add_argument("--no-sandbox")
 		self.options.add_argument("--disable-dev-shm-usage")
