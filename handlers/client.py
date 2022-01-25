@@ -99,7 +99,7 @@ async def update_subscriber_time(message: types.Message):
 # Получить ID пользователя
 async def get_user_id(message: types.Message):
 	try:
-		username = message.get_args().split("@")[1]
+		username = message.get_args().split("@")[0]
 		if username:
 			user_id = db.get_user_id(username)
 			await bot.send_message(
