@@ -557,6 +557,7 @@ class SQLighter:
 				k = d[2].split(".")
 				return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
 			except Exception as e:
+				print(e)
 				time = a.split(".")
 				print(time)
 				return datetime(int(time[2]), int(time[1]), int(time[0]))
@@ -573,6 +574,8 @@ class SQLighter:
 					)
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.get_subscriber_time(country, user_id)
+			else:
+				pass
 			raise e
 
 
