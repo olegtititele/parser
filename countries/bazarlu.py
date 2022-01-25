@@ -28,7 +28,6 @@ class BazarLu(object):
 		self.ann_cnd = 0
 		self.page = 1
 		self.err_num = 0
-		self.loopflag = True
 		self.db = SQLighter()
 		self.options = webdriver.ChromeOptions()
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -38,7 +37,7 @@ class BazarLu(object):
 	def get_parameters(self):
 		self.ann_cnd = 0
 		self.page = 1
-		while self.loopflag:
+		while True:
 			self.driver.get(self.link)
 			element = self.driver.find_elements(By.CLASS_NAME, "annonces_entry_link")
 			self.start_pars(element)
@@ -47,7 +46,6 @@ class BazarLu(object):
 		try:
 			for el in element:
 				if self.err_num >= 3:
-					self.loopflag = False
 					return self.loopflag
 				if self.ann_cnd < (int(self.announ_count)):
 					self.err_num = 0
@@ -123,7 +121,6 @@ class BazarLu(object):
 					else:
 						pass		
 				else:
-					self.loopflag = False
 					return False
 
 		except IndexError as e:
@@ -136,7 +133,6 @@ class BazarLu(object):
 			except Exception:
 				self.err_num +=1
 		else:
-			self.loopflag = False
 			return False
 
 
@@ -178,5 +174,4 @@ class BazarLu(object):
 			element = self.driver.find_elements(By.CLASS_NAME, "annonces_entry_link")
 			self.start_pars(element)
 		except Exception:
-			self.loopflag = False
 			return False
