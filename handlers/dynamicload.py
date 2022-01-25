@@ -15,6 +15,7 @@ class DynamicLoading(object):
 	async def start_loop(self, country_pars, call, state: FSMContext):
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
+		await state.finish()	
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
 		while True:
 			for i in coursor:
@@ -27,7 +28,6 @@ class DynamicLoading(object):
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявления из "+ str(total_adv) + "</b>"
 					elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
-					await state.finish()
 					await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 					return False
 				else:
