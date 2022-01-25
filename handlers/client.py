@@ -102,7 +102,7 @@ async def update_subscriber_time(message: types.Message):
 async def get_user_id(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
 		try:
-			username = message.get_args().split("@")[0]
+			username = message.get_args().split("@")
 			print(username)
 # 			if username:
 # 				user_id = db.get_user_id(username)
