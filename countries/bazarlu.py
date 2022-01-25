@@ -124,7 +124,7 @@ class BazarLu(object):
 						pass		
 				else:
 					self.loopflag = False
-					return self.loopflag
+					return False
 
 		except IndexError as e:
 			print(repr(e))
@@ -137,7 +137,7 @@ class BazarLu(object):
 				self.err_num +=1
 		else:
 			self.loopflag = False
-			return self.loopflag
+			return False
 
 
 	def check_seller_ads(self, adv_name, price, adv_reg_time, adv_link, location, image, seller_name, phone_number, seller_adv):
@@ -179,4 +179,4 @@ class BazarLu(object):
 			self.start_pars(element)
 		except Exception:
 			self.loopflag = False
-			return self.loopflag
+			return False
