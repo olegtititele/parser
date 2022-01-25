@@ -66,7 +66,9 @@ class GumtreeCoZa(object):
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
+							print("tyt")
 							self.driver.get(adv_link)
+							print("Неа")
 							self.check_number(adv_link)
 						else:
 							pass	
