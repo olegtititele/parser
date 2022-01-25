@@ -37,7 +37,7 @@ class GumtreeCoZa(object):
 		self.options.add_argument("--no-sandbox")
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
-		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver.exe")
+		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 
 
 	def generate_link(self):
