@@ -11,7 +11,7 @@ class SQLighter:
 			port=self.db[1],
 			user=self.db[2],
 			passwd=self.db[3],
-			database='testdb',
+			database='parsdb',
 			)
 		self.adv_cursor = self.adv_mydb.cursor(buffered=True)
 		self.user_mydb = mysql.connector.connect(
