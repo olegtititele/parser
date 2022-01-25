@@ -26,13 +26,11 @@ class BolhaSI(object):
 		self.page = 0
 		self.err_num = 0
 		self.db = SQLighter()
-		self.loopflag= True
 
 	def generate_link(self):
-		while self.loopflag:
+		while True:
 			self.page += 1
 			if self.err_num >= 3:
-				self.loopflag = False
 				return False
 			elif "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
@@ -58,7 +56,6 @@ class BolhaSI(object):
 					else:
 						pass
 				else:
-					self.loopflag = False
 					return False
 
 
