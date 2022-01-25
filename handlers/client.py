@@ -102,19 +102,19 @@ async def update_subscriber_time(message: types.Message):
 async def get_user_id(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
 		try:
-			username = message.get_args().split("@")
+			username = message.get_args().split("@")[1]
 			print(username)
-# 			if username:
+			if username:
 # 				user_id = db.get_user_id(username)
-# 				await bot.send_message(
-# 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
-# 					text=f"<b>🔑 ID пользователя @</b>{username}<b> — </b><code>{user_id}</code>",
-# 					parse_mode=types.ParseMode.HTML)
-# 			else:
-# 				await bot.send_message(
-# 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
-# 					text="♻️<b>Введите команду корректно</b>",
-# 					parse_mode=types.ParseMode.HTML)
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text=f"<b>🔑 ID пользователя @</b>{username}<b> — </b><code>{user_id}</code>",
+					parse_mode=types.ParseMode.HTML)
+			else:
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text="♻️<b>Введите команду корректно</b>",
+					parse_mode=types.ParseMode.HTML)
 		except Exception as e:
 			await bot.send_message(
 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
