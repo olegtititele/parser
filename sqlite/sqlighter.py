@@ -63,11 +63,10 @@ class SQLighter:
 				return self.add_user(user_id, username)
 			raise e
 
-# self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE `user_id` = %s", (country, user_id,))
-# 			sub_time = self.countriessub_cursor.fetchone()
-	def get_user_id(self, user_id):
+
+	def get_user_id(self, username):
 		try:
-			self.user_cursor.execute("SELECT * FROM users WHERE `user_id` = %s", (user_id, ))
+			self.user_cursor.execute("SELECT * FROM users WHERE `username` = %s", (username, ))
 			data = self.user_cursor.fetchone()
 			return data[1]
 		except Exception as e:
@@ -80,7 +79,7 @@ class SQLighter:
 					database='usersdb',
 					)
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
-				return self.add_user(user_id, username)
+				return self.get_user_id(username)
 			raise e			
 
 
