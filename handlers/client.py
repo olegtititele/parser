@@ -3,6 +3,7 @@ import config.config as cf
 from create_bot import dp, bot
 from aiogram import executor, types, Dispatcher
 from keyboards import *
+from datetime import datetime, timedelta
 
 db = SQLighter()
 
@@ -78,8 +79,9 @@ async def update_subscriber_time(message: types.Message):
 			arguments = message.get_args()
 			if arguments:
 				user_id = arguments.split(":")[0]
-				new_date = arguments.split(":")[1].split(".")
-				new_datetime = datetime(int(new_date[2]), int(new_date[1]), int(new_date[0]))
+				new_date = arguments.split(":")[1]
+				date = new_date.split(".")
+				new_datetime = datetime(int(date[2]), int(date[1]), int(date[0]))
 				country = arguments.split(":")[2]
 				db.update_subsc_time(user_id, new_datetime, country)
 				await bot.send_message(
