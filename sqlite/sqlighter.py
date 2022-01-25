@@ -38,37 +38,38 @@ from datetime import datetime, timedelta
 class SQLighter:
 
 	def __init__(self):
-		self.db = ['92.53.88.82', '6033', 'bluefasick', 'QUq8oHutp2Qk']
+		self.db = ['localhost','root', '1916Nikita565.']
+		"""Подключаемся к БД"""
 		self.adv_mydb = mysql.connector.connect(
 			host=self.db[0],
-			port=self.db[1],
-			user=self.db[2],
-			passwd=self.db[3],
-			database='parsdb',
+			# port=self.db[1],
+			user=self.db[1],
+			passwd=self.db[2],
+			database='testdb',
 			)
 		self.adv_cursor = self.adv_mydb.cursor(buffered=True)
 		self.user_mydb = mysql.connector.connect(
 			host=self.db[0],
-			port=self.db[1],
-			user=self.db[2],
-			passwd=self.db[3],
-			database='usersdb',
+			# port=self.db[1],
+			user=self.db[1],
+			passwd=self.db[2],
+			database='users',
 			)
 		self.user_cursor = self.user_mydb.cursor(buffered=True)
 		self.hash_mydb = mysql.connector.connect(
 			host=self.db[0],
-			port=self.db[1],
-			user=self.db[2],
-			passwd=self.db[3],
-			database='hashdb',
+			# port=self.db[1],
+			user=self.db[1],
+			passwd=self.db[2],
+			database='hash',
 			)
 		self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 		self.countriessub_mydb = mysql.connector.connect(
 			host=self.db[0],
-			port=self.db[1],
-			user=self.db[2],
-			passwd=self.db[3],
-			database='subscriptions',
+			# port=self.db[1],
+			user=self.db[1],
+			passwd=self.db[2],
+			database='countries_subscribers',
 			)
 		self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 
@@ -95,6 +96,27 @@ class SQLighter:
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.add_user(user_id, username)
 			raise e
+
+# self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE `user_id` = %s", (country, user_id,))
+# 			sub_time = self.countriessub_cursor.fetchone()
+	def get_user_id(self, user_id):
+		try:
+			self.user_cursor.execute("SELECT * FROM users WHERE `user_id` = %s", (user_id, ))
+			data = self.user_cursor.fetchone()
+			return data[1]
+		except Exception as e:
+			if e.errno == 2055 or e.errno == 2013:
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.add_user(user_id, username)
+			raise e			
+
 
 	def check_user(self, user_id):
 		try:
@@ -563,11 +585,16 @@ class SQLighter:
 			self.countriessub_cursor.execute("SELECT time_until FROM `%s` WHERE `user_id` = %s", (country, user_id,))
 			sub_time = self.countriessub_cursor.fetchone()
 			a = sub_time[0]
-			b = a.split("-")
-			c = b[2].split(" ")
-			d = c[1].split(":")
-			k = d[2].split(".")
-			return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
+			try:
+				b = a.split("-")
+				c = b[2].split(" ")
+				d = c[1].split(":")
+				k = d[2].split(".")
+				return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
+			except Exception as e:
+				time = a.split(".")
+				return datetime(int(time[0]), int(time[1]), int(time[2]))
+
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				print("popa4ka")
@@ -600,4 +627,49 @@ class SQLighter:
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.update_subsc_time(user_id, time_until, country)
 			raise e
+
+	# def drop_drop(self, country):
+	# 	try:
+	# 		self.countriessub_cursor.execute("TRUNCATE TABLE `%s`", (country, ))
+	# 		self.countriessub_mydb.commit()
+	# 	except Exception as e:
+	# 		if e.errno == 2055 or e.errno == 2013:
+	# 			print("popa4ka")
+	# 			self.adv_mydb = mysql.connector.connect(
+	# 				host=self.db[0],
+	# 				port=self.db[1],
+	# 				user=self.db[2],
+	# 				passwd=self.db[3],
+	# 				database='parsdb',
+	# 				)
+	# 			self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
+	# 			return self.update_subsc_time(user_id, time_until, country)
+	# 		raise e
+
+
+if __name__ == '__main__':
+	sq = SQLighter()
+	# sq.create_users_table()
+	# sq.create_users_db()
+	# sq.delete_users_subsc_database()
+	# sq.clear_sub_data("bazar.lu")
+	# sq.create_countries_sub()
+	# print(sq.check_subscriber("bolha.com", 2029023685))
+	sq.create_countries_sub_table("gumtree.co.za")
+	# sq.delete_users_subsc_database('countri1es_subscribers')
+	# sq.create_countries_sub_table("bazar.lu")
+	# sq.delete_users_table('users')
+	# sq.create_users_table()
+	# sq.clear_hash_data(2029023685)
+	# sq.clear_advestisement(2029023685)
+	# sq.add_temporary_params(2029023685, "bolha.si", 'https://www.bolha.com/index.php?ctl=search_ads&keywords=apple', '25', 'нет', '21.03.2015', 'нет', 'нет')
+	# sq.create_temporary_params_table(2029023685)
+	# sq.delete_users_table('usersdb')
+	# sq.delete_table(2029023685)
+	# sq.delete_hash_table(2029023685)
+	# sq.delete_temporary_params_table(2029023685)
+	# sq.create_users_table()
+	# sq.get_advertisement_data(2029023685, "bolha.com")
+	# for i in sq.get_advertisement_data(2029023685):
+	# 	if i[0] == "bolha.com":
 
