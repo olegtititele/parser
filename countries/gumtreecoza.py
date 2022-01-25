@@ -96,6 +96,7 @@ class GumtreeCoZa(object):
 	
 	def pars_adv_info(self, adv_link, phone_number):
 		try:
+			print("dada")
 			self.num_err = 0
 			r = requests.get(adv_link)
 			html = BS(r.content, 'lxml')
