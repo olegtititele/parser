@@ -32,6 +32,7 @@ class GumtreeCoZa(object):
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
+# 		self.options.add_argument("window-size=1200x600")
 		self.options.add_argument("--headless")
 		self.options.add_argument("--no-sandbox")
 		self.options.add_argument("--disable-dev-shm-usage")
@@ -48,7 +49,7 @@ class GumtreeCoZa(object):
 			else:
 				page_link = self.link[:self.index]
 				self.start_pars(page_link)
-				return False
+				return self.loopflag
 
 	def start_pars(self, page_link):
 		while self.loopflag:
@@ -60,15 +61,13 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
-					print(adv_link)
 					if self.num_err >= 3:
 						self.loopflag = False
-						return False
+						return self.loopflag
 					elif self.ann_cnd < (int(self.announ_count)):
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
-							print("tyt")
+							print("fff")
 							self.driver.get(adv_link)
-							print("Неа")
 							self.check_number(adv_link)
 						else:
 							pass	
@@ -86,10 +85,11 @@ class GumtreeCoZa(object):
 			if self.repeated_number.lower() == 'да':
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
+				print(";txm")
 				if(not self.db.get_tel_num(self.user_id, phone_number)):
-					print(phone_number)
 					self.pars_adv_info(adv_link, phone_number)
 				else:
+					print("[[[[[")
 					pass
 
 		except Exception as e:
@@ -99,7 +99,6 @@ class GumtreeCoZa(object):
 	def pars_adv_info(self, adv_link, phone_number):
 		try:
 			print("dada")
-			self.num_err = 0
 			r = requests.get(adv_link)
 			html = BS(r.content, 'lxml')
 			# Название объявления
