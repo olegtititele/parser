@@ -60,6 +60,7 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
+					print(adv_link)
 					if self.num_err >= 3:
 						self.loopflag = False
 						return False
@@ -84,6 +85,7 @@ class GumtreeCoZa(object):
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
 				if(not self.db.get_tel_num(self.user_id, phone_number)):
+					print(phone_number)
 					self.pars_adv_info(adv_link, phone_number)
 				else:
 					pass
