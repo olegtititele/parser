@@ -558,7 +558,8 @@ class SQLighter:
 				return datetime(int(b[0]), int(b[1]), int(c[0]), int(d[0]), int(d[1]), int(k[0]), int(k[1]))
 			except Exception as e:
 				time = a.split(".")
-				return datetime(int(time[0]), int(time[1]), int(time[2]))
+				print(time)
+# 				return datetime(int(time[0]), int(time[1]), int(time[2]))
 
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
