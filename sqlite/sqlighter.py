@@ -1,75 +1,41 @@
 import mysql.connector
 from datetime import datetime, timedelta
 
-# self.db = ['localhost','root', '1916Nikita565.']
-# 		"""Подключаемся к БД"""
-# 		self.adv_mydb = mysql.connector.connect(
-# 			host=self.db[0],
-# 			# port=self.db[1],
-# 			user=self.db[1],
-# 			passwd=self.db[2],
-# 			database='testdb',
-# 			)
-# 		self.adv_cursor = self.adv_mydb.cursor(buffered=True)
-# 		self.user_mydb = mysql.connector.connect(
-# 			host=self.db[0],
-# 			# port=self.db[1],
-# 			user=self.db[1],
-# 			passwd=self.db[2],
-# 			database='users',
-# 			)
-# 		self.user_cursor = self.user_mydb.cursor(buffered=True)
-# 		self.hash_mydb = mysql.connector.connect(
-# 			host=self.db[0],
-# 			# port=self.db[1],
-# 			user=self.db[1],
-# 			passwd=self.db[2],
-# 			database='hash',
-# 			)
-# 		self.hash_cursor = self.hash_mydb.cursor(buffered=True)
-# 		self.countriessub_mydb = mysql.connector.connect(
-# 			host=self.db[0],
-# 			# port=self.db[1],
-# 			user=self.db[1],
-# 			passwd=self.db[2],
-# 			database='countries_subscribers',
-# 			)
-# 		self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 class SQLighter:
 
 	def __init__(self):
-		self.db = ['localhost','root', '1916Nikita565.']
+		self.db = ['92.53.88.82', '6033', 'bluefasick', 'B32VrhD5SPby']
 		"""Подключаемся к БД"""
 		self.adv_mydb = mysql.connector.connect(
 			host=self.db[0],
-			# port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
+			port=self.db[1],
+			user=self.db[2],
+			passwd=self.db[3],
 			database='testdb',
 			)
 		self.adv_cursor = self.adv_mydb.cursor(buffered=True)
 		self.user_mydb = mysql.connector.connect(
 			host=self.db[0],
-			# port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
-			database='users',
+			port=self.db[1],
+			user=self.db[2],
+			passwd=self.db[3],
+			database='usersdb',
 			)
 		self.user_cursor = self.user_mydb.cursor(buffered=True)
 		self.hash_mydb = mysql.connector.connect(
 			host=self.db[0],
-			# port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
-			database='hash',
+			port=self.db[1],
+			user=self.db[2],
+			passwd=self.db[3],
+			database='hashdb',
 			)
 		self.hash_cursor = self.hash_mydb.cursor(buffered=True)
 		self.countriessub_mydb = mysql.connector.connect(
 			host=self.db[0],
-			# port=self.db[1],
-			user=self.db[1],
-			passwd=self.db[2],
-			database='countries_subscribers',
+			port=self.db[1],
+			user=self.db[2],
+			passwd=self.db[3],
+			database='subscriptions',
 			)
 		self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 
