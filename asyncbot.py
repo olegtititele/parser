@@ -216,7 +216,7 @@ async def process_callback_button1(call: types.CallbackQuery, state: FSMContext)
 		for cnt in cf.COUNTRIES_SITES[key]:
 			for pr in cf.PRICES:
 				if call.data == cnt + str(cf.PRICES[pr]):
-					new_date = db.get_subscriber_time(cnt, call.from_user.id) + timedelta(days=cf.PRICES[pr])
+					new_date = datetime.now() + timedelta(days=cf.PRICES[pr])
 					db.update_subsc_time(call.from_user.id, new_date, cnt)
 					if cf.PRICES[pr] == 1:
 						line = '<b>🔑 Вы преобрели подписку на </b><b>'+ str(cf.PRICES[pr]) +'</b> <b>день.</b>'
