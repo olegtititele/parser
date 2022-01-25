@@ -49,7 +49,7 @@ class GumtreeCoZa(object):
 			else:
 				page_link = self.link[:self.index]
 				self.start_pars(page_link)
-				return self.loopflag
+				return False
 
 	def start_pars(self, page_link):
 		while self.loopflag:
@@ -63,7 +63,7 @@ class GumtreeCoZa(object):
 					adv_link = "https://www.gumtree.co.za" + alb['href']
 					if self.num_err >= 3:
 						self.loopflag = False
-						return self.loopflag
+						return False
 					elif self.ann_cnd < (int(self.announ_count)):
 						if(not self.db.check_advestisement(self.user_id, adv_url)):
 							self.driver.get(adv_link)
@@ -95,6 +95,7 @@ class GumtreeCoZa(object):
 	
 	def pars_adv_info(self, adv_link, phone_number):
 		try:
+			self.num_err = 0
 			r = requests.get(adv_link)
 			html = BS(r.content, 'lxml')
 			# Название объявления
