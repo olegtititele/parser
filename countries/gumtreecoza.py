@@ -64,7 +64,7 @@ class GumtreeCoZa(object):
 						self.loopflag = False
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
-						if(not self.db.check_advestisement(self.user_id, adv_url)):
+						if(not self.db.check_advestisement(self.user_id, adv_link)):
 							self.driver.get(adv_link)
 							self.check_number(adv_link)
 						else:
@@ -83,7 +83,7 @@ class GumtreeCoZa(object):
 			if self.repeated_number.lower() == 'да':
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
-				if(not self.db.get_tel_num(self.user_id, tel_number)):
+				if(not self.db.get_tel_num(self.user_id, phone_number)):
 					self.pars_adv_info(adv_link, phone_number)
 				else:
 					pass
@@ -206,7 +206,3 @@ class GumtreeCoZa(object):
 				self.db.add_hash_advertisement(self.user_id, self.platform, adv_title, adv_price, adv_reg, adv_link, adv_location, adv_image, seller_name, phone_number, seller_total_ads, seller_reg, adv_business)
 			else:
 				pass
-
-if __name__ == '__main__':
-	gumtreecoza = GumtreeCoZa(2029023685, 'gumtree.co.za',"https://www.gumtree.co.za/s-iphone/v1c9420p1", '3', 'нет', 'нет', 'нет', 'нет', 'нет')
-	gumtreecoza.generate_link()
