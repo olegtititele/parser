@@ -14,6 +14,7 @@ from sqlite.sqlighter import SQLighter
 import config.config as cf
 from countries.bolhasi import BolhaSI
 from countries.bazarlu import BazarLu
+from countries.gumtreecoza import GumtreeCoZa
 from keyboards import *
 
 from datetime import datetime, timedelta
@@ -321,6 +322,16 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 			thread_pars.start()
 			await dyn_load.start_loop(bazar, call, state)
 			thread_pars.join()
+
+# GUMTREE.CO.ZA
+	elif platform == "gumtree.co.za":
+		dyn_load = DynamicLoading()
+		gumtreecoza = GumtreeCoZa(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
+		thread_pars = Thread(target=bazar.get_parameters)
+		if call.data == 'start_pars':
+			thread_pars.start()
+			await dyn_load.start_loop(gumtreecoza, call, state)
+			thread_pars.join()			
 
 
 async def create_price_keyboard(call, platform):
