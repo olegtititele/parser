@@ -12,14 +12,11 @@ from create_bot import dp, bot
 import time
 
 class DynamicLoading(object):
-	def __init__(self):
-		self.loopflag = True
-
 	async def start_loop(self, country_pars, call, state: FSMContext):
 		async with state.proxy() as data:
 			total_adv = data['adv_count']
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		while self.loopflag:
+		while True:
 			for i in coursor:
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
@@ -32,8 +29,7 @@ class DynamicLoading(object):
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
 					await state.finish()
 					await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
-					self.loopflag = False
-					return self.loopflag
+					return False
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
 					if length[-1] == "1" and length != "11":
