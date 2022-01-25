@@ -78,9 +78,10 @@ async def update_subscriber_time(message: types.Message):
 			arguments = message.get_args()
 			if arguments:
 				user_id = arguments.split(":")[0]
-				new_date = arguments.split(":")[1]
+				new_date = arguments.split(":")[1].split(".")
+				new_datetime = datetime(int(new_date[2]), int(new_date[1]), int(new_date[0]))
 				country = arguments.split(":")[2]
-				db.update_subsc_time(user_id, new_date, country)
+				db.update_subsc_time(user_id, new_datetime, country)
 				await bot.send_message(
 						chat_id=cf.ADMIN_LOGS_CHAT_ID,
 						text=f"<b>✨Подписка обновлена\n\nID пользователя: </b><code>{user_id}</code>\n\n<b>Страна: </b><code>{country}</code>\n\n<b>До: </b><code>{new_date}</code>",
