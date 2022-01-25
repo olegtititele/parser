@@ -245,7 +245,9 @@ async def process_callback_button1(call: types.CallbackQuery, state: FSMContext)
 					if usl[0] == "bolha.com":
 						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
 					elif usl[0] == "bazar.lu":
-						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo,%20ich%20möchte%20das%20kaufen.%20In%20guter%20Kondition?%20{usl[4]}">🟢 WhatsApp</a>'
+						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
+					elif usl[0] == "gumtree.co.za":
+						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'	
 					viber_number = usl[8].split("+")[1].replace(' ', '')
 					adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 					image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
@@ -262,7 +264,9 @@ async def process_callback_button1(call: types.CallbackQuery, state: FSMContext)
 			if usl[0] == "bolha.com":
 				whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
 			elif usl[0] == "bazar.lu":
-				whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo,%20ich%20möchte%20das%20kaufen.%20In%20guter%20Kondition?%20{usl[4]}">🟢 WhatsApp</a>'
+				whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
+			elif usl[0] == "gumtree.co.za":
+						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'		
 			viber_number = usl[8].split("+")[1].replace(' ', '')
 			adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 			image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
@@ -331,11 +335,13 @@ async def choose_user_link(call, platform):
 	if platform == "bolha.com":
 		country_url = 'https://www.bolha.com/avdio-in-video'
 		line = "🖌<b>Введите вашу ссылку с категорией или ключевое слово</b>\n"+"\n<i>Пример ссылки: </i>"+country_url+"\n\n<i>Пример слова:</i> <b>apple</b>\n\n<i>Чтобы вернуться в меню введите</i> /exit"
-		return line
 	elif platform == "bazar.lu":
 		country_url = 'https://www.bazar.lu/Scripts/sql.exe?SqlDB=bazar&Sql=Search.phs&category=30'
 		line = "🖌<b>Введите вашу ссылку с категорией</b>\n"+"\n<i>Пример ссылки: </i>"+country_url+"\n\n<i>Чтобы вернуться в меню введите</i> /exit"
-		return line
+	elif platform == "gumtree.co.za":
+		country_url = 'https://www.gumtree.co.za/s-iphone/v1c9420p1'
+		line = "🖌<b>Введите вашу ссылку с категорией</b>\n"+"\n<i>Пример ссылки: </i>"+country_url+" <i>(в конце обязательно должно быть ""p1"")</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit"
+	return line	
 
 
 if __name__ == '__main__':
