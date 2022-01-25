@@ -75,6 +75,7 @@ class BazarLu(object):
 							adv_name = "Не указано"
 
 						adv_reg_time = html.find("div", class_="annonce_entry_top_date").text.split(" ")[0].translate(dict.fromkeys(map(ord, whitespace))).replace("/",".")
+						print(adv_reg_time)
 						adv_data = dt.datetime.strptime(adv_reg_time, '%d.%m.%Y')
 						image_link_block = html.find("img", id="annonce_entry_image_pic_image")['src']
 
