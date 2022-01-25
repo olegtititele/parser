@@ -95,27 +95,32 @@ async def update_subscriber_time(message: types.Message):
 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
 					text="♻️<b>Введите команду корректно</b>",
 					parse_mode=types.ParseMode.HTML)
+	else:
+		pass		
 
 # Получить ID пользователя
 async def get_user_id(message: types.Message):
-	try:
-		username = message.get_args().split("@")[0]
-		if username:
-			user_id = db.get_user_id(username)
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
+		try:
+			username = message.get_args().split("@")[0]
+			if username:
+				user_id = db.get_user_id(username)
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text=f"<b>🔑 ID пользователя @</b>{username}<b> — </b><code>{user_id}</code>",
+					parse_mode=types.ParseMode.HTML)
+			else:
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text="♻️<b>Введите команду корректно</b>",
+					parse_mode=types.ParseMode.HTML)
+		except Exception as e:
 			await bot.send_message(
-				chat_id=cf.ADMIN_LOGS_CHAT_ID,
-				text=f"<b>🔑 ID пользователя @</b>{username}<b> — </b><code>{user_id}</code>",
-				parse_mode=types.ParseMode.HTML)
-		else:
-			await bot.send_message(
-				chat_id=cf.ADMIN_LOGS_CHAT_ID,
-				text="♻️<b>Введите команду корректно</b>",
-				parse_mode=types.ParseMode.HTML)
-	except Exception as e:
-		await bot.send_message(
-				chat_id=cf.ADMIN_LOGS_CHAT_ID,
-				text="♻️<b>Введите команду корректно</b>",
-				parse_mode=types.ParseMode.HTML)			
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text="♻️<b>Введите команду корректно</b>",
+					parse_mode=types.ParseMode.HTML)
+	else:
+		pass		
 
 	
 def register_handlers_client(dp : Dispatcher):
