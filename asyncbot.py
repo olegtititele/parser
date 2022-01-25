@@ -204,6 +204,7 @@ async def process_callback_button1(call: types.CallbackQuery, state: FSMContext)
 					db.add_subscriber(cnt, call.from_user.id)
 					await create_price_keyboard(call, cnt)
 				else:
+					print(db.get_subscriber_time(cnt, call.from_user.id), datetime.now())
 					if db.get_subscriber_time(cnt, call.from_user.id) <= datetime.now():
 						await create_price_keyboard(call, cnt)
 					else:
