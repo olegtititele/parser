@@ -327,7 +327,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 	elif platform == "gumtree.co.za":
 		dyn_load = DynamicLoading()
 		gumtreecoza = GumtreeCoZa(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
-		thread_pars = Thread(target=gumtreecoza.get_parameters)
+		thread_pars = Thread(target=gumtreecoza.generate_link)
 		if call.data == 'start_pars':
 			thread_pars.start()
 			await dyn_load.start_loop(gumtreecoza, call, state)
