@@ -53,7 +53,7 @@ async def help_command(message: types.Message):
 		for key in cf.ADMIN_COMMANDS:
 			commands_text += "\n\n" + key + ' - ' + cf.ADMIN_COMMANDS[key]
 		await bot.send_message(
-			chat_id=message.from_user.id,
+			chat_id=cf.ADMIN_LOGS_CHAT_ID,
 			text="<b>🚀 Команды управления проектом: </b>"+commands_text,
 			parse_mode=types.ParseMode.HTML)
 	else:
@@ -64,7 +64,7 @@ async def help_command(message: types.Message):
 async def get_users_length(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
 		await bot.send_message(
-			chat_id=message.from_user.id,
+			chat_id=cf.ADMIN_LOGS_CHAT_ID,
 			text="Количество пользователей бота: " +str(db.get_users_length()),
 			parse_mode=types.ParseMode.HTML)
 	else:
@@ -82,17 +82,17 @@ async def update_subscriber_time(message: types.Message):
 				country = arguments.split(":")[2]
 				db.update_subsc_time(user_id, new_date, country)
 				await bot.send_message(
-						chat_id=message.from_user.id,
+						chat_id=cf.ADMIN_LOGS_CHAT_ID,
 						text=f"<b>✨Подписка обновлена\n\nID пользователя: </b><code>{user_id}</code>\n\n<b>Страна: </b><code>{country}</code>\n\n<b>До: </b><code>{new_date}</code>",
 						parse_mode=types.ParseMode.HTML)
 			else:
 				await bot.send_message(
-					chat_id=message.from_user.id,
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
 					text="♻️<b>Введите команду корректно</b>",
 					parse_mode=types.ParseMode.HTML)
 		except Exception as e:
 			await bot.send_message(
-					chat_id=message.from_user.id,
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
 					text="♻️<b>Введите команду корректно</b>",
 					parse_mode=types.ParseMode.HTML)
 
@@ -103,17 +103,17 @@ async def get_user_id(message: types.Message):
 		if username:
 			user_id = db.get_user_id(username)
 			await bot.send_message(
-				chat_id=message.from_user.id,
+				chat_id=cf.ADMIN_LOGS_CHAT_ID,
 				text=f"<b>🔑 ID пользователя @</b>{username}<b> — </b><code>{user_id}</code>",
 				parse_mode=types.ParseMode.HTML)
 		else:
 			await bot.send_message(
-				chat_id=message.from_user.id,
+				chat_id=cf.ADMIN_LOGS_CHAT_ID,
 				text="♻️<b>Введите команду корректно</b>",
 				parse_mode=types.ParseMode.HTML)
 	except Exception as e:
 		await bot.send_message(
-				chat_id=message.from_user.id,
+				chat_id=cf.ADMIN_LOGS_CHAT_ID,
 				text="♻️<b>Введите команду корректно</b>",
 				parse_mode=types.ParseMode.HTML)			
 
