@@ -32,7 +32,7 @@ class GumtreeCoZa(object):
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
-		self.options.add_argument("--window-size=1200,600")
+# 		self.options.add_argument("--window-size=1200,600")
 		self.options.add_argument("--headless")
 		self.options.add_argument('--no-sandbox')
 		self.options.add_argument("--disable-extensions")
@@ -40,7 +40,7 @@ class GumtreeCoZa(object):
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(chrome_options=self.options, executable_path="chromedriver")
-# 		self.driver.set_window_size(1920, 1080)
+		self.driver.set_window_size(1920, 1080)
 
 
 	def generate_link(self):
@@ -81,10 +81,8 @@ class GumtreeCoZa(object):
 
 	def check_number(self, adv_link):
 		try:
-			print("fff")
 			self.driver.get(adv_link)
-			print(self.repeated_number.lower(), type(self.repeated_number.lower()))
-			self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]').click()
+			self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
 			print(phone_number)
 			if self.repeated_number.lower() == 'да':
