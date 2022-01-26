@@ -72,7 +72,10 @@ class GumtreeCoZa(object):
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
 							self.check_number(adv_link)
 						else:
-							pass	
+							pass
+					else:
+						self.loopflag = False
+						return False
 
 			except IndexError as e :
 				print(e)
