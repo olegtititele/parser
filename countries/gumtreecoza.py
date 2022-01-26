@@ -65,16 +65,15 @@ class GumtreeCoZa(object):
 					print(adv_link)
 					self.driver.get(adv_link)
 					print(self.driver.title)
-# 					if self.num_err >= 3:
-# 						self.loopflag = False
-# 						return self.loopflag
-# 					elif self.ann_cnd < (int(self.announ_count)):
-# 						if(not self.db.check_advestisement(self.user_id, adv_link)):
-# 							print("fff")
-# 							self.driver.get(adv_link)
-# 							self.check_number(adv_link)
-# 						else:
-# 							pass	
+					if self.num_err >= 3:
+						self.loopflag = False
+						return self.loopflag
+					elif self.ann_cnd < (int(self.announ_count)):
+						if(not self.db.check_advestisement(self.user_id, adv_link)):
+							print("fff")
+							self.check_number(adv_link)
+						else:
+							pass	
 
 			except IndexError as e :
 				print(e)
@@ -84,6 +83,7 @@ class GumtreeCoZa(object):
 
 	def check_number(self, adv_link):
 		try:
+			self.driver.get(adv_link)
 			self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]').click()
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
 			if self.repeated_number.lower() == 'да':
