@@ -62,16 +62,19 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
-					if self.num_err >= 3:
-						self.loopflag = False
-						return self.loopflag
-					elif self.ann_cnd < (int(self.announ_count)):
-						if(not self.db.check_advestisement(self.user_id, adv_link)):
-							print("fff")
-							self.driver.get(adv_link)
-							self.check_number(adv_link)
-						else:
-							pass	
+					print(adv_link)
+					self.driver.get(adv_link)
+					print(self.driver.title)
+# 					if self.num_err >= 3:
+# 						self.loopflag = False
+# 						return self.loopflag
+# 					elif self.ann_cnd < (int(self.announ_count)):
+# 						if(not self.db.check_advestisement(self.user_id, adv_link)):
+# 							print("fff")
+# 							self.driver.get(adv_link)
+# 							self.check_number(adv_link)
+# 						else:
+# 							pass	
 
 			except IndexError as e :
 				print(e)
