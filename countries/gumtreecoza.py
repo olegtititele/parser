@@ -64,6 +64,7 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
+					print(adv_link)
 					if self.num_err >= 3:
 						self.loopflag = False
 						return False
@@ -83,6 +84,7 @@ class GumtreeCoZa(object):
 		try:
 			self.driver.get(adv_link)
 			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+			print("ssss")
 			element.click()
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
 			print(phone_number)
