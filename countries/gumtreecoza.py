@@ -49,7 +49,7 @@ class GumtreeCoZa(object):
 			else:
 				page_link = self.link[:self.index]
 				self.start_pars(page_link)
-				return self.loopflag
+				return False
 
 	def start_pars(self, page_link):
 		while self.loopflag:
