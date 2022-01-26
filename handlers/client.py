@@ -26,26 +26,15 @@ async def start_bot(message: types.Message):
 				text="<b>Пользоватеть "+ usname +" запустил бота. </b>",
 				parse_mode=types.ParseMode.HTML,
 				disable_web_page_preview=True)
-			await bot.send_message(
-				chat_id=message.from_user.id,
-				text="<b>Добро пожаловать, </b>"+usname,
-				parse_mode=types.ParseMode.HTML, 
-				reply_markup=start_pars_kb,
-				disable_web_page_preview=True)
+			await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 		else:
-			await bot.send_message(
-				chat_id=message.from_user.id,
-				text="<b>Добро пожаловать, </b>"+usname,
-				parse_mode=types.ParseMode.HTML, 
-				reply_markup=start_pars_kb,
-				disable_web_page_preview=True)
+			await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 	else:
 		news_channel = f'<a href="{cf.CHANNEL}">новостей</a>'
 		await bot.send_message(
 				chat_id=message.from_user.id,
 				text="🆘 <b>Вас нет в канале "+news_channel+". Вступите, чтобы пользоваться ботом.</b>",
-				parse_mode=types.ParseMode.HTML,
-				reply_markup=start_pars_kb)
+				parse_mode=types.ParseMode.HTML)
 
 # /help
 async def help_command(message: types.Message):
