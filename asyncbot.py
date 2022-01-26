@@ -26,7 +26,7 @@ from handlers.dynamicload import DynamicLoading
 logging.basicConfig(level=logging.INFO)
 
 db = SQLighter()
-
+photo = open('mainmenu.jpg', 'rb')
 # States
 class Form(StatesGroup):
 	country = State()
