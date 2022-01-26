@@ -25,7 +25,6 @@ async def echo(call: types.CallbackQuery):
 	if call.data == "parser_sites":
 		await bot.edit_message_caption(
 			chat_id=call.message.chat.id,
-			message_id=lastBotWordMessageId,
 			caption="<b>🌍 Выберите страну, где вы хотите найти объявления.</b>",
 			parse_mode=types.ParseMode.HTML, 
 			reply_markup=show_countries_kb
