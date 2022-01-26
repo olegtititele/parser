@@ -32,7 +32,7 @@ class GumtreeCoZa(object):
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
-# 		self.options.add_argument("--window-size=1200,600")
+		self.options.add_argument("--window-size=1200,600")
 		self.options.add_argument("--headless")
 		self.options.add_argument('--no-sandbox')
 		self.options.add_argument("--disable-extensions")
@@ -40,7 +40,7 @@ class GumtreeCoZa(object):
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-		self.driver.set_window_size(1920, 1080)
+# 		self.driver.set_window_size(1920, 1080)
 
 
 	def generate_link(self):
