@@ -146,12 +146,6 @@ class SQLighter:
 			raise e
 
 
-	# def clear_users_table(self, user_id):
-	# 	sql = "TRUNCATE TABLE `{}`".format(user_id)
-	# 	self.user_cursor.execute(sql)
-	# 	return
-
-
 
 # """Действия с основной бд"""
 
@@ -452,42 +446,6 @@ class SQLighter:
 			raise e
 
 
-	# def delete_table(self, tb_name):
-	# 	try:
-	# 		return self.adv_cursor.execute("DROP TABLE `%s`", (tb_name, ))
-	# 	except Exception as e:
-	# 		return		
-
-	# def delete_hash_table(self, tb_name):
-	# 	try:
-	# 		return self.hash_cursor.execute("DROP TABLE `%s`", (tb_name, ))
-	# 	except Exception as e:
-	# 		return	
-
-	# def delete_temporary_params_table(self, tb_name):
-	# 	sql = "DROP TABLE `{}`".format(tb_name)
-	# 	return self.temporaryparams_cursor.execute(sql)
-
-	# def delete_users_table(self, tb_name):
-	# 	try:
-	# 		sql = "DROP TABLE `%s`"
-	# 		return self.user_cursor.execute(sql, tb_name)
-	# 	except Exception as e:
-	# 		return	
-
-	# def delete_users_subsc_database(self, country):
-	# 	try:
-	# 		sql = "DROP DATABASE `{}`".format(country)
-	# 		return self.adv_cursor.execute(sql)
-	# 	except Exception as e:
-	# 		return	
-
-
-# bolhasi
-	# def create_countries_sub(self):
-	# 	db = "CREATE DATABASE `{}`".format('countries_subscribers')
-	# 	return self.adv_cursor.execute(db)
-
 	def create_countries_sub_table(self, country):
 		try:
 			return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
@@ -596,49 +554,3 @@ class SQLighter:
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.update_subsc_time(user_id, time_until, country)
 			raise e
-
-	# def drop_drop(self, country):
-	# 	try:
-	# 		self.countriessub_cursor.execute("TRUNCATE TABLE `%s`", (country, ))
-	# 		self.countriessub_mydb.commit()
-	# 	except Exception as e:
-	# 		if e.errno == 2055 or e.errno == 2013:
-	# 			print("popa4ka")
-	# 			self.adv_mydb = mysql.connector.connect(
-	# 				host=self.db[0],
-	# 				port=self.db[1],
-	# 				user=self.db[2],
-	# 				passwd=self.db[3],
-	# 				database='parsdb',
-	# 				)
-	# 			self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
-	# 			return self.update_subsc_time(user_id, time_until, country)
-	# 		raise e
-
-
-if __name__ == '__main__':
-	sq = SQLighter()
-	# sq.create_users_table()
-	# sq.create_users_db()
-	# sq.delete_users_subsc_database()
-	# sq.clear_sub_data("bazar.lu")
-	# sq.create_countries_sub()
-	# print(sq.check_subscriber("bolha.com", 2029023685))
-	sq.create_countries_sub_table("gumtree.co.za")
-	# sq.delete_users_subsc_database('countri1es_subscribers')
-	# sq.create_countries_sub_table("bazar.lu")
-	# sq.delete_users_table('users')
-	# sq.create_users_table()
-	# sq.clear_hash_data(2029023685)
-	# sq.clear_advestisement(2029023685)
-	# sq.add_temporary_params(2029023685, "bolha.si", 'https://www.bolha.com/index.php?ctl=search_ads&keywords=apple', '25', 'нет', '21.03.2015', 'нет', 'нет')
-	# sq.create_temporary_params_table(2029023685)
-	# sq.delete_users_table('usersdb')
-	# sq.delete_table(2029023685)
-	# sq.delete_hash_table(2029023685)
-	# sq.delete_temporary_params_table(2029023685)
-	# sq.create_users_table()
-	# sq.get_advertisement_data(2029023685, "bolha.com")
-	# for i in sq.get_advertisement_data(2029023685):
-	# 	if i[0] == "bolha.com":
-
