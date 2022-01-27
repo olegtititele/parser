@@ -13,6 +13,13 @@ main_kb.add(start_pars_btn)
 main_kb.add(popup_balance_btn)
 main_kb.add(settings_btn, info_btn)
 
+for key in cf.COUNTRIES_SITES:
+	for cnt in cf.COUNTRIES_SITES[key]:
+		show_sites_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+		item = types.InlineKeyboardButton(cnt, callback_data=cnt)
+		show_sites_kb.add(item)
+
+
 show_hash_btn = InlineKeyboardButton('✈️​​ Показать объявления 📃', callback_data='show_hash')
 clear_hash_btn = InlineKeyboardButton("🗑 Очистить кэш", callback_data='clear_hash')
 hash_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
