@@ -31,6 +31,11 @@ def check_sub_channel(chat_member):
 		return True
 	else:
 		return False
+	
+@dp.message_handler()
+async def back_button(message: types.Message):
+	if message.text == "🔙 Вернуться в меню":
+		await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 async def echo(call: types.CallbackQuery, state: FSMContext):
 	db = SQLighter()
@@ -120,7 +125,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 						adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 						image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
 						viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
-						await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML")
+						await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML", reply_markup=back_key_kb)
 						time.sleep(0.5)
 
 		if call.data == "back_to_menu":
