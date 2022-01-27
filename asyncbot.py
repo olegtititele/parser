@@ -190,13 +190,13 @@ async def process_repeated_number(message: types.Message, state: FSMContext):
 @dp.callback_query_handler()
 async def process_callback_button1(call: types.CallbackQuery, state: FSMContext):
 
-	for key in cf.COUNTRIES_SITES:
-		if call.data == key:
-			for cnt in cf.COUNTRIES_SITES[key]:
-				show_sites_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-				item = types.InlineKeyboardButton(cnt, callback_data=cnt)
-				show_sites_kb.add(item)
-				await call.message.edit_text(text="<b>🌐 Выберите площадку, где вы хотите найти объявления.</b>", parse_mode=types.ParseMode.HTML, reply_markup=show_sites_kb)
+# 	for key in cf.COUNTRIES_SITES:
+# 		if call.data == key:
+# 			for cnt in cf.COUNTRIES_SITES[key]:
+# 				show_sites_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+# 				item = types.InlineKeyboardButton(cnt, callback_data=cnt)
+# 				show_sites_kb.add(item)
+# 				await call.message.edit_text(text="<b>🌐 Выберите площадку, где вы хотите найти объявления.</b>", parse_mode=types.ParseMode.HTML, reply_markup=show_sites_kb)
 
 	for key in cf.COUNTRIES_SITES:
 		for cnt in cf.COUNTRIES_SITES[key]:
