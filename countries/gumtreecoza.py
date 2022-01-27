@@ -34,13 +34,13 @@ class GumtreeCoZa(object):
 		self.options = webdriver.ChromeOptions()
 		self.options.add_argument("--window-size=1920,1080")
 		self.options.add_argument("--headless")
-# 		self.options.add_argument('--no-sandbox')
-# 		self.options.add_argument("--disable-extensions")
-# 		self.options.add_argument("--start-maximized")
-# 		self.options.add_argument("--disable-dev-shm-usage")
+		self.options.add_argument('--no-sandbox')
+		self.options.add_argument("--disable-extensions")
+		self.options.add_argument("--start-maximized")
+		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-# 		self.driver.set_window_size(1920, 1080)
+		self.driver.set_window_size(1920, 1080)
 
 
 	def generate_link(self):
