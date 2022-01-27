@@ -27,16 +27,6 @@ logging.basicConfig(level=logging.INFO)
 
 db = SQLighter()
 photo = open('mainmenu.jpg', 'rb')
-# States
-# class Form(StatesGroup):
-# 	country = State()
-# 	link = State()
-# 	adv_count = State()
-# 	seller_adv = State()
-# 	business = State()
-# 	adv_reg_data = State()
-# 	reg_seller_data = State()
-# 	repeated_number = State()
 
 
 from handlers import client, admin, other
@@ -46,21 +36,21 @@ client.register_handlers_client(dp)
 other.register_handlers_other(dp)
 
 
-@dp.message_handler(state='*', commands='exit')
-@dp.message_handler(Text(equals='exit', ignore_case=True), state='*')
-async def cancel_handler(message: types.Message, state: FSMContext):
-	"""
-	Allow user to cancel any action
-	"""
-	current_state = await state.get_state()
-	if current_state is None:
-		return
+# @dp.message_handler(state='*', commands='exit')
+# @dp.message_handler(Text(equals='exit', ignore_case=True), state='*')
+# async def cancel_handler(message: types.Message, state: FSMContext):
+# 	"""
+# 	Allow user to cancel any action
+# 	"""
+# 	current_state = await state.get_state()
+# 	if current_state is None:
+# 		return
 
-	logging.info('Cancelling state %r', current_state)
-	# Cancel state and inform user about it
-	await state.finish()
-	# And remove keyboard (just in case)
-	await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+# 	logging.info('Cancelling state %r', current_state)
+# 	# Cancel state and inform user about it
+# 	await state.finish()
+# 	# And remove keyboard (just in case)
+# 	await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 # Ссылка
 @dp.message_handler(lambda message: message.text.isdigit(), state=Form.link)
