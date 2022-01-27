@@ -6,6 +6,8 @@ from aiogram import types
 
 # Кнопка назад🔙
 back_btn = InlineKeyboardButton('🔙 Вернуться в меню', callback_data='back_to_menu')
+back_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+back_kb.add(back_btn)
 
 
 # Стартовая клавиатура
