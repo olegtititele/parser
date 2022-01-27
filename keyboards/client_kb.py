@@ -9,6 +9,10 @@ back_btn = InlineKeyboardButton('🔙 Вернуться в меню', callback_
 back_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 back_kb.add(back_btn)
 
+# Кнопка назад🔙
+back_key_btn = KeyboardButton('🔙 Вернуться в меню')
+back_key_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+back_key_kb.add(back_key_btn)
 
 # Стартовая клавиатура
 start_pars_btn = InlineKeyboardButton('🤖 Начать парсинг', callback_data='parser_sites')
