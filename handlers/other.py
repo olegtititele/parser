@@ -158,7 +158,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					message_id = call.message.message_id,
 					caption="Контакты: {username}\n\nНовостной канал: {news_channel}",
 					parse_mode=types.ParseMode.HTML, 
-					reply_markup=hash_kb)
+					reply_markup=back_kb)
 
 		elif call.data == "previously_pars":
 			db = SQLighter()
