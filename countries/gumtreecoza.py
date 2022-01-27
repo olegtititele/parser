@@ -85,11 +85,11 @@ class GumtreeCoZa(object):
 	def check_number(self, adv_link):
 		try:
 			self.driver.get(adv_link)
-			actions = ActionChains(self.driver)
-			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
-			element.click()
-# 			self.driver.execute_script("arguments[0].scrollIntoView();", element)
-# 			self.driver.execute_script("arguments[0].click();", element)
+			try:
+				button = self.driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[2]/button').click()
+			except:
+				print("dedede")
+			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]').click()
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
 			print(phone_number)
 			if self.repeated_number.lower() == 'да':
