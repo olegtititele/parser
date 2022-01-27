@@ -156,7 +156,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			await bot.edit_message_caption(
 					chat_id=call.message.chat.id,
 					message_id = call.message.message_id,
-					caption="Контакты: {username}\n\nНовостной канал: {news_channel}",
+					caption=f"Контакты: {username}\n\nНовостной канал: {news_channel}",
 					parse_mode=types.ParseMode.HTML, 
 					reply_markup=back_kb)
 
