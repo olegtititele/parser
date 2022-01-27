@@ -34,11 +34,11 @@ class GumtreeCoZa(object):
 		self.options = webdriver.ChromeOptions()
 # 		self.options.add_argument("--window-size=1920,1080")
 		self.options.add_argument("--headless")
-		self.options.add_argument('--disable-gpu')
-		self.options.add_argument('--no-sandbox')
-		self.options.add_argument("--disable-extensions")
-		self.options.add_argument("--start-maximized")
-		self.options.add_argument("--disable-dev-shm-usage")
+# 		self.options.add_argument('--disable-gpu')
+# 		self.options.add_argument('--no-sandbox')
+# 		self.options.add_argument("--disable-extensions")
+# 		self.options.add_argument("--start-maximized")
+# 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 
@@ -86,11 +86,8 @@ class GumtreeCoZa(object):
 	def check_number(self, adv_link):
 		try:
 			self.driver.get(adv_link)
-			try:
-				button = self.driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[2]/button').click()
-			except:
-				print("dedede")
 			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]').click()
+			print(element.text)
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
 			print(phone_number)
 			if self.repeated_number.lower() == 'да':
