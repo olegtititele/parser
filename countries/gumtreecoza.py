@@ -40,7 +40,6 @@ class GumtreeCoZa(object):
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-		self.driver.set_window_size(1920, 1080)
 
 
 	def generate_link(self):
