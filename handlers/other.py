@@ -213,7 +213,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 				await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML")
 				time.sleep(0.5)
 			
-			await bot.send_message(call.message.chat.id, "🟢 Парсинг успешно завершен", parse_mode="HTML", reply_markup=back_kb)
+			await bot.send_message(call.message.chat.id, "🟢 Парсинг успешно завершен", parse_mode="HTML", reply_markup=back_key_kb)
 			db.clear_hash_data(call.from_user.id)
 
 
