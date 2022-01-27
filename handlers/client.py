@@ -112,6 +112,31 @@ async def get_user_id(message: types.Message):
 					text="♻️<b>Введите команду корректно</b>",
 					parse_mode=types.ParseMode.HTML)
 	else:
+		pass
+	
+# Сообщение всем
+async def alert_all(message: types.Message):
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
+		try:
+			msg = message.get_args()
+			if username:
+				users_id = db.get_all_users_id()
+				for user_id in users_id:
+					await bot.send_message(
+						chat_id=user_id,
+						text=msg,
+						parse_mode=types.ParseMode.HTML)
+			else:
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text="♻️<b>Введите команду корректно</b>",
+					parse_mode=types.ParseMode.HTML)
+		except Exception as e:
+			await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text="♻️<b>Введите команду корректно</b>",
+					parse_mode=types.ParseMode.HTML)
+	else:
 		pass		
 
 	
@@ -121,3 +146,4 @@ def register_handlers_client(dp : Dispatcher):
 	dp.register_message_handler(get_users_length, commands=['get_users_length'])
 	dp.register_message_handler(update_subscriber_time, commands=['update_subscriber_time'])
 	dp.register_message_handler(get_user_id, commands=['get_user_id'])
+	dp.register_message_handler(alert_all, commands=['alert'])
