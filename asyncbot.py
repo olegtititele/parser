@@ -35,16 +35,16 @@ from handlers.other import Form
 client.register_handlers_client(dp)
 other.register_handlers_other(dp)
 
-@dp.callback_query_handler(state='*')
-async def cancel_handler(call: types.CallbackQuery, state: FSMContext):
-	if call.data == 'close_state':
-		current_state = await state.get_state()
-		if current_state is None:
-			return
+# @dp.callback_query_handler(state='*')
+# async def cancel_handler(call: types.CallbackQuery, state: FSMContext):
+# 	if call.data == 'close_state':
+# 		current_state = await state.get_state()
+# 		if current_state is None:
+# 			return
 
-		logging.info('Cancelling state %r', current_state)
-		await state.finish()
-		await bot.send_photo(chat_id=call.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+# 		logging.info('Cancelling state %r', current_state)
+# 		await state.finish()
+# 		await bot.send_photo(chat_id=call.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 # Ссылка
 @dp.message_handler(lambda message: message.text.isdigit(), state=Form.link)
@@ -182,9 +182,18 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		reg_seller_data = data['reg_seller_data']
 		business = data['business']
 		repeated_number = data['repeated_number']
+		
+	if call.data == 'close_state':
+		current_state = await state.get_state()
+		if current_state is None:
+			return
+
+		logging.info('Cancelling state %r', current_state)
+		await state.finish()
+		await bot.send_photo(chat_id=call.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)	
 
 # BOLHA.COM
-	if platform == "bolha.com":
+	elif platform == "bolha.com":
 		dyn_load = DynamicLoading()
 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 		thread_pars = Thread(target=bolha.generate_link)
