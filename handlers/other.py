@@ -32,10 +32,10 @@ def check_sub_channel(chat_member):
 	else:
 		return False
 	
-@dp.message_handler()
-async def back_button(message: types.Message):
-	if message.text == "🔙 Вернуться в меню":
-		await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+# @dp.message_handler()
+# async def back_button(message: types.Message):
+# 	if message.text == "🔙 Вернуться в меню":
+# 		await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 async def echo(call: types.CallbackQuery, state: FSMContext):
 	db = SQLighter()
