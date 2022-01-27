@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 db = SQLighter()
 photo = open('mainmenu.jpg', 'rb')
 def check_sub_channel(chat_member):
-	print(chat_member['status'])
 	if chat_member['status'] != 'left':
 		return True
 	else:
