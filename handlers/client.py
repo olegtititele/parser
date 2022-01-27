@@ -119,7 +119,7 @@ async def alert_all(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
 		try:
 			msg = message.get_args()
-			if username:
+			if msg:
 				users_id = db.get_all_users_id()
 				for user_id in users_id:
 					await bot.send_message(
