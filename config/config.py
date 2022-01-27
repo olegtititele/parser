@@ -2,9 +2,9 @@ BOT_TOKEN = "5057048367:AAHWkgCfcL0_rvJap4-NWL-tshtSIETya-Y"
 
 
 # Канал Новостей-1001566638816"https://t.me/gzuzpars"
-CHANNEL = "https://t.me/+E2VPCKwokJM4MzBh"
-CHANNEL_CHAT_ID = -1001707118995
-
+CHANNEL = "https://t.me/gzuzpars"
+CHANNEL_CHAT_ID = -1001566638816
+# -1001707118995 "https://t.me/+E2VPCKwokJM4MzBh"
 
 # Админ канал
 ADMIN_LOGS_CHAT_ID = -1001553723179
