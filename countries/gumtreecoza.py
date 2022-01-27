@@ -90,7 +90,7 @@ class GumtreeCoZa(object):
 			try:
 				element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
 				actions.move_to_element(element).perform()
-				element.click()
+				element.submit()
 			except Exception:
 				print("govno ebanoe")
 # 			self.driver.execute_script("arguments[0].scrollIntoView();", element)
