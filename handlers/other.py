@@ -30,6 +30,13 @@ async def echo(call: types.CallbackQuery):
 			parse_mode=types.ParseMode.HTML, 
 			reply_markup=show_countries_kb
 			)
+# 	for key in cf.COUNTRIES_SITES:
+# 		if call.data == key:
+# 			for cnt in cf.COUNTRIES_SITES[key]:
+# 				show_sites_kb = types.InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+# 				item = types.InlineKeyboardButton(cnt, callback_data=cnt)
+# 				show_sites_kb.add(item)
+# 				await call.message.edit_text(text="<b>🌐 Выберите площадку, где вы хотите найти объявления.</b>", parse_mode=types.ParseMode.HTML, reply_markup=show_sites_kb)	
 # 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)):
 # 		db = SQLighter()
 # 		if call.data == "parser_sites":
