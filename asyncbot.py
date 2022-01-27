@@ -193,7 +193,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		await bot.send_photo(chat_id=call.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)	
 
 # BOLHA.COM
-	elif platform == "bolha.com":
+	if platform == "bolha.com":
 		dyn_load = DynamicLoading()
 		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 		thread_pars = Thread(target=bolha.generate_link)
