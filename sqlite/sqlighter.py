@@ -151,7 +151,7 @@ class SQLighter:
 
 	def create_advertisement_table(self, user_id):
 		try:
-			self.adv_cursor.execute("CREATE TABLE `%s` (`Площадка` VARCHAR(255), `Название объявления` VARCHAR(255), `Цена объявления` VARCHAR(255), `Дата создания объявления` VARCHAR(255), `Ссылка на объявление` VARCHAR(255), `Местоположение` VARCHAR(255), `Ссылка на изображение` VARCHAR(255), `Имя продавца` VARCHAR(255), `Номер продавца` VARCHAR(255), `Количество объявлений продавца` VARCHAR(255), `Дата регистрации` VARCHAR(255) DEFAULT NULL, `Бизнесс аккаунт` VARCHAR(255) DEFAULT NULL)", (user_id))
+			self.adv_cursor.execute("CREATE TABLE `%s` (`Площадка` VARCHAR(255), `Название объявления` VARCHAR(255), `Цена объявления` VARCHAR(255), `Дата создания объявления` VARCHAR(255), `Ссылка на объявление` VARCHAR(255), `Местоположение` VARCHAR(255), `Ссылка на изображение` VARCHAR(255), `Имя продавца` VARCHAR(255), `Номер продавца` VARCHAR(255), `Количество объявлений продавца` VARCHAR(255), `Дата регистрации` VARCHAR(255) DEFAULT NULL, `Бизнесс аккаунт` VARCHAR(255) DEFAULT NULL)", (user_id,))
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
