@@ -87,12 +87,8 @@ class GumtreeCoZa(object):
 			self.driver.get(adv_link)
 			time.sleep(1)
 			actions = ActionChains(self.driver)
-			try:
-				element = self.driver.find_element(By.XPATH, '/html/body/div[1]/div[7]/div/div[2]/section/div/div[1]/div[3]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]/div/span[3]')
-				actions.move_to_element(element).perform()
-				element.click()
-			except Exception:
-				print("govno ebanoe")
+			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+			element.click()
 # 			self.driver.execute_script("arguments[0].scrollIntoView();", element)
 # 			self.driver.execute_script("arguments[0].click();", element)
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[2]').text.replace("-", "")
