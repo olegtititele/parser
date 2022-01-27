@@ -88,9 +88,11 @@ class GumtreeCoZa(object):
 			self.driver.get(adv_link)
 			element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
 			element.click()
-			print(element.text)
 			phone_number = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
-			print(phone_number)
+			try:
+				phone_number = phone_number.replace("-", "")
+			except Exception as e:
+				print(e)
 			if self.repeated_number.lower() == 'да':
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
