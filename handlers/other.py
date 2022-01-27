@@ -14,7 +14,7 @@ from aiogram.dispatcher.filters import Text
 
 from datetime import datetime, timedelta
 import time
-
+photo = open('mainmenu.jpg', 'rb')
 
 class Form(StatesGroup):
 	country = State()
