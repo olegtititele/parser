@@ -100,7 +100,6 @@ class GumtreeCoZa(object):
 				if(not self.db.get_tel_num(self.user_id, phone_number)):
 					self.pars_adv_info(adv_link, phone_number)
 				else:
-					print("[[[[[")
 					pass
 
 		except Exception as e:
@@ -109,7 +108,6 @@ class GumtreeCoZa(object):
 	
 	def pars_adv_info(self, adv_link, phone_number):
 		try:
-			print("dada")
 			r = requests.get(adv_link)
 			html = BS(r.content, 'lxml')
 			# Название объявления
