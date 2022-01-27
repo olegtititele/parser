@@ -221,14 +221,14 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			await bot.edit_message_caption(
 				chat_id=call.message.chat.id,
 				message_id = call.message.message_id,
-				text="🚬 Кэш очищен")
+				caption="🚬 Кэш очищен")
 
 		elif call.data == cnt+"clear_data":
 			db.delete_previously_adv(call.from_user.id, cnt)
 			await bot.edit_message_caption(
 				chat_id=call.message.chat.id,
 				message_id = call.message.message_id,
-				text="<b>🚬 Ранее добавленные объявления с площадки </b><code>"+cnt+"</code><b> удалены</b>", parse_mode=types.ParseMode.HTML)
+				caption="<b>🚬 Ранее добавленные объявления с площадки </b><code>"+cnt+"</code><b> удалены</b>", parse_mode=types.ParseMode.HTML)
 			
 
 	else:
