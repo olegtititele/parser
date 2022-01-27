@@ -144,6 +144,24 @@ class SQLighter:
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.get_users_length()
 			raise e
+			
+	def get_all_users_id(self):
+		try:
+			self.user_cursor.execute("SELECT * FROM users")
+			data = self.user_cursor.fetchall()
+			return data
+		except Exception as e:
+			if e.errno == 2055 or e.errno == 2013:
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.get_all_users_id(username)
+			raise e				
 
 
 
