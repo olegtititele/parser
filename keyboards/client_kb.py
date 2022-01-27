@@ -46,6 +46,8 @@ yes_btn = KeyboardButton('Да')
 business_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 business_kb.row(yes_btn, no_btn)
 
-start_pars_btn = InlineKeyboardButton('🕔 Начать парсинг', callback_data='start_pars')
+close_state_bnt = InlineKeyboardButton('🔙 Вернуться в меню', callback_data='close_state')
+begin_to_pars = InlineKeyboardButton('🕔 Начать парсинг', callback_data='start_pars')
 start_pa = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-start_pa.row(start_pars_btn)
+start_pa.row(close_state_bnt, begin_to_pars)
+
