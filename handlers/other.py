@@ -132,14 +132,14 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 				reply_markup=main_kb)
 
 
-
+		
 
 		elif call.data == "parser_sites":
 			if db.len_hash_data(call.from_user.id) > 0:
 				await bot.edit_message_caption(
 					chat_id=call.message.chat.id,
 					message_id = call.message.message_id,
-					text="‼️<b>У вас есть непросмотренные объявлния. Нажмите на соответсвующую кнопку, чтобы посмотреть или удалить их.</b>",
+					caption="‼️<b>У вас есть непросмотренные объявлния. Нажмите на соответсвующую кнопку, чтобы посмотреть или удалить их.</b>",
 					parse_mode=types.ParseMode.HTML, 
 					reply_markup=hash_kb)
 			else:	
@@ -150,6 +150,15 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					parse_mode=types.ParseMode.HTML,
 					reply_markup=show_countries_kb
 					)
+		elif call.data == "info":
+			username = f'<a href="https://t.me/{call.from_user.username}">{call.from_user.first_name}</a>'
+			news_channel = f'<a href="{cf.CHANNEL}">GzuzPars News</a>'
+			await bot.edit_message_caption(
+					chat_id=call.message.chat.id,
+					message_id = call.message.message_id,
+					caption="Контакты: {username}\n\nНовостной канал: {news_channel}",
+					parse_mode=types.ParseMode.HTML, 
+					reply_markup=hash_kb)
 
 		elif call.data == "previously_pars":
 			db = SQLighter()
