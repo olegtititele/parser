@@ -60,9 +60,7 @@ async def cancel_handler(message: types.Message, state: FSMContext):
 	# Cancel state and inform user about it
 	await state.finish()
 	# And remove keyboard (just in case)
-	username = f'<a href="https://t.me/+{message.from_user.username}">{message.from_user.first_name}</a>'
-	await bot.send_message(message.chat.id, "<b>"+username+" , Вы вернулись в меню</b>", parse_mode=types.ParseMode.HTML, reply_markup=start_pars_kb,disable_web_page_preview=True)
-
+	await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 # Ссылка
 @dp.message_handler(lambda message: message.text.isdigit(), state=Form.link)
