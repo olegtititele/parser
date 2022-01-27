@@ -186,13 +186,14 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					message_id = call.message.message_id,
 					caption="<b>Выберите площадку на которой хотите посмотреть ранее добавленные объявления.</b>",
 					parse_mode=types.ParseMode.HTML, 
-					reply_markup=back_kb)
+					reply_markup=previously_added_kb)
 			else:
 				await bot.edit_message_caption(
 					chat_id=call.message.chat.id,
 					message_id = call.message.message_id,
 					caption="<b>Вы пока не добавили ни одного объявления.</b>",
-					parse_mode=types.ParseMode.HTML,)
+					parse_mode=types.ParseMode.HTML,
+					reply_markup=back_kb)
 
 
 
