@@ -66,9 +66,9 @@ async def process_link(message: types.Message, state: FSMContext):
 
 
 # Количество объявлений
-@dp.message_handler(lambda message: not message.text.isdigit(), state=Form.adv_count)
+@dp.message_handler(lambda message: not message.text.isdigit() or int(message.text) > 100, state=Form.adv_count)
 async def process_adv_count_invalid(message: types.Message):
-	return await bot.send_message(message.chat.id, "<b>❗️ Должно быть цифрой. Введите повторно.</b>", parse_mode="HTML")
+	return await bot.send_message(message.chat.id, "<b>❗️ Должно быть цифрой и не должно превышать 100. Введите повторно.</b>", parse_mode="HTML")
 
 @dp.message_handler(lambda message: message.text.isdigit(), state=Form.adv_count)
 async def process_adv_count(message: types.Message, state: FSMContext):
