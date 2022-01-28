@@ -49,7 +49,7 @@ other.register_handlers_other(dp)
 # Ссылка
 @dp.message_handler(lambda message: message.text.isdigit(), state=Form.link)
 async def process_link_invalid(message: types.Message):
-	return await bot.send_message(message.chat.id, "<b>❗️ Введите ссылку корректно.</b>", parse_mode="HTML")
+	return await bot.send_message(message.chat.id, "<b>❗️ Введите ссылку корректно.</b>", parse_mode="HTML", reply_markup=close_state_kb)
 
 @dp.message_handler(state=Form.link)
 async def process_link(message: types.Message, state: FSMContext):
@@ -60,7 +60,7 @@ async def process_link(message: types.Message, state: FSMContext):
 		async with state.proxy() as data:	
 			data['link'] = link
 		await Form.next()
-		await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML")
+		await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML", reply_markup=close_state_kb)
 	else:
 		await process_link_invalid(message)	
 
