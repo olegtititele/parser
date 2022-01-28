@@ -17,12 +17,7 @@ from datetime import datetime, timedelta
 import time
 
 file_path = "mainmenu.jpg"
-log_adv_title = 1
-log_price = 1
-log_seller_name = 1
-log_photo = 1
-log_whatsapp = 1
-log_viber = 1
+
 
 
 class Form(StatesGroup):
@@ -48,6 +43,12 @@ async def back_button(message: types.Message):
 		await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 async def echo(call: types.CallbackQuery, state: FSMContext):
+	log_adv_title = 1
+	log_price = 1
+	log_seller_name = 1
+	log_photo = 1
+	log_whatsapp = 1
+	log_viber = 1
 	file = InputFile(file_path)
 	db = SQLighter()
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=call.from_user.id)):
