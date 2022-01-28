@@ -51,6 +51,9 @@ business_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 business_kb.row(yes_btn, no_btn)
 
 close_state_bnt = InlineKeyboardButton('🔙 Вернуться в меню', callback_data='close_state')
+close_state_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+close_state_kb.add(close_state_bnt)
+
 begin_to_pars = InlineKeyboardButton('🕔 Начать парсинг', callback_data='start_pars')
 start_pa = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 start_pa.row(close_state_bnt, begin_to_pars)
