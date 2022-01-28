@@ -96,7 +96,6 @@ class GumtreeCoZa(object):
 			if self.repeated_number.lower() == 'да':
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
-				print(";txm")
 				if(not self.db.get_tel_num(self.user_id, phone_number)):
 					self.pars_adv_info(adv_link, phone_number)
 				else:
