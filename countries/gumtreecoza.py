@@ -54,8 +54,8 @@ class GumtreeCoZa(object):
 				return False
 
 	def start_pars(self, page_link):
-		driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 		while self.loopflag:
+			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 			self.page += 1
 			gen_link = page_link + "p" + str(self.page)
 			try:
