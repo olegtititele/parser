@@ -35,12 +35,11 @@ class GumtreeCoZa(object):
 		self.options = webdriver.ChromeOptions()
 		self.options.add_argument("--window-size=1200,600")
 		self.options.add_argument("--headless")
-		self.options.add_argument('--disable-gpu')
 		self.options.add_argument('--no-sandbox')
 		self.options.add_argument("--disable-extensions")
-		self.options.add_argument("--start-maximized")
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
+		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 
 
 	def generate_link(self):
@@ -67,16 +66,16 @@ class GumtreeCoZa(object):
 					adv_link = "https://www.gumtree.co.za" + alb['href']
 					print(adv_link)
 					if self.num_err >= 3:
-						driver.close()
-						driver.quit()
+						self.driver.close()
+						self.driver.quit()
 						self.loopflag = False
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
-						driver.get(adv_link)
+						self.driver.get(adv_link)
 						try:
-							element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+							element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
 							element.click()
-							phone_number_block = "+27" + driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
+							phone_number_block = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
 							phone_number = phone_number_block.replace("-", "")
 						except NoSuchElementException:
 							pass
@@ -85,8 +84,8 @@ class GumtreeCoZa(object):
 						else:
 							pass
 					else:
-						driver.close()
-						driver.quit()
+						self.driver.close()
+						self.driver.quit()
 						self.loopflag = False
 						return False
 
@@ -98,14 +97,6 @@ class GumtreeCoZa(object):
 
 	def check_number(self, adv_link, phone_number):
 		try:
-			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-			driver.set_window_size(1920, 1080)
-			driver.get(adv_link)
-			element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
-			element.click()
-			phone_number_block = "+27" + driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
-			driver.close()
-			phone_number = phone_number_block.replace("-", "")
 			if self.repeated_number.lower() == 'да':
 				self.pars_adv_info(adv_link, phone_number)
 			elif self.repeated_number.lower() == 'нет':
@@ -120,42 +111,50 @@ class GumtreeCoZa(object):
 	
 	def pars_adv_info(self, adv_link, phone_number):
 		try:
-			r = requests.get(adv_link)
-			html = BS(r.content, 'lxml')
 			# Название объявления
-			adv_title = html.find("div", class_="title").text
-
+			try:
+				adv_title = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[1]/div[1]/h1').text
+			except NoSuchElementException:
+				adv_title = "Не указано"
 			# Цена объявления
-			adv_price = html.find("span", class_="ad-price").text.translate(dict.fromkeys(map(ord, whitespace)))
+			adv_price = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[1]/div[2]/h3/span').text
 
 			# Изображение
 			try:
-				adv_image = html.find("img", class_="lazyloaded")['src']
+				adv_image = self.driver.find_element(By.XPATH, '//*[@id="vip-gallery"]/div[1]/div/div[1]/div[1]/div/picture/img').get_attribute("src")
 			except Exception as e:
 				adv_image = self.non_image
-			adv_general_details = html.find_all("div", class_="attribute")
 
 			# Имя продавца
-			seller_name = html.find("div", class_="seller-name").text
-
+			try:
+				seller_name = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/div').text
+			except NoSuchElementException:
+				seller_name = "Не указано"
+				
 			# Количество объявлений продавца
-			seller_total_ads = html.find("span", class_="active-ad").text.split(" ")[-1]
-
+			try:
+				seller_total_ads = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[2]/span/span').text
+			except NoSuchElementException:
+				seller_name = "Не указано"
+				
 			# Дата регистрации продавца
-			seller_reg_block = html.find("span", class_="seller-year").text
+			seller_reg_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[1]').text
 			seller_reg = self.get_data(seller_reg_block)
 
 			# Дата регистрации объявления
-			adv_reg_data_block = html.find("span", class_="creation-date").text
+			adv_reg_data_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[3]/div[1]/span[2]').text
 			adv_reg = self.get_data(adv_reg_data_block)
-			
-			# Местоположение и тип объявления
+
 			adv_business = "Не указано"
 			adv_location = "Не указана"
+
+			# Местоположение и тип объявления
+			adv_general_details = self.driver.find_elements(By.XPATH, '//*[@class="attribute"]')
+
 			for agd in adv_general_details:
 				try:
 					if "Location:" in agd.text:
-						adv_location = agd.text.split("Location:")[1]
+						adv_location = agd.text.split("Location:")[1].replace("\n", "")
 					elif "For Sale By:" in agd.text:
 						adv_business = agd.text.split("For Sale By:")[1]
 						if adv_business == "Dealer":
@@ -164,7 +163,7 @@ class GumtreeCoZa(object):
 							adv_business = "Частное лицо"
 				except Exception as e:
 					continue
-
+					
 			if self.business.lower() == "нет":
 				if adv_business == "Бизнесс аккаунт" or adv_business == "Не указано":
 					self.check_seller_adv_count(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
@@ -201,6 +200,8 @@ class GumtreeCoZa(object):
 		if self.seller_adv_count.lower() == "нет":
 			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 		elif int(seller_total_ads) <= int(self.seller_adv_count):
+			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
+		elif seller_total_ads == "Не указано":
 			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 		else:
 			pass
