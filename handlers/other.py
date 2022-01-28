@@ -171,6 +171,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					reply_markup=show_countries_kb
 					)
 		elif call.data == "info":
+			log_photo = 0
 			username = f'<a href="https://t.me/{call.from_user.username}">{call.from_user.first_name}</a>'
 			news_channel = f'<a href="{cf.CHANNEL}">GzuzPars News</a>'
 			await bot.edit_message_caption(
