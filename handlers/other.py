@@ -120,19 +120,22 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			for cnt in cf.COUNTRIES_SITES[key]:
 				if call.data == cnt+'show_data':
 					for usl in db.get_previously_adv(call.from_user.id, cnt):
-						whatsapp_number = usl[8].replace(' ', '')
-						if usl[0] == "bolha.com":
-							whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
-						elif usl[0] == "bazar.lu":
-							whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
-						elif usl[0] == "gumtree.co.za":
-							whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'	
-						viber_number = usl[8].split("+")[1].replace(' ', '')
-						adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
-						image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
-						viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
-						await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML", reply_markup=back_key_kb)
-						time.sleep(0.5)
+						try:	
+							whatsapp_number = usl[8]
+							if usl[0] == "bolha.com":
+								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
+							elif usl[0] == "bazar.lu":
+								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
+							elif usl[0] == "gumtree.co.za":
+								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'	
+							viber_number = usl[8].split("+")[1]
+							adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
+							image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
+							viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
+							await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML", reply_markup=back_key_kb)
+							time.sleep(1)
+						except Exception as e:
+							pass
 
 		if call.data == "back_to_menu":
 			await bot.edit_message_caption(
@@ -210,19 +213,22 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 
 		elif call.data == 'show_hash':
 			for usl in db.get_hash_data(call.from_user.id):
-				whatsapp_number = usl[8].replace(' ', '')
-				if usl[0] == "bolha.com":
-					whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
-				elif usl[0] == "bazar.lu":
-					whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
-				elif usl[0] == "gumtree.co.za":
-							whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'		
-				viber_number = usl[8].split("+")[1].replace(' ', '')
-				adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
-				image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
-				viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
-				await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML")
-				time.sleep(0.5)
+				try:
+					whatsapp_number = usl[8]
+					if usl[0] == "bolha.com":
+						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
+					elif usl[0] == "bazar.lu":
+						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
+					elif usl[0] == "gumtree.co.za":
+								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'		
+					viber_number = usl[8].split("+")[1]
+					adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
+					image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
+					viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
+					await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML")
+					time.sleep(1)
+				except Exception as e:
+					pass
 
 			await bot.send_message(call.message.chat.id, "🟢 Парсинг успешно завершен", parse_mode="HTML", reply_markup=back_key_kb)
 			db.clear_hash_data(call.from_user.id)
