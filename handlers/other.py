@@ -109,6 +109,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					clear_data_btn = InlineKeyboardButton("🗑 Удалить объявления", callback_data=callclear)
 					data_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 					data_kb.add(show_data_btn, clear_data_btn)
+					data_kb.add(back_btn)
 					await bot.edit_message_caption(
 						chat_id=call.message.chat.id,
 						message_id = call.message.message_id,
