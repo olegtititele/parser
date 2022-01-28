@@ -136,24 +136,22 @@ class GumtreeCoZa(object):
 			# Дата регистрации объявления
 			adv_reg_data_block = html.find("span", class_="creation-date").text
 			adv_reg = self.get_data(adv_reg_data_block)
-
+			
 			# Местоположение и тип объявления
+			adv_business = "Не указано"
+			adv_location = "Не указана"
 			for agd in adv_general_details:
-				if "Location:" in agd.text:
-					try:
+				try:
+					if "Location:" in agd.text:
 						adv_location = agd.text.split("Location:")[1]
-					except Exception as e:
-						adv_location = "Не указана"
-
-				elif "For Sale By:" in agd.text:
-					try:
+					elif "For Sale By:" in agd.text:
 						adv_business = agd.text.split("For Sale By:")[1]
 						if adv_business == "Dealer":
 							adv_business = "Бизнесс аккаунт"
 						else:
 							adv_business = "Частное лицо"
-					except Exception as e:
-						adv_business = "Не указано"
+				except Exception as e:
+					continue
 
 			if self.business.lower() == "нет":
 				if adv_business == "Бизнесс аккаунт" or adv_business == "Не указано":
@@ -161,7 +159,7 @@ class GumtreeCoZa(object):
 				else:
 					self.check_seller_adv_count(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 			elif self.business.lower() == "да":
-				if adv_business == "Частное лицо":
+				if adv_business == "Частное лицо" or adv_business == "Не указано":
 					self.check_seller_adv_count(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 				else:
 					pass
