@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
 
 class GumtreeCoZa(object):
 	def __init__(self, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
@@ -72,10 +73,13 @@ class GumtreeCoZa(object):
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
 						driver.get(adv_link)
-						element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
-						element.click()
-						phone_number_block = "+27" + driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
-						phone_number = phone_number_block.replace("-", "")
+						try:
+							element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+							element.click()
+							phone_number_block = "+27" + driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
+							phone_number = phone_number_block.replace("-", "")
+						except NoSuchElementException:
+							pass
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
 							self.check_number(adv_link, phone_number)
 						else:
