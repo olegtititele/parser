@@ -34,6 +34,8 @@ log_creator_btn = InlineKeyboardButton('🔗 Конфигуратор лога',
 filters_btn = InlineKeyboardButton('🖋 Фильтры', callback_data='filters')
 settings_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 settings_kb.row(log_creator_btn, filters_btn)
+settings_kb.row(back_btn)
+
 
 hash_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 hash_kb.add(show_hash_btn, clear_hash_btn)
