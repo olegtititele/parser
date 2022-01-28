@@ -67,6 +67,7 @@ class GumtreeCoZa(object):
 					print(adv_link)
 					if self.num_err >= 3:
 						driver.close()
+						driver.quit()
 						self.loopflag = False
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
@@ -81,6 +82,7 @@ class GumtreeCoZa(object):
 							pass
 					else:
 						driver.close()
+						driver.quit()
 						self.loopflag = False
 						return False
 
