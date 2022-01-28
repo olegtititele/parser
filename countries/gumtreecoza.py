@@ -84,7 +84,7 @@ class GumtreeCoZa(object):
 
 	def check_number(self, adv_link):
 		try:
-			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver.exe")
+			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 			driver.set_window_size(1920, 1080)
 			driver.get(adv_link)
 			element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
