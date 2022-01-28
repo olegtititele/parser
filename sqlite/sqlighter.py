@@ -51,7 +51,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.user_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -90,7 +89,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.user_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -111,7 +109,6 @@ class SQLighter:
 			return self.user_cursor.fetchall()
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.user_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -133,7 +130,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.user_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -173,7 +169,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -196,7 +191,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -219,7 +213,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -241,7 +234,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -263,7 +255,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -286,7 +277,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -309,7 +299,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -331,7 +320,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -349,7 +337,6 @@ class SQLighter:
 			return self.adv_cursor.execute("TRUNCATE TABLE `%s`", (user_id,))
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -371,7 +358,6 @@ class SQLighter:
 			return
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -393,7 +379,6 @@ class SQLighter:
 			return self.hash_mydb.commit()
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -413,7 +398,6 @@ class SQLighter:
 			return self.hash_cursor.fetchall()
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -430,7 +414,6 @@ class SQLighter:
 			return self.hash_cursor.execute("TRUNCATE TABLE `%s`", (tb_name, ))
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -451,7 +434,6 @@ class SQLighter:
 			return length
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.hash_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -469,7 +451,6 @@ class SQLighter:
 			return self.countriessub_cursor.execute("CREATE TABLE `%s` (`ID` INT AUTO_INCREMENT PRIMARY KEY, `user_id` VARCHAR(255), `time_until` VARCHAR(255))", (country, ))
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -488,7 +469,6 @@ class SQLighter:
 			return self.countriessub_mydb.commit()
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -509,7 +489,6 @@ class SQLighter:
 			return data
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -540,7 +519,6 @@ class SQLighter:
 
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.countriessub_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
@@ -561,7 +539,6 @@ class SQLighter:
 			self.countriessub_mydb.commit()
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
-				print("popa4ka")
 				self.adv_mydb = mysql.connector.connect(
 					host=self.db[0],
 					port=self.db[1],
