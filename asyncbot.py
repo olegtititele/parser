@@ -60,7 +60,7 @@ async def process_link(message: types.Message, state: FSMContext):
 		async with state.proxy() as data:	
 			data['link'] = link
 		await Form.next()
-		await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML", reply_markup=close_state_kb)
+		await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML")
 	else:
 		await process_link_invalid(message)	
 
