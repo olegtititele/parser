@@ -17,6 +17,12 @@ from datetime import datetime, timedelta
 import time
 
 file_path = "mainmenu.jpg"
+log_adv_title = 1
+log_price = 1
+log_seller_name = 1
+log_photo = 1
+log_whatsapp = 1
+log_viber = 1
 
 
 class Form(StatesGroup):
@@ -175,6 +181,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					reply_markup=back_kb)
 			
 		elif call.data == "settings":
+			print(log_photo,log_whatsapp,log_viber)
 			await bot.edit_message_caption(
 					chat_id=call.message.chat.id,
 					message_id = call.message.message_id,
