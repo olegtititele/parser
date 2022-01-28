@@ -54,8 +54,8 @@ class GumtreeCoZa(object):
 				return False
 
 	def start_pars(self, page_link):
+		driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 		while self.loopflag:
-			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 			self.page += 1
 			gen_link = page_link + "p" + str(self.page)
 			try:
@@ -64,6 +64,7 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
+					print(adv_link)
 					if self.num_err >= 3:
 						driver.close()
 						self.loopflag = False
