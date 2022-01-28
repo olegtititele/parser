@@ -18,7 +18,7 @@ back_key_kb.add(back_key_btn)
 start_pars_btn = InlineKeyboardButton('🤖 Начать парсинг', callback_data='parser_sites')
 previously_pars_btn = InlineKeyboardButton('♻️ Ранее просмотренные объявления', callback_data='previously_pars')
 popup_balance_btn = InlineKeyboardButton("💵⛔️DON'T WORK", callback_data='popup_balance')
-settings_btn = InlineKeyboardButton("⚙️⛔️DON'T WORK", callback_data='settings')
+settings_btn = InlineKeyboardButton("⚙️ Настройки", callback_data='settings')
 info_btn = InlineKeyboardButton("ℹ️ Обратная связь", callback_data='info')
 main_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 main_kb.add(start_pars_btn, previously_pars_btn)
@@ -28,6 +28,12 @@ main_kb.add(settings_btn, info_btn)
 # Клавиатура кэша
 show_hash_btn = InlineKeyboardButton('✈️​​ Показать объявления 📃', callback_data='show_hash')
 clear_hash_btn = InlineKeyboardButton("🗑 Очистить кэш", callback_data='clear_hash')
+
+# Кнопки настроек
+log_creator_btn = InlineKeyboardButton('🔗 Конфигуратор лога', callback_data='log_creator')
+filters_btn = InlineKeyboardButton('🖋 Фильтры', callback_data='filters')
+settings_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+settings_kb.row(log_creator_btn, filters_btn)
 
 hash_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 hash_kb.add(show_hash_btn, clear_hash_btn)
