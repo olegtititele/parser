@@ -8,6 +8,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
+from aiogram.types import InputFile
 
 
 from sqlite.sqlighter import SQLighter
@@ -26,7 +27,8 @@ from handlers.dynamicload import DynamicLoading
 logging.basicConfig(level=logging.INFO)
 
 db = SQLighter()
-photo = open('mainmenu.jpg', 'rb')
+file_path = "mainmenu.jpg"
+
 
 
 from handlers import client, admin, other
@@ -184,13 +186,14 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		repeated_number = data['repeated_number']
 		
 	if call.data == 'close_state':
+		file = InputFile(file_path)
 		current_state = await state.get_state()
 		if current_state is None:
 			return
 
 		logging.info('Cancelling state %r', current_state)
 		await state.finish()
-		await bot.send_photo(chat_id=call.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)	
+		await bot.send_photo(chat_id=call.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)	
 
 # BOLHA.COM
 	if platform == "bolha.com":
