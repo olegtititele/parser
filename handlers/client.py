@@ -4,6 +4,7 @@ from create_bot import dp, bot
 from aiogram import executor, types, Dispatcher
 from keyboards import *
 from datetime import datetime, timedelta
+from aiogram.types import InputFile
 
 db = SQLighter()
 file_path = "mainmenu.jpg"
