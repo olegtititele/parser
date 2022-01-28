@@ -75,7 +75,6 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 							message_id = call.message.message_id,
 							caption=await choose_user_link(call, cnt),
 							parse_mode=types.ParseMode.HTML,
-							reply_markup=close_state_kb
 							)
 							async with state.proxy() as data:
 								data['country'] = cnt
