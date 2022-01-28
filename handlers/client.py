@@ -6,7 +6,9 @@ from keyboards import *
 from datetime import datetime, timedelta
 
 db = SQLighter()
-photo = open('mainmenu.jpg', 'rb')
+file_path = "mainmenu.jpg"
+
+
 def check_sub_channel(chat_member):
 	if chat_member['status'] != 'left':
 		return True
@@ -14,29 +16,27 @@ def check_sub_channel(chat_member):
 		return False
 
 async def start_bot(message: types.Message):
-	try:
-		if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)):
-			usname = f'<a href="https://t.me/{message.from_user.username}">{message.from_user.first_name}</a>'
-			if(not db.check_user(message.from_user.id)):
-				db.create_advertisement_table(message.from_user.id)
-				db.create_hash_table(message.from_user.id)
-				db.add_user(message.from_user.id, message.from_user.username)
-				await bot.send_message(
-					chat_id=cf.ADMIN_LOGS_CHAT_ID,
-					text="<b>Пользоватеть "+ usname +" запустил бота. </b>",
-					parse_mode=types.ParseMode.HTML,
-					disable_web_page_preview=True)
-				await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
-			else:
-				await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
-		else:
-			news_channel = f'<a href="{cf.CHANNEL}">новостей</a>'
+	file = InputFile(file_path)
+	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=message.from_user.id)):
+		usname = f'<a href="https://t.me/{message.from_user.username}">{message.from_user.first_name}</a>'
+		if(not db.check_user(message.from_user.id)):
+			db.create_advertisement_table(message.from_user.id)
+			db.create_hash_table(message.from_user.id)
+			db.add_user(message.from_user.id, message.from_user.username)
 			await bot.send_message(
-					chat_id=message.from_user.id,
-					text="🆘 <b>Вас нет в канале "+news_channel+". Вступите, чтобы пользоваться ботом.</b>",
-					parse_mode=types.ParseMode.HTML)
-	except Exception as e:
-		await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+				chat_id=cf.ADMIN_LOGS_CHAT_ID,
+				text="<b>Пользоватеть "+ usname +" запустил бота. </b>",
+				parse_mode=types.ParseMode.HTML,
+				disable_web_page_preview=True)
+			await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+		else:
+			await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+	else:
+		news_channel = f'<a href="{cf.CHANNEL}">новостей</a>'
+		await bot.send_message(
+				chat_id=message.from_user.id,
+				text="🆘 <b>Вас нет в канале "+news_channel+". Вступите, чтобы пользоваться ботом.</b>",
+				parse_mode=types.ParseMode.HTML)
 
 # /help
 async def help_command(message: types.Message):
