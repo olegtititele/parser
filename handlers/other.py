@@ -14,7 +14,9 @@ from aiogram.dispatcher.filters import Text
 
 from datetime import datetime, timedelta
 import time
-photo = open('mainmenu.jpg', 'rb')
+
+file_path = "mainmenu.jpg"
+
 
 class Form(StatesGroup):
 	country = State()
@@ -34,10 +36,12 @@ def check_sub_channel(chat_member):
 	
 # @dp.message_handler()
 async def back_button(message: types.Message):
+	file = InputFile(file_path)
 	if message.text == "🔙 Вернуться в меню":
-		await bot.send_photo(chat_id=message.from_user.id, photo=photo, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
+		await bot.send_photo(chat_id=message.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{message.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 async def echo(call: types.CallbackQuery, state: FSMContext):
+	file = InputFile(file_path)
 	db = SQLighter()
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.CHANNEL_CHAT_ID, user_id=call.from_user.id)):
 		for key in cf.COUNTRIES_SITES:
