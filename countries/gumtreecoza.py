@@ -54,6 +54,8 @@ class GumtreeCoZa(object):
 				return False
 
 	def start_pars(self, page_link):
+		driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
+		driver.set_window_size(1920, 1080)
 		while self.loopflag:
 			self.page += 1
 			gen_link = page_link + "p" + str(self.page)
@@ -63,16 +65,22 @@ class GumtreeCoZa(object):
 				adv_link_block = html.find_all("a", class_="related-ad-title")
 				for alb in adv_link_block:
 					adv_link = "https://www.gumtree.co.za" + alb['href']
-					print(adv_link)
 					if self.num_err >= 3:
+						driver.close()
 						self.loopflag = False
 						return False
 					elif self.ann_cnd < (int(self.announ_count)):
+						driver.get(adv_link)
+						element = driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+						element.click()
+						phone_number_block = "+27" + driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
+						phone_number = phone_number_block.replace("-", "")
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
-							self.check_number(adv_link)
+							self.check_number(adv_link, phone_number)
 						else:
 							pass
 					else:
+						driver.close()
 						self.loopflag = False
 						return False
 
@@ -82,7 +90,7 @@ class GumtreeCoZa(object):
 				self.start_pars(page_link)
 
 
-	def check_number(self, adv_link):
+	def check_number(self, adv_link, phone_number):
 		try:
 			driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
 			driver.set_window_size(1920, 1080)
