@@ -93,6 +93,9 @@ class GumtreeCoZa(object):
 					self.driver.close()
 					self.driver.quit()
 					return False
+		self.driver.close()
+		self.driver.quit()
+		return False		
 
 	def check_number(self, adv_link, phone_number):
 		try:
