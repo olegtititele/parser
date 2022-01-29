@@ -124,15 +124,11 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 		for key in cf.COUNTRIES_SITES:
 			for cnt in cf.COUNTRIES_SITES[key]:
 				if call.data == cnt+'show_data':
+					whatsapp_text = db.get_text_and_page(call.from_user.id)[2]
 					for usl in db.get_previously_adv(call.from_user.id, cnt):
-						try:	
+						try:
 							whatsapp_number = usl[8]
-							if usl[0] == "bolha.com":
-								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
-							elif usl[0] == "bazar.lu":
-								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
-							elif usl[0] == "gumtree.co.za":
-								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'	
+							whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_text} {usl[4]}">🟢 WhatsApp</a>'
 							viber_number = usl[8].split("+")[1]
 							adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 							image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
@@ -348,7 +344,7 @@ async def choose_user_link(call, platform):
 		line = "🖌<b>Введите вашу ссылку с категорией</b>\n"+"\n<i>Пример ссылки: </i>"+country_url
 	elif platform == "gumtree.co.za":
 		country_url = 'https://www.gumtree.co.za/s-iphone/v1c9420p1'
-		line = f"🖌<b>Введите вашу ссылку с категорией</b>\n\n<i>Пример ссылки: </i>{country_url}\n(в конце обязательно должно быть 'p1')"
+		line = f"🖌<b>Введите вашу ссылку с категорией или ключевое слово.</b>\n\nПример ссылки: {country_url}\n\nПример слова: iphone"
 	return line	
 
 
