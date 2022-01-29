@@ -55,6 +55,8 @@ class GumtreeCoZa(object):
 
 
 	def start_pars(self):
+		if not self.page.isdigit():
+			return False
 		page_link = self.generate_link()
 		self.driver.get(page_link)
 		
