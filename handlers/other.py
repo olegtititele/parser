@@ -314,7 +314,7 @@ async def process_text(message: types.Message, state: FSMContext):
 	await bot.send_message(message.chat.id, f"<b>Текст для вотсапа изменен на : {whats_text}</b>", parse_mode="HTML", reply_markup=back_key_kb)
 
 # Стартовая страница
-@dp.message_handler(lambda message: not message.text.isdigit(), state=Filters.page_start))
+@dp.message_handler(lambda message: not message.text.isdigit(), state=Filters.page_start)
 async def process_page_invalid(message: types.Message):
 	return await bot.send_message(message.chat.id, "<b>❗️ Должна быть цифрой и не должна превышать 100. Введите повторно.</b>", parse_mode="HTML")	
 	
