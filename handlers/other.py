@@ -2,7 +2,7 @@ from sqlite.sqlighter import SQLighter
 import config.config as cf
 from create_bot import dp, bot
 from keyboards import *
-
+import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import ReplyKeyboardRemove, \
 	ReplyKeyboardMarkup, KeyboardButton, \
@@ -29,6 +29,10 @@ class Form(StatesGroup):
 	adv_reg_data = State()
 	reg_seller_data = State()
 	repeated_number = State()
+
+class Filters(StatesGroup)	:
+	whatsapp_text = State()
+	page_start = State()
 
 def check_sub_channel(chat_member):
 	if chat_member['status'] != 'left':
@@ -165,8 +169,9 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					parse_mode=types.ParseMode.HTML,
 					reply_markup=show_countries_kb
 					)
+
+
 		elif call.data == "info":
-			log_photo = 0
 			username = f'<a href="https://t.me/{call.from_user.username}">{call.from_user.first_name}</a>'
 			news_channel = f'<a href="{cf.CHANNEL}">GzuzPars News</a>'
 			await bot.edit_message_caption(
@@ -177,13 +182,49 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					reply_markup=back_kb)
 			
 		elif call.data == "settings":
-			print(log_photo,log_whatsapp,log_viber)
 			await bot.edit_message_caption(
 					chat_id=call.message.chat.id,
 					message_id = call.message.message_id,
 					caption="Выберите пункт: ",
 					parse_mode=types.ParseMode.HTML, 
 					reply_markup=settings_kb)
+
+		elif call.data == "log_creator":
+			await bot.edit_message_caption(
+				chat_id=call.message.chat.id,
+				message_id = call.message.message_id,
+				caption="Конфигуратор лога: ",
+				parse_mode=types.ParseMode.HTML, 
+				reply_markup=configure_logs_kb)
+
+		elif call.data == "filters":
+			db = SQLighter()
+			user_filters = db.get_text_and_page(call.from_user.id)
+			await bot.edit_message_caption(
+				chat_id=call.message.chat.id,
+				message_id = call.message.message_id,
+				caption=f"🖋 Фильтры:\n\n<b>Текст для WhatsApp:</b> <code>{user_filters[2]}</code>\n<b>Стартовая страница:</b> <code>{user_filters[3]}</code>",
+				parse_mode=types.ParseMode.HTML, 
+				reply_markup=filters_kb)
+
+		elif call.data == "whatsapp_text":
+			await bot.edit_message_caption(
+				chat_id=call.message.chat.id,
+				message_id = call.message.message_id,
+				caption="Введите текст для WhatsApp:",
+				parse_mode=types.ParseMode.HTML)
+			await Filters.whatsapp_text.set()
+			
+		elif call.data == "starter_page":
+			await bot.edit_message_caption(
+				chat_id=call.message.chat.id,
+				message_id = call.message.message_id,
+				caption="Введите стартовую страницу:",
+				parse_mode=types.ParseMode.HTML)
+			await Filters.page_start.set()
+			
+				
+				
 
 		elif call.data == "previously_pars":
 			db = SQLighter()
@@ -223,15 +264,11 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 
 
 		elif call.data == 'show_hash':
+			whatsapp_text = db.get_text_and_page(call.from_user.id)[2]
 			for usl in db.get_hash_data(call.from_user.id):
 				try:
 					whatsapp_number = usl[8]
-					if usl[0] == "bolha.com":
-						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Živjo, to želim kupiti. V dobrem stanju? {usl[4]}">🟢 WhatsApp</a>'
-					elif usl[0] == "bazar.lu":
-						whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hallo, ich möchte das kaufen. In guter Kondition? {usl[4]}">🟢 WhatsApp</a>'
-					elif usl[0] == "gumtree.co.za":
-								whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text=Hello, I want to buy this. In a good condition? {usl[4]}">🟢 WhatsApp</a>'		
+					whatsapp = f'<a href="https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_text} {usl[4]}">🟢 WhatsApp</a>'
 					viber_number = usl[8].split("+")[1]
 					adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 					image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
@@ -270,6 +307,21 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			reply_markup=start_pars_kb)
 
 
+@dp.message_handler(state=Filters.whatsapp_text)
+async def process_text(message: types.Message, state: FSMContext):
+	db = SQLighter()
+	whats_text = message.text
+	db.update_whatsapp_text(message.from_user.id, whats_text)
+	await state.finish()
+	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)
+
+@dp.message_handler(state=Filters.page_start)
+async def process_page(message: types.Message, state: FSMContext):
+	db = SQLighter()
+	page_pars = message.text
+	db.update_user_page(message.from_user.id, page_pars)
+	await state.finish()
+	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)	
 
 
 async def create_price_keyboard(call, platform):
