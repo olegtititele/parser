@@ -125,6 +125,8 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			for cnt in cf.COUNTRIES_SITES[key]:
 				if call.data == cnt+'show_data':
 					whatsapp_text = db.get_text_and_page(call.from_user.id)[2]
+					length_hash = len(db.get_hash_data(call.from_user.id))
+					counter = 1
 					for usl in db.get_previously_adv(call.from_user.id, cnt):
 						try:
 							whatsapp_number = usl[8]
@@ -133,7 +135,8 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 							adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 							image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
 							viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
-							await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML", reply_markup=back_key_kb)
+							await bot.send_photo(call.message.chat.id, usl[6], caption=f"<b>📦 Название объявления: </b><code>{usl[1]}</code>\n<b>💳 Цена товара: </b><code>{usl[2]}</code>\n<b>🌏 Местоположение: </b><code>{usl[5]}</code>\n<b>📅 Дата создания объявления: </b><code>{usl[3]}</code>\n\nadv_link\n{image_link}\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>{usl[7]}</code>\n<b>📞 Номер продавца:</b> <code>{usl[8]}</code>\n\n{whatsapp}\n{viber}\n\n<b>📝 Количество объявлений продавца: </b><code>{usl[9]}</code>\n<b>📆 Дата регистрации продавца: </b><code>{usl[10]}</code>\n<b>📃 Бизнесс аккаунт: </b><code>{usl[11]}</code>\n\nОбъявление {counter}/{length_hash}", reply_markup=back_key_kb)
+							counter +=1
 							time.sleep(1)
 						except Exception as e:
 							pass
@@ -261,6 +264,8 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 
 		elif call.data == 'show_hash':
 			whatsapp_text = db.get_text_and_page(call.from_user.id)[2]
+			length_hash = len(db.get_hash_data(call.from_user.id))
+			counter = 1
 			for usl in db.get_hash_data(call.from_user.id):
 				try:
 					whatsapp_number = usl[8]
@@ -269,7 +274,8 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					adv_link = f'<a href="{usl[4]}">🔑 Ссылка на объявление</a>'
 					image_link = f'<a href="{usl[6]}">🗾 Ссылка на изображение</a>'
 					viber = f'<a href="https://viber.click/{viber_number}">🟣 Viber</a>'
-					await bot.send_photo(call.message.chat.id, usl[6], caption="<b>📦 Название объявления: </b><code>"+usl[1]+"</code>\n<b>💳 Цена товара: </b><code>"+usl[2]+"</code>\n<b>🌏 Местоположение: </b><code>"+usl[5]+"</code>\n<b>📅 Дата создания объявления: </b><code>"+usl[3]+"</code>\n\n"+adv_link+"\n"+image_link+"\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>"+usl[7]+"</code>\n<b>📞 Номер продавца:</b> <code>"+usl[8]+"</code>\n\n"+whatsapp+"\n"+viber+"\n\n<b>📝 Количество объявлений продавца: </b><code>"+usl[9]+"</code>\n<b>📆 Дата регистрации продавца: </b><code>"+usl[10]+"</code>\n<b>📃 Бизнесс аккаунт: </b><code>"+usl[11]+"</code>", parse_mode="HTML")
+					await bot.send_photo(call.message.chat.id, usl[6], caption=f"<b>📦 Название объявления: </b><code>{usl[1]}</code>\n<b>💳 Цена товара: </b><code>{usl[2]}</code>\n<b>🌏 Местоположение: </b><code>{usl[5]}</code>\n<b>📅 Дата создания объявления: </b><code>{usl[3]}</code>\n\nadv_link\n{image_link}\n\n<b>🙎🏻‍♂️ Имя продавца: </b><code>{usl[7]}</code>\n<b>📞 Номер продавца:</b> <code>{usl[8]}</code>\n\n{whatsapp}\n{viber}\n\n<b>📝 Количество объявлений продавца: </b><code>{usl[9]}</code>\n<b>📆 Дата регистрации продавца: </b><code>{usl[10]}</code>\n<b>📃 Бизнесс аккаунт: </b><code>{usl[11]}</code>\n\nОбъявление {counter}/{length_hash}", parse_mode="HTML")
+					counter +=1
 					time.sleep(1)
 				except Exception as e:
 					pass
@@ -303,28 +309,21 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			reply_markup=start_pars_kb)
 
 
-		
-# Текст для вотсапа
 @dp.message_handler(state=Filters.whatsapp_text)
 async def process_text(message: types.Message, state: FSMContext):
 	db = SQLighter()
 	whats_text = message.text
 	db.update_whatsapp_text(message.from_user.id, whats_text)
 	await state.finish()
-	await bot.send_message(message.chat.id, f"<b>Текст для вотсапа изменен на : {whats_text}</b>", parse_mode="HTML", reply_markup=back_key_kb)
+	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)
 
-# Стартовая страница
-@dp.message_handler(lambda message: not message.text.isdigit(), state=Filters.page_start)
-async def process_page_invalid(message: types.Message):
-	return await bot.send_message(message.chat.id, "<b>❗️ Должна быть цифрой и не должна превышать 100. Введите повторно.</b>", parse_mode="HTML")	
-	
 @dp.message_handler(state=Filters.page_start)
 async def process_page(message: types.Message, state: FSMContext):
 	db = SQLighter()
 	page_pars = message.text
 	db.update_user_page(message.from_user.id, page_pars)
 	await state.finish()
-	await bot.send_message(message.chat.id, f"<b>Стартовая страница изменена на : {page_pars}</b>", parse_mode="HTML", reply_markup=back_key_kb)	
+	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)	
 
 
 async def create_price_keyboard(call, platform):
@@ -359,4 +358,4 @@ def register_handlers_other(dp : Dispatcher):
 	dp.register_message_handler(back_button)
 	dp.register_callback_query_handler(echo, lambda callback_query: True)
 	
-			
+		
