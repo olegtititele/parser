@@ -139,6 +139,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 							counter +=1
 							time.sleep(1)
 						except Exception as e:
+							print(e)
 							pass
 
 		if call.data == "back_to_menu":
@@ -278,6 +279,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					counter +=1
 					time.sleep(1)
 				except Exception as e:
+					print(e)
 					pass
 
 			await bot.send_message(call.message.chat.id, "🟢 Парсинг успешно завершен", parse_mode="HTML", reply_markup=back_key_kb)
