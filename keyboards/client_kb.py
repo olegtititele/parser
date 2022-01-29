@@ -30,12 +30,20 @@ show_hash_btn = InlineKeyboardButton('✈️​​ Показать объявл
 clear_hash_btn = InlineKeyboardButton("🗑 Очистить кэш", callback_data='clear_hash')
 
 # Кнопки настроек
-log_creator_btn = InlineKeyboardButton('🔗 Конфигуратор лога', callback_data='log_creator')
+# log_creator_btn = InlineKeyboardButton('🔗 Конфигуратор лога', callback_data='log_creator')
 filters_btn = InlineKeyboardButton('🖋 Фильтры', callback_data='filters')
 settings_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-settings_kb.row(log_creator_btn, filters_btn)
+settings_kb.row(filters_btn)
 settings_kb.row(back_btn)
 
+
+# Фильтры
+whatsapp_text_btn = InlineKeyboardButton('Текст для WhatsApp', callback_data='whatsapp_text')
+starter_page_btn = InlineKeyboardButton('Стартовая страница', callback_data='starter_page')
+filters_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+filters_kb.add(whatsapp_text_btn)
+filters_kb.add(starter_page_btn)
+filters_kb.add(back_btn)
 
 hash_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 hash_kb.add(show_hash_btn, clear_hash_btn)
