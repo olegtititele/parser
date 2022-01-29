@@ -42,10 +42,10 @@ class SQLighter:
 # """Действия с бд юзеров"""
 
 
-	def add_user(self, user_id, username):
+	def add_user(self, user_id, username, whatsapp_text="Hello, I want to buy this. In a good condition?", start_page=1):
 		try:
-			sql = "INSERT INTO `users` (`user_id`, `username`) VALUES (%s,%s)"
-			val = user_id, username
+			sql = "INSERT INTO `users` (`user_id`, `username`, `whatsapp_text`, `start_page`) VALUES (%s,%s,%s,%s)"
+			val = user_id, username, whatsapp_text, start_page
 			self.user_cursor.execute(sql, val)
 			self.user_mydb.commit()
 			return
@@ -79,7 +79,25 @@ class SQLighter:
 					)
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.get_user_id(username)
-			raise e			
+			raise e
+
+	def get_text_and_page(self, user_id):
+		try:
+			self.user_cursor.execute("SELECT * FROM users WHERE `user_id` = %s", (user_id, ))
+			data = self.user_cursor.fetchone()
+			return data
+		except Exception as e:
+			if e.errno == 2055 or e.errno == 2013:
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.get_text_and_page(user_id)
+			raise e				
 
 
 	def check_user(self, user_id):
@@ -157,8 +175,42 @@ class SQLighter:
 					)
 				self.user_cursor = self.user_mydb.cursor(buffered=True)
 				return self.get_all_users_id(username)
-			raise e				
+			raise e
 
+
+	def update_whatsapp_text(self, user_id, whatsapp_text):
+		try:
+			self.user_cursor.execute("UPDATE users SET `whatsapp_text` = %s WHERE `user_id` = %s", (whatsapp_text, user_id,))
+			self.user_mydb.commit()
+		except Exception as e:
+			if e.errno == 2055 or e.errno == 2013:
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.update_whatsapp_text(user_id, whatsapp_text)
+			raise e
+
+	def update_user_page(self, user_id, start_page):
+		try:
+			self.user_cursor.execute("UPDATE users SET `start_page` = %s WHERE `user_id` = %s", (start_page, user_id,))
+			self.user_mydb.commit()
+		except Exception as e:
+			if e.errno == 2055 or e.errno == 2013:
+				self.user_mydb = mysql.connector.connect(
+					host=self.db[0],
+					port=self.db[1],
+					user=self.db[2],
+					passwd=self.db[3],
+					database='usersdb',
+					)
+				self.user_cursor = self.user_mydb.cursor(buffered=True)
+				return self.update_user_page(user_id, start_page)
+			raise e		
 
 
 # """Действия с основной бд"""
@@ -480,6 +532,7 @@ class SQLighter:
 				return self.add_subscriber(country, user_id, time_until = datetime.now())
 			raise e	
 
+
 	def check_subscriber(self, country, user_id):
 		try:
 			sql = "SELECT * FROM `%s` WHERE `user_id` = %s"
@@ -549,3 +602,12 @@ class SQLighter:
 				self.countriessub_cursor = self.countriessub_mydb.cursor(buffered=True)
 				return self.update_subsc_time(user_id, time_until, country)
 			raise e
+
+	# def drop(self):
+	# 	self.user_cursor.execute("DROP TABLE `'users'`")
+
+
+	
+if __name__ == '__main__':
+	db = SQLighter()
+	db.create_userdb()	
