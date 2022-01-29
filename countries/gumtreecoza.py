@@ -15,7 +15,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 
 class GumtreeCoZa(object):
-	def __init__(self, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
+	def __init__(self, page, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
 		self.user_id = user_id
 		self.platform = platform
 		self.link = link
@@ -29,7 +29,7 @@ class GumtreeCoZa(object):
 		self.non_image = "https://upload.wikimedia.org/wikipedia/commons/9/9a/%D0%9D%D0%B5%D1%82_%D1%84%D0%BE%D1%82%D0%BE.png"
 		self.ann_cnd = 0
 		self.num_err = 0
-		self.page = 0
+		self.page = int(page)
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
@@ -39,61 +39,60 @@ class GumtreeCoZa(object):
 		self.options.add_argument("--disable-extensions")
 		self.options.add_argument("--disable-dev-shm-usage")
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
-		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-
+		
+		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver.exe")
+		self.action=ActionChains(self.driver)
 
 	def generate_link(self):
-		while True:
-			if self.link[self.index].isdigit():
-				self.index -= 1
-			elif not self.link[-1].isdigit():
-				return False
-			else:
-				page_link = self.link[:self.index]
-				self.start_pars(page_link)
-				return False
+		if "https://www.gumtree.co.za/" in self.link:
+			first_link = self.link.split("/")[-1]
+			second_link = first_link.split("p")[0]
+			page_link = self.link.split(second_link)[0] + second_link + "p" + str(self.page)
+			return page_link
+		else:
+			page_link = "https://www.gumtree.co.za/s-all-the-ads/v1b0p" + str(self.page) + "?q=" + self.link
+			return page_link
 
-	def start_pars(self, page_link):
-		driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-		while self.loopflag:
+
+	def start_pars(self):
+		page_link = self.generate_link()
+		self.driver.get(page_link)
+		
+		
+		get_all_pages = self.driver.find_element(By.XPATH, '//span[@class="sudo-link last"]').click()
+		url = self.driver.current_url
+		last_page_block = url.split("/")
+		for lpb in last_page_block:
+			if "page" in lpb:
+				last_page = int(re.sub("[^0-9]", "", lpb))
+		for i in range(int(last_page)):
+			page_link = self.generate_link()
 			self.page += 1
-			gen_link = page_link + "p" + str(self.page)
-			try:
-				r = requests.get(gen_link)
-				html = BS(r.content, 'lxml')
-				adv_link_block = html.find_all("a", class_="related-ad-title")
-				for alb in adv_link_block:
-					adv_link = "https://www.gumtree.co.za" + alb['href']
-					print(adv_link)
-					if self.num_err >= 3:
-						self.driver.close()
-						self.driver.quit()
-						self.loopflag = False
-						return False
-					elif self.ann_cnd < (int(self.announ_count)):
-						self.driver.get(adv_link)
-						try:
-							element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
-							element.click()
-							phone_number_block = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
-							phone_number = phone_number_block.replace("-", "")
-						except NoSuchElementException:
-							pass
+			r = requests.get(page_link)
+			html = BS(r.content, 'lxml')
+			advertisements = html.find_all("a", class_="related-ad-title")
+			# self.driver.get(page_link)
+			# advertisements = self.driver.find_elements(By.XPATH, '//div[@class="title title-mult-lines"]//a[@class="related-ad-title"]')
+			for adv in advertisements:
+				adv_link = "https://www.gumtree.co.za" + adv['href']
+				# adv_link = adv.get_attribute("href")
+				if self.ann_cnd < (int(self.announ_count)):
+					self.driver.get(adv_link)
+					try:
+						element = self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div/span[3]')
+						element.click()
+						phone_number_block = "+27" + self.driver.find_element(By.XPATH, '//*[@id="reply-form"]/div/div[2]/div[1]/div').text
+						phone_number = phone_number_block.replace("-", "")
 						if(not self.db.check_advestisement(self.user_id, adv_link)):
 							self.check_number(adv_link, phone_number)
 						else:
 							pass
-					else:
-						self.driver.close()
-						self.driver.quit()
-						self.loopflag = False
-						return False
-
-			except IndexError as e :
-				print(e)
-				self.num_err += 1
-				self.start_pars(page_link)
-
+					except NoSuchElementException:
+						pass
+				else:
+					self.driver.close()
+					self.driver.quit()
+					return False
 
 	def check_number(self, adv_link, phone_number):
 		try:
@@ -157,7 +156,7 @@ class GumtreeCoZa(object):
 						adv_location = agd.text.split("Location:")[1].replace("\n", "")
 					elif "For Sale By:" in agd.text:
 						adv_business = agd.text.split("For Sale By:")[1]
-						if adv_business == "Dealer":
+						if adv_business == "Dealer" or adv_business == "Agency":
 							adv_business = "Бизнесс аккаунт"
 						else:
 							adv_business = "Частное лицо"
@@ -230,3 +229,4 @@ class GumtreeCoZa(object):
 				self.db.add_hash_advertisement(self.user_id, self.platform, adv_title, adv_price, adv_reg, adv_link, adv_location, adv_image, seller_name, phone_number, seller_total_ads, seller_reg, adv_business)
 			else:
 				pass
+
