@@ -303,21 +303,28 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 			reply_markup=start_pars_kb)
 
 
+		
+# Текст для вотсапа
 @dp.message_handler(state=Filters.whatsapp_text)
 async def process_text(message: types.Message, state: FSMContext):
 	db = SQLighter()
 	whats_text = message.text
 	db.update_whatsapp_text(message.from_user.id, whats_text)
 	await state.finish()
-	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)
+	await bot.send_message(message.chat.id, f"<b>Текст для вотсапа изменен на : {whats_text}</b>", parse_mode="HTML", reply_markup=back_key_kb)
 
+# Стартовая страница
+@dp.message_handler(lambda message: not message.text.isdigit(), state=Filters.page_start))
+async def process_page_invalid(message: types.Message):
+	return await bot.send_message(message.chat.id, "<b>❗️ Должна быть цифрой и не должна превышать 100. Введите повторно.</b>", parse_mode="HTML")	
+	
 @dp.message_handler(state=Filters.page_start)
 async def process_page(message: types.Message, state: FSMContext):
 	db = SQLighter()
 	page_pars = message.text
 	db.update_user_page(message.from_user.id, page_pars)
 	await state.finish()
-	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)	
+	await bot.send_message(message.chat.id, f"<b>Стартовая страница изменена на : {page_pars}</b>", parse_mode="HTML", reply_markup=back_key_kb)	
 
 
 async def create_price_keyboard(call, platform):
