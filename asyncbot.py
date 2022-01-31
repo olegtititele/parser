@@ -102,7 +102,7 @@ async def process_adv_next_step(message: types.Message, state: FSMContext):
 	async with state.proxy() as data:
 		data['adv_reg_data'] = message.text
 		await Form.next()
-		await bot.send_message(message.chat.id, "🗓<b> Укажите дату регистрации продавца\n\n</b><i>✅Пример: 01.01.2022 (парсер будет искать продавцов, которые зарегистрировались с 01.01.2022 по текущую дату)</i>\n\n<b>Чтобы отключить этот фильтр нажмите 'Нет'</b>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
+		await bot.send_message(message.chat.id, "🗓<b> Укажите дату регистрации продавца\n\n</b><i>✅Пример: 01.01.2022 (парсер будет искать продавцов, которые зарегистрировались с 01.01.2022 по текущую дату)</i>\n\n<b>Чтобы отключить этот фильтр нажмите 'Нет'</b>", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
 
 @dp.message_handler(state=Form.adv_reg_data)
 async def process_adv_reg_data(message: types.Message, state: FSMContext):
