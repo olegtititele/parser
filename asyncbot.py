@@ -203,7 +203,7 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 # GUMTREE.CO.ZA
 	elif platform == "gumtree.co.za":
 		db = SQLighter()
-		start_page = db.get_text_and_page(call.from_user.id)[3]
+		start_page = int(db.get_text_and_page(call.from_user.id)[3])
 		dyn_load = DynamicLoading()
 		gumtreecoza = GumtreeCoZa(start_page, call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 		thread_pars = Thread(target=gumtreecoza.start_pars)
