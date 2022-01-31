@@ -45,15 +45,10 @@ async def process_link_invalid(message: types.Message):
 @dp.message_handler(state=Form.link)
 async def process_link(message: types.Message, state: FSMContext):
 	link = message.text
-	async with state.proxy() as data:
-		platform = data['country']
-	if platform in link:
-		async with state.proxy() as data:	
-			data['link'] = link
-		await Form.next()
-		await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML")
-	else:
-		await process_link_invalid(message)	
+	async with state.proxy() as data:	
+		data['link'] = link
+	await Form.next()
+	await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML")	
 
 
 # Количество объявлений
