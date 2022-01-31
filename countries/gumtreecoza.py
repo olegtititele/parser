@@ -139,12 +139,18 @@ class GumtreeCoZa(object):
 				seller_name = "Не указано"
 				
 			# Дата регистрации продавца
-			seller_reg_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[1]').text
-			seller_reg = self.get_data(seller_reg_block)
+			try:
+				seller_reg_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[1]').text
+				seller_reg = self.get_data(seller_reg_block)
+			except:
+				seller_reg = "Не указано"
 
 			# Дата регистрации объявления
-			adv_reg_data_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[3]/div[1]/span[2]').text
-			adv_reg = self.get_data(adv_reg_data_block)
+			try:
+				adv_reg_data_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[3]/div[1]/span[2]').text
+				adv_reg = self.get_data(adv_reg_data_block)
+			except:
+				adv_reg = "Не указано"
 
 			adv_business = "Не указано"
 			adv_location = "Не указана"
