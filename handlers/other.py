@@ -319,6 +319,10 @@ async def process_text(message: types.Message, state: FSMContext):
 	await state.finish()
 	await bot.send_message(message.chat.id, "<b>Успешно!</b>", parse_mode="HTML", reply_markup=back_key_kb)
 
+@dp.message_handler(lambda message:not message.text.isdigit(), state=Filters.page_start)
+async def process_page_invalid(message: types.Message):
+	return await bot.send_message(message.chat.id, "<b>❗️ Должно быть цифрой.</b>", parse_mode="HTML")	
+
 @dp.message_handler(state=Filters.page_start)
 async def process_page(message: types.Message, state: FSMContext):
 	db = SQLighter()
