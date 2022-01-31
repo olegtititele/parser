@@ -206,7 +206,7 @@ class GumtreeCoZa(object):
 			pass
 
 	def check_adv_reg_data(self, adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg):
-		if self.adv_reg_data.lower() == "нет":
+		if self.adv_reg_data.isalpha():
 			self.check_seller_reg(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 		else:
 			inpt_date_reg_adv = dt.datetime.strptime(self.adv_reg_data, '%d.%m.%Y')
@@ -216,7 +216,7 @@ class GumtreeCoZa(object):
 			else:
 				pass
 	def check_seller_reg(self, adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg):
-		if self.seller_reg_data.lower() == "нет":
+		if self.seller_reg_data.isalpha():
 			self.ann_cnd += 1
 			self.db.add_advertisement(self.user_id, self.platform, adv_title, adv_price, adv_reg, adv_link, adv_location, adv_image, seller_name, phone_number, seller_total_ads, seller_reg, adv_business)
 			self.db.add_hash_advertisement(self.user_id, self.platform, adv_title, adv_price, adv_reg, adv_link, adv_location, adv_image, seller_name, phone_number, seller_total_ads, seller_reg, adv_business)
