@@ -29,7 +29,7 @@ class GumtreeCoZa(object):
 		self.non_image = "https://upload.wikimedia.org/wikipedia/commons/9/9a/%D0%9D%D0%B5%D1%82_%D1%84%D0%BE%D1%82%D0%BE.png"
 		self.ann_cnd = 0
 		self.num_err = 0
-		self.page = int(page)
+		self.page = page
 		self.loopflag = True
 		self.index = -1
 		self.options = webdriver.ChromeOptions()
@@ -41,7 +41,6 @@ class GumtreeCoZa(object):
 		self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
 		
 		self.driver = webdriver.Chrome(options=self.options, executable_path="chromedriver")
-		self.action=ActionChains(self.driver)
 
 	def generate_link(self):
 		if "https://www.gumtree.co.za/" in self.link:
