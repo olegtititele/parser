@@ -48,7 +48,7 @@ async def process_link(message: types.Message, state: FSMContext):
 	async with state.proxy() as data:	
 		data['link'] = link
 	await Form.next()
-	await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode="HTML")	
+	await bot.send_message(message.chat.id, "<b>📌 Введите кол-во товара:</b>\n\nПример: <i>100</i>", parse_mode="HTML")	
 
 
 # Количество объявлений
@@ -60,7 +60,7 @@ async def process_adv_count_invalid(message: types.Message):
 async def process_adv_count(message: types.Message, state: FSMContext):
 	await Form.next()
 	await state.update_data(adv_count=int(message.text))
-	return await bot.send_message(message.chat.id, "<b>🔷 Введите число кол-ва объявлений продавца</b>\n\nПример: 10 <i>(парсер будет искать продавцов у которых кол-во объявлений не будет превышать 10)\n\nЧтобы отключить этот фильтр нажмите</i> <b>'Нет'</b>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
+	return await bot.send_message(message.chat.id, "<b>🔷 Введите число кол-ва объявлений продавца</b>\n\nПример: 10 <i>(парсер будет искать продавцов у которых кол-во объявлений не будет превышать 10)\n\nЧтобы отключить этот фильтр нажмите</i> <b>'Нет'</b>", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
 
 # Количество объявлений продавца
 @dp.message_handler(lambda message: not message.text.isdigit() and message.text not in ["Нет", "нет"], state=Form.seller_adv)
@@ -90,7 +90,7 @@ async def process_business(message: types.Message, state: FSMContext):
 
 	await Form.next()
 	# await bot.send_message(message.chat.id, data['link']+data['seller_adv']+data['business'])
-	await bot.send_message(message.chat.id, "🗓<b> Укажите дату создания объявления\n\n</b><i>✅Пример: 01.01.2022 (парсер будет искать объявления, которые были созданы с 01.01.2022 по текущую дату)</i>\n\n<b>Чтобы отключить этот фильтр нажмите 'Нет'</b>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
+	await bot.send_message(message.chat.id, "🗓<b> Укажите дату создания объявления\n\n</b><i>✅Пример: 01.01.2022 (парсер будет искать объявления, которые были созданы с 01.01.2022 по текущую дату)</i>\n\n<b>Чтобы отключить этот фильтр нажмите 'Нет'</b>", parse_mode=types.ParseMode.HTML, reply_markup=seller_adv_kb, disable_web_page_preview=True)
 
 
 # Дата регистрации объявления
@@ -126,7 +126,7 @@ async def process_seller_next_step(message: types.Message, state: FSMContext):
 	async with state.proxy() as data:
 		data['reg_seller_data'] = message.text
 		await Form.next()
-		await bot.send_message(message.chat.id, "🗓<b> Показывать объявления с повторяющимся номером?</b>\n\n<i>Если вы нажмете </i><b>'Да'</b><i>, то бот сможет парсить другие объявления продавца.\n\n Чтобы отключить этот фильтр нажмите </i><b>'Нет'</b>\n\n<i>Чтобы вернуться в меню введите</i> /exit", parse_mode=types.ParseMode.HTML, reply_markup=business_kb, disable_web_page_preview=True)
+		await bot.send_message(message.chat.id, "🗓<b> Показывать объявления с повторяющимся номером?</b>\n\n<i>Если вы нажмете </i><b>'Да'</b><i>, то бот сможет парсить другие объявления продавца.\n\n Чтобы отключить этот фильтр нажмите </i><b>'Нет'</b>", parse_mode=types.ParseMode.HTML, reply_markup=business_kb, disable_web_page_preview=True)
 
 @dp.message_handler(state=Form.reg_seller_data)
 async def process_seller_reg_data(message: types.Message, state: FSMContext):
