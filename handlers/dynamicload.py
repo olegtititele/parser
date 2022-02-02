@@ -23,13 +23,18 @@ class DynamicLoading(object):
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
 				if country_pars.loopflag == False:
-					if length[-1] == "1" and length != "11":
+					if length == "0":
+						line = "❌<b>Поиск объявлений завершен. Парсер не получил ни одного объявления. Вероятнее всего ссылка или ключевое слово, которые вы ввели не содержат объявлений.</b>"
+						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=back_kb)
+					elif length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
+						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 					elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявления из "+ str(total_adv) + "</b>"
-					elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
+						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
+					elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14" or length != "0":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявлений из "+ str(total_adv) + "</b>"
-					await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
+						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
 					return False
 				else:
 					load = "<b>" + i + " Поиск объявлений в процессе</b>"
