@@ -250,6 +250,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 					for cnt in cf.COUNTRIES_SITES[key]:
 						callback_data = "previously"+cnt
 						length = str(db.get_len_previously_platfrom(call.from_user.id, cnt))
+						print(length)
 						if int(length) > 0:
 							if length[-1] == "1" and length != "11":
 								button = key[0:2] + cnt + " — " + length + " объявление"
