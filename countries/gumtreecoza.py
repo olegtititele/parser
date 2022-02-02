@@ -1,6 +1,7 @@
 import sys
 import os
 import re
+import traceback
 from sqlite.sqlighter import SQLighter
 import requests
 import time
@@ -183,7 +184,7 @@ class GumtreeCoZa(object):
 					pass
 			
 		except Exception as e:
-			print(repr(e), self.user_id)
+			print(traceback.format_exc(), self.user_id)
 			pass	
 
 	def get_data(self, reg_data_block):
