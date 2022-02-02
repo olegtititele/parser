@@ -149,6 +149,10 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 				caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", 
 				parse_mode=types.ParseMode.HTML, 
 				reply_markup=main_kb)
+			
+		elif call.data == "back_from_pars":
+			file = InputFile(file_path)
+			await bot.send_photo(chat_id=call.from_user.id, photo=file, caption=f"🆔 <b>Ваш ид:</b> <code>{call.from_user.id}</code>", parse_mode=types.ParseMode.HTML, reply_markup=main_kb)
 
 
 
