@@ -199,14 +199,17 @@ class BolhaSI(object):
 		try:
 			if self.business.lower() == "нет":
 				if 'Trgovina' in check_business_acc:
-					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, "Да")
+					business = "Бизнесс аккаунт"
+					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, business)
 				else:
-					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, "Нет")
+					business = "Частное лицо"
+					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, business)
 			elif self.business.lower() == "да":
 				if 'Trgovina' in check_business_acc:
 					pass
 				else:
-					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, "Нет")
+					business = "Частное лицо"
+					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, business)
 		except Exception as e:
 			pass
 
