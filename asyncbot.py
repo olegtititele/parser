@@ -181,8 +181,10 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 
 # BOLHA.COM
 	if platform == "bolha.com":
+		db = SQLighter()
+		start_page = int(db.get_text_and_page(call.from_user.id)[3])
 		dyn_load = DynamicLoading()
-		bolha = BolhaSI(call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
+		bolha = BolhaSI(start_page, call.from_user.id, platform, link, adv_count, seller_adv, adv_reg_data, reg_seller_data, business, repeated_number)
 		thread_pars = Thread(target=bolha.generate_link)
 		if call.data == 'start_pars':
 			thread_pars.start()
