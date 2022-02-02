@@ -14,6 +14,11 @@ back_key_btn = KeyboardButton('🔙 Вернуться в меню')
 back_key_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 back_key_kb.add(back_key_btn)
 
+# Кнопка назад back_from_pars
+back_from_pars = InlineKeyboardButton('🔙 Вернуться в меню', callback_data='back_from_pars')
+back_from_pars_kb = InlineKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+back_from_pars_kb.add(back_from_pars)
+
 # Стартовая клавиатура
 start_pars_btn = InlineKeyboardButton('🤖 Начать парсинг', callback_data='parser_sites')
 previously_pars_btn = InlineKeyboardButton('♻️ Ранее просмотренные объявления', callback_data='previously_pars')
