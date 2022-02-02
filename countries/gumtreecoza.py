@@ -185,7 +185,7 @@ class GumtreeCoZa(object):
 					pass
 			
 		except Exception as e:
-			print(traceback.format_exc(), self.user_id)
+			print(traceback.format_exc(), self.user_id, adv_link)
 			pass	
 
 	def get_data(self, reg_data_block):
