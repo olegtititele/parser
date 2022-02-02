@@ -31,10 +31,10 @@ class BolhaSI(object):
 
 	def generate_link(self):
 		while True:
-			if self.err_num >= 3:
-				self.loopflag = False
-				return False
-			elif "https://www.bolha.com/" in self.link:
+# 			if self.err_num >= 3:
+# 				self.loopflag = False
+# 				return False
+			if "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
 				self.page += 1
 				self.err_num += 1
