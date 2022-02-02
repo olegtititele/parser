@@ -58,7 +58,7 @@ class GumtreeCoZa(object):
 		page_link = self.generate_link()
 		self.driver.get(page_link)
 		
-		get_all_pages = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//span[@class="sudo-link last"]'))).click()
+		get_all_pages = WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//span[@class="sudo-link last"]'))).click()
 # 		get_all_pages = self.driver.find_element(By.XPATH, '//span[@class="sudo-link last"]').click()
 		url = self.driver.current_url
 		print(url)
