@@ -38,16 +38,12 @@ class BolhaSI(object):
 				page_link = self.link + '?page=' + str(self.page)
 				self.page += 1
 				self.err_num += 1
-				print(page_link)
 				self.start_pars(page_link)
 			else:
 				page_link = "https://www.bolha.com/?ctl=search_ads&keywords=" +self.link+ '&page=' + str(self.page)
 				self.page += 1
 				self.err_num += 1
-				print(page_link)
 				self.start_pars(page_link)
-# 			self.loopflag = False
-# 			return False	
 
 	def start_pars(self, page_link):
 		try:
@@ -58,7 +54,6 @@ class BolhaSI(object):
 				adv_url = "https://www.bolha.com" + ads.find("a", class_="link")['href']
 				if self.ann_cnd < (int(self.announ_count)):
 					if(not self.db.check_advestisement(self.user_id, adv_url)):
-						print(adv_url)
 						self.start_pars2(adv_url)
 					else:
 						pass
@@ -68,7 +63,6 @@ class BolhaSI(object):
 
 
 		except IndexError as e :
-			print(e)
 			self.generate_link()
 
 
@@ -157,7 +151,7 @@ class BolhaSI(object):
 						pass
 
 		except Exception as e:
-			print(e)
+			print(traceback.format_exc(), self.user_id, adv_url)
 			pass	
 
 
