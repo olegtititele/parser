@@ -46,8 +46,8 @@ class BolhaSI(object):
 				self.err_num += 1
 				print(page_link)
 				self.start_pars(page_link)
-			self.loopflag = False
-			return False	
+# 			self.loopflag = False
+# 			return False	
 
 	def start_pars(self, page_link):
 		try:
