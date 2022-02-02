@@ -78,19 +78,22 @@ class BolhaSI(object):
 			r = requests.get(adv_url)
 			html = BS(r.content, 'lxml')
 			try:
-				location = html.find_all("span", class_="ClassifiedDetailBasicDetails-textWrapContainer")[3].text
-				if location:
-					try:
-						location = html.find_all("span", class_="ClassifiedDetailBasicDetails-textWrapContainer")[3].text
-					except Exception as e:
-						location = "Не указано"	
-				else:
-					location = "Не указано"	
+				# Местоположение
+				try:
+					location = html.find_all("span", class_="ClassifiedDetailBasicDetails-textWrapContainer")[3].text
+				except Exception as e:
+					location = "Не указано"
+					
+				# Название объявления	
 				adv_title = html.find("h1", class_="ClassifiedDetailSummary-title").text
+	
+				# Цена объявления
 				try:
 					adv_price = html.find("dd", class_="ClassifiedDetailSummary-priceDomestic").text.translate(dict.fromkeys(map(ord, whitespace)))
 				except Exception as e:
 					adv_price = "Не указана"
+					
+				# Изображение	
 				adv_image_block = html.find("figure", class_="ClassifiedDetailGallery-figure")
 				if adv_image_block:
 					try:
@@ -98,7 +101,8 @@ class BolhaSI(object):
 					except Exception as e:
 						adv_image = self.non_image	
 				else:
-					pass	
+					pass
+				# Дата создания объявления
 				adv_reg = html.find_all("dd", class_="ClassifiedDetailSystemDetails-listData")[0].text.split("ob")[0].translate(dict.fromkeys(map(ord, whitespace)))[:-1]
 				adv_data = dt.datetime.strptime(adv_reg, '%d.%m.%Y')
 				profile = html.find("a", class_="link-standard")['href']
@@ -111,6 +115,7 @@ class BolhaSI(object):
 					else:
 						pass
 			except Exception:
+				# Местоположение
 				location_block = html.find_all("tr")
 				if location_block:
 					for lb in location_block:
@@ -120,17 +125,22 @@ class BolhaSI(object):
 						except Exception as e:
 							location = "Не указано"
 				else:
-					location = "Не указано"			
+					location = "Не указано"	
+				# Название объявления
 				adv_title = html.find("h1", class_="entity-title").text
+				
+				# Цена объявления
 				try:
 					adv_price = html.find("strong", class_="price price--hrk").text.translate(dict.fromkeys(map(ord, whitespace)))
 				except Exception as e :
-					adv_price = "Не указана"	
+					adv_price = "Не указана"
+				# Изображение	
 				adv_image_block = html.find("div", class_="FlexImage")
 				if adv_image_block:
 					adv_image = "https:" + adv_image_block.find_all("img")[1]['src']
 				else:
-					adv_image = self.non_image	
+					adv_image = self.non_image
+				# Дата создания объявления	
 				adv_reg = html.find("time", class_="value").text.split(" ")[0]
 				adv_data = dt.datetime.strptime(adv_reg, '%d.%m.%Y')
 				profile_block = html.find("div", class_="Profile-wrapUsername")
