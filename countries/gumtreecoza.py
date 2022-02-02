@@ -127,7 +127,10 @@ class GumtreeCoZa(object):
 			except NoSuchElementException:
 				adv_title = "Не указано"
 			# Цена объявления
-			adv_price = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[1]/div[2]/h3/span').text
+			try:
+				adv_price = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[1]/div/div[1]/div[2]/h3/span').text
+			except Exception as e:
+				adv_price = "Не указана"
 
 			# Изображение
 			try:
