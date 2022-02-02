@@ -136,11 +136,16 @@ class GumtreeCoZa(object):
 				
 			# Количество объявлений продавца
 			try:
-				seller_total_ads = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[2]/span/span').text
-				print(seller_total_ads)
-			except NoSuchElementException:
-				seller_name = "Не указано"
+				seller_total_ads_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[2]/span/span').text
+				if "K" in seller_total_ads_block:
+					seller_total_ads = float(seller_total_ads_block.split("K")[0])*1000
+					
+				else:
+					seller_total_ads = int(seller_total_ads_block)
 				
+			except NoSuchElementException:
+				seller_total_ads = "Не указано"
+			print(seller_total_ads, type(seller_total_ads))	
 			# Дата регистрации продавца
 			try:
 				seller_reg_block = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[1]').text
@@ -207,9 +212,11 @@ class GumtreeCoZa(object):
 
 
 	def check_seller_adv_count(self, adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg):
-		if not self.seller_adv_count.isdigit() or seller_total_ads == "Не указано":
+		
+		if seller_total_ads == "Не указано":
 			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
-		elif int(seller_total_ads) <= int(self.seller_adv_count):
+		elif seller_total_ads <= int(self.seller_adv_count):
+			print("ugu")
 			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 		else:
 			pass
