@@ -137,6 +137,7 @@ class GumtreeCoZa(object):
 			# Количество объявлений продавца
 			try:
 				seller_total_ads = self.driver.find_element(By.XPATH, '//*[@id="wrapper"]/div[1]/div[3]/div[2]/div[1]/div[1]/span[2]/span/span').text
+				print(seller_total_ads)
 			except NoSuchElementException:
 				seller_name = "Не указано"
 				
