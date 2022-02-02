@@ -67,6 +67,8 @@ class GumtreeCoZa(object):
 					last_page = int(re.sub("[^0-9]", "", lpb))
 		except Exception as e:
 			print(traceback.format_exc(), self.user_id)
+			self.driver.close()
+			self.driver.quit()
 			return False
 		for i in range(int(last_page)):
 			page_link = self.generate_link()
