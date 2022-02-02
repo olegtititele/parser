@@ -17,9 +17,11 @@ class DynamicLoading(object):
 			total_adv = data['adv_count']
 		await state.finish()	
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
-		print(country_pars)
+		
 		while True:
 			for i in coursor:
+				print(country_pars)
+				print(country_pars.loopflag)
 				db = SQLighter()
 				length = str(db.len_hash_data(call.from_user.id))
 				if country_pars == False:
