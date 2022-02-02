@@ -30,8 +30,8 @@ class BolhaSI(object):
 		self.db = SQLighter()
 
 	def generate_link(self):
+		print(f"{self.user_id} запустил парсер bolha.com")
 		while True:
-			print(f"{self.user_id} запустил парсер bolha.com")
 			if self.err_num >= 3:
 				self.loopflag = False
 				return False
