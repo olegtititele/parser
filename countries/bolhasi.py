@@ -54,6 +54,7 @@ class BolhaSI(object):
 				adv_url = "https://www.bolha.com" + ads.find("a", class_="link")['href']
 				if self.ann_cnd < (int(self.announ_count)):
 					if(not self.db.check_advestisement(self.user_id, adv_url)):
+						print(adv_url)
 						self.start_pars2(adv_url)
 					else:
 						pass
