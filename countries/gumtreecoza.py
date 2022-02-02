@@ -66,7 +66,7 @@ class GumtreeCoZa(object):
 				if "page" in lpb:
 					last_page = int(re.sub("[^0-9]", "", lpb))
 		except Exception as e:
-			print(traceback.format_exc(), self.user_id)
+			print("Несуществует такой", self.user_id)
 			self.driver.close()
 			self.driver.quit()
 			return False
