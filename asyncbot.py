@@ -209,8 +209,8 @@ async def start_pars_button1(call: types.CallbackQuery, state: FSMContext):
 		thread_pars = Thread(target=gumtreecoza.start_pars)
 		if call.data == 'start_pars':
 			thread_pars.start()
-			await dyn_load.start_loop(gumtreecoza, call, state)
-			thread_pars.join()			
+			thread_pars.join()	
+			await dyn_load.start_loop(gumtreecoza, call, state)		
 
 
 
