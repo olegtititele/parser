@@ -256,7 +256,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 								button = key[0:2] + cnt + " — " + length + " объявление"
 							elif length[-1] in ("2", "3", "4") and length != "12" and length != "13" and length != "14":
 								button = key[0:2] + cnt + " — " + length + " объявления"
-							elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14":
+							elif length[-1] in ("0","5", "6", "7", "8", "9") or length == "11" or length == "12" or length == "14" or length == "13":
 								button = key[0:2] + cnt + " — " + length + " объявлений"
 							item = types.InlineKeyboardButton(button, callback_data=callback_data)
 							previously_added_kb.add(item)
