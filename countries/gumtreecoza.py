@@ -183,7 +183,7 @@ class GumtreeCoZa(object):
 					pass
 			
 		except Exception as e:
-			print(e)
+			print(repr(e), self.user_id)
 			pass	
 
 	def get_data(self, reg_data_block):
