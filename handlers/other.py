@@ -141,6 +141,17 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 						except Exception as e:
 							print(e)
 							pass
+						
+		for key in cf.COUNTRIES_SITES:
+			for cnt in cf.COUNTRIES_SITES[key]:
+				if call.data == cnt+"clear_data":
+					db.delete_previously_adv(call.from_user.id, cnt)
+					await bot.edit_message_caption(
+						chat_id=call.message.chat.id,
+						message_id = call.message.message_id,
+						caption="<b>🚬 Ранее добавленные объявления с площадки </b><code>"+cnt+"</code><b> удалены</b>", parse_mode=types.ParseMode.HTML, reply_markup=back_kb)
+
+				
 
 		if call.data == "back_to_menu":
 			await bot.edit_message_caption(
@@ -297,15 +308,7 @@ async def echo(call: types.CallbackQuery, state: FSMContext):
 				message_id = call.message.message_id,
 				caption="🚬 Кэш очищен",
 				reply_markup=back_kb)
-
-		elif call.data == cnt+"clear_data":
-			db.delete_previously_adv(call.from_user.id, cnt)
-			await bot.edit_message_caption(
-				chat_id=call.message.chat.id,
-				message_id = call.message.message_id,
-				caption="<b>🚬 Ранее добавленные объявления с площадки </b><code>"+cnt+"</code><b> удалены</b>", parse_mode=types.ParseMode.HTML, reply_markup=back_kb)
-
-
+		
 	else:
 		news_channel = f'<a href="{cf.CHANNEL}">новостей</a>'
 		await bot.send_message(
