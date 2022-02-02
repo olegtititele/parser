@@ -24,7 +24,7 @@ class DynamicLoading(object):
 				if country_pars.loopflag == False:
 					if length == "0":
 						line = "❌<b>Поиск объявлений завершен. Парсер не получил ни одного объявления. Вероятнее всего ссылка или ключевое слово, которые вы ввели не содержат объявлений.</b>"
-						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=back_key_kb)
+						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=back_from_pars_kb)
 					elif length[-1] == "1" and length != "11":
 						line = "✅<b>Поиск объявлений завершен. Получено "+length+ " объявление из "+ str(total_adv) + "</b>"
 						await call.message.edit_text(text=line, parse_mode=types.ParseMode.HTML, reply_markup=just_parsed_kb)
