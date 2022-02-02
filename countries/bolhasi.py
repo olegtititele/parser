@@ -12,7 +12,7 @@ from threading import *
 
 
 class BolhaSI(object):
-	def __init__(self, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
+	def __init__(self, page, user_id, platform, link, announ_count, seller_adv_count, adv_reg_data, seller_reg_data, business, repeated_number):
 		self.user_id = user_id
 		self.platform = platform
 		self.link = link
@@ -22,25 +22,32 @@ class BolhaSI(object):
 		self.seller_reg_data = seller_reg_data
 		self.business = business
 		self.repeated_number = repeated_number
+		self.page = page
 		self.ann_cnd = 0
-		self.page = 0
 		self.err_num = 0
+		self.loopflag = True
+		self.non_image = "https://upload.wikimedia.org/wikipedia/commons/9/9a/%D0%9D%D0%B5%D1%82_%D1%84%D0%BE%D1%82%D0%BE.png"
 		self.db = SQLighter()
 
 	def generate_link(self):
 		while True:
-			self.page += 1
 			if self.err_num >= 3:
+				self.loopflag = False
 				return False
 			elif "https://www.bolha.com/" in self.link:
 				page_link = self.link + '?page=' + str(self.page)
+				self.page += 1
 				self.err_num += 1
 				print(page_link)
 				self.start_pars(page_link)
 			else:
 				page_link = "https://www.bolha.com/?ctl=search_ads&keywords=" +self.link+ '&page=' + str(self.page)
+				self.page += 1
+				self.err_num += 1
 				print(page_link)
 				self.start_pars(page_link)
+			self.loopflag = False
+			return False	
 
 	def start_pars(self, page_link):
 		try:
@@ -56,6 +63,7 @@ class BolhaSI(object):
 					else:
 						pass
 				else:
+					self.loopflag = False
 					return False
 
 
@@ -75,17 +83,20 @@ class BolhaSI(object):
 					try:
 						location = html.find_all("span", class_="ClassifiedDetailBasicDetails-textWrapContainer")[3].text
 					except Exception as e:
-						location = ""	
+						location = "Не указано"	
 				else:
-					location = ""	
+					location = "Не указано"	
 				adv_title = html.find("h1", class_="ClassifiedDetailSummary-title").text
-				adv_price = html.find("dd", class_="ClassifiedDetailSummary-priceDomestic").text.translate(dict.fromkeys(map(ord, whitespace)))
+				try:
+					adv_price = html.find("dd", class_="ClassifiedDetailSummary-priceDomestic").text.translate(dict.fromkeys(map(ord, whitespace)))
+				except Exception as e:
+					adv_price = "Не указана"
 				adv_image_block = html.find("figure", class_="ClassifiedDetailGallery-figure")
 				if adv_image_block:
 					try:
 						adv_image = adv_image_block.find("img")['src']
 					except Exception as e:
-						pass	
+						adv_image = self.non_image	
 				else:
 					pass	
 				adv_reg = html.find_all("dd", class_="ClassifiedDetailSystemDetails-listData")[0].text.split("ob")[0].translate(dict.fromkeys(map(ord, whitespace)))[:-1]
@@ -107,16 +118,19 @@ class BolhaSI(object):
 							if "Lokacija:" in lb.text:
 								location = lb.text.split("Lokacija:")[1].replace("\n","")
 						except Exception as e:
-							location = ""	
+							location = "Не указано"
 				else:
-					location = ""			
+					location = "Не указано"			
 				adv_title = html.find("h1", class_="entity-title").text
-				adv_price = html.find("strong", class_="price price--hrk").text.translate(dict.fromkeys(map(ord, whitespace)))
+				try:
+					adv_price = html.find("strong", class_="price price--hrk").text.translate(dict.fromkeys(map(ord, whitespace)))
+				except Exception as e :
+					adv_price = "Не указана"	
 				adv_image_block = html.find("div", class_="FlexImage")
 				if adv_image_block:
 					adv_image = "https:" + adv_image_block.find_all("img")[1]['src']
 				else:
-					pass	
+					adv_image = self.non_image	
 				adv_reg = html.find("time", class_="value").text.split(" ")[0]
 				adv_data = dt.datetime.strptime(adv_reg, '%d.%m.%Y')
 				profile_block = html.find("div", class_="Profile-wrapUsername")
@@ -162,7 +176,7 @@ class BolhaSI(object):
 				tel_number = tel_number_block.find("a")['data-display']
 			check_business_acc = html.find("p", class_="UserProfileDetails-subtitle").text
 			seller_ads_count = html.find("strong", class_="entities-count").text.translate(dict.fromkeys(map(ord, whitespace)))
-			# print(seller_ads_count)
+
 			if self.seller_reg_data.lower() == "нет":
 				self.check_business(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, check_business_acc)
 			else:
@@ -178,7 +192,7 @@ class BolhaSI(object):
 
 	def check_business(self, adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, check_business_acc):
 		try:
-			if self.business.lower() != "да":
+			if self.business.lower() == "нет":
 				if 'Trgovina' in check_business_acc:
 					self.display_results(adv_url, location, adv_title, adv_price, adv_image, adv_reg, seller_name, seller_reg_data, tel_number, seller_ads_count, "Да")
 				else:
