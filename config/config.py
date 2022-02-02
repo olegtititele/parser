@@ -9,7 +9,7 @@ CHANNEL_CHAT_ID = -695797971
 # Админ канал
 ADMIN_LOGS_CHAT_ID = -1001553723179
 COUNTRIES_SITES = {
-# 				'🇸🇮Словения🇸🇮':['bolha.com'],
+				'🇸🇮Словения🇸🇮':['bolha.com'],
 # 				'🇱🇺Люксембург🇱🇺':['bazar.lu'],
 				'🇿🇦ЮАР🇿🇦':['gumtree.co.za'],
 				}
