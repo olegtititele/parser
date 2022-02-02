@@ -69,6 +69,7 @@ class GumtreeCoZa(object):
 			print("Несуществует такой", self.user_id)
 			self.driver.close()
 			self.driver.quit()
+			self.loopflag = False
 			return False
 		for i in range(int(last_page)):
 			page_link = self.generate_link()
