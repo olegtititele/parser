@@ -217,7 +217,7 @@ class GumtreeCoZa(object):
 
 	def check_seller_adv_count(self, adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg):
 		
-		if seller_total_ads == "Не указано":
+		if not self.seller_adv_count.isdigit() or seller_total_ads == "Не указано":
 			self.check_adv_reg_data(adv_link, adv_title, adv_price, adv_reg, adv_image, adv_location, adv_business, phone_number, seller_name, seller_total_ads, seller_reg)
 		elif seller_total_ads <= int(self.seller_adv_count):
 			print("ugu")
