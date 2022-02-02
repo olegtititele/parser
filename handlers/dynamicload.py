@@ -17,6 +17,7 @@ class DynamicLoading(object):
 			total_adv = data['adv_count']
 		await state.finish()	
 		coursor = '🌕🌖🌗🌘🌑🌒🌓🌔'
+		print(country_pars)
 		while True:
 			for i in coursor:
 				db = SQLighter()
