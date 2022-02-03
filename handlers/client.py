@@ -121,6 +121,7 @@ async def get_user_id(message: types.Message):
 # Сообщение всем
 async def alert_all(message: types.Message):
 	if check_sub_channel(await bot.get_chat_member(chat_id=cf.ADMIN_LOGS_CHAT_ID, user_id=message.from_user.id)):
+		errors_count = 0
 		try:
 			msg = message.get_args()
 			if msg:
@@ -131,6 +132,11 @@ async def alert_all(message: types.Message):
 						chat_id=user_id,
 						text=msg,
 						parse_mode=types.ParseMode.HTML)
+					errors_count += 1
+				await bot.send_message(
+					chat_id=cf.ADMIN_LOGS_CHAT_ID,
+					text=f"Cообщение отправлено {errors_count} юзерам",
+					parse_mode=types.ParseMode.HTML)	
 			else:	
 				await bot.send_message(
 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
