@@ -124,10 +124,11 @@ async def alert_all(message: types.Message):
 		try:
 			msg = message.get_args()
 			if msg:
-				users_id = db.get_all_users_id()
-				for user_id in users_id:
+				users = db.get_all_users_id()
+				for user in users:
+					user_id = int(user[0])
 					await bot.send_message(
-						chat_id=user_id[0],
+						chat_id=user_id,
 						text=msg,
 						parse_mode=types.ParseMode.HTML)
 			else:	
