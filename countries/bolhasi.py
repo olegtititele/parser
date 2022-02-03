@@ -2,6 +2,7 @@ import sys
 import os
 from sqlite.sqlighter import SQLighter
 import requests
+import traceback
 from bs4 import BeautifulSoup as BS
 from string import whitespace
 import urllib
