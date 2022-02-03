@@ -143,6 +143,8 @@ async def alert_all(message: types.Message):
 					text="♻️<b>Введите команду корректно</b>",
 					parse_mode=types.ParseMode.HTML)
 		except Exception as e:
+			import traceback
+			print(traceback.format_exc())
 			await bot.send_message(
 					chat_id=cf.ADMIN_LOGS_CHAT_ID,
 					text="♻️<b>Введите команду корректно</b>",
