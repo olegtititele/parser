@@ -52,9 +52,9 @@ class BolhaSI(object):
 			r = requests.get(page_link)
 			html = BS(r.content, 'lxml')
 			ads_link_block = html.find_all("h3", class_="entity-title")
-			self.err_num = 0
 			for ads in ads_link_block:
 				adv_url = "https://www.bolha.com" + ads.find("a", class_="link")['href']
+				self.err_num = 0
 				if self.ann_cnd < (int(self.announ_count)):
 					if(not self.db.check_advestisement(self.user_id, adv_url)):
 						self.start_pars2(adv_url)
