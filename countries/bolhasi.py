@@ -51,6 +51,7 @@ class BolhaSI(object):
 			r = requests.get(page_link)
 			html = BS(r.content, 'lxml')
 			ads_link_block = html.find_all("h3", class_="entity-title")
+			self.err_num = 0
 			for ads in ads_link_block:
 				adv_url = "https://www.bolha.com" + ads.find("a", class_="link")['href']
 				if self.ann_cnd < (int(self.announ_count)):
@@ -69,7 +70,7 @@ class BolhaSI(object):
 
 	def start_pars2(self, adv_url):
 		try:
-			self.err_num = 0
+			
 			r = requests.get(adv_url)
 			html = BS(r.content, 'lxml')
 			try:
