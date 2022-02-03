@@ -67,7 +67,7 @@ class SQLighter:
 		try:
 			self.user_cursor.execute("SELECT * FROM users WHERE `username` = %s", (username, ))
 			data = self.user_cursor.fetchone()
-			return data[1]
+			return data[0]
 		except Exception as e:
 			if e.errno == 2055 or e.errno == 2013:
 				self.user_mydb = mysql.connector.connect(
