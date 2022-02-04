@@ -81,8 +81,11 @@ class BolhaSI(object):
 				except Exception as e:
 					location = "Не указано"
 					
-				# Название объявления	
-				adv_title = html.find("h1", class_="ClassifiedDetailSummary-title").text
+				# Название объявления
+				try:
+					adv_title = html.find("h1", class_="ClassifiedDetailSummary-title").text
+				except Exception as e:
+					adv_title = "Не указано"	
 	
 				# Цена объявления
 				try:
@@ -124,7 +127,10 @@ class BolhaSI(object):
 				else:
 					location = "Не указано"	
 				# Название объявления
-				adv_title = html.find("h1", class_="entity-title").text
+				try:
+					adv_title = html.find("h1", class_="entity-title").text
+				except Exception as e:
+					adv_title = "Не указано"	
 				
 				# Цена объявления
 				try:
